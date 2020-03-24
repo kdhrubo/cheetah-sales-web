@@ -18,7 +18,7 @@
                 Filters
             </button>
 
-            <a routerLink="/leads/create" class="btn btn-sm btn-primary ml-1 mt-2">New</a>
+            <a routerLink="/contacts/create" class="btn btn-sm btn-primary ml-1 mt-2">New</a>
 
         </div>
         <div class="col-1"></div>
@@ -121,19 +121,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let lead of leadPage?.content; let i = index;">
+                        <tr *ngFor="let contact of contactPage?.content; let i = index;">
                             <th scope="row"></th>
                             <ng-container *ngFor="let f of fields; let i = index;">
                                 <td *ngIf="f.checked">
-                                    <a routerLink="/leads/view/{{lead['id']}}">
-                                        {{lead[f.name]}}
+                                    <a routerLink="/contacts/detail/{{contact['id']}}">
+                                        {{contact[f.name]}}
                                     </a>
                                 </td>
                             </ng-container>
 
                             <td>
                                 
-                                <a class="text-danger" (click)='delete(lead)'>Delete</a>
+                                <a class="text-danger" (click)='delete(contact)'>Delete</a>
                                 
                             </td>
 

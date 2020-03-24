@@ -1,0 +1,35 @@
+<div class="container-fluid">
+
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <nav ngbNav #nav="ngbNav" class="nav-tabs">
+            <ng-container ngbNavItem *ngFor="let tab of tabs;let index = index;"> 
+                <a ngbNavLink>{{tab?.label}}</a>
+                <ng-template ngbNavContent>
+                    <formly-form
+                    [form]="form.at(index)"
+                    [model]="contact"
+                    [fields]="tab.fields"
+                    [options]="options[index]">
+                  </formly-form>
+
+                <div>
+                <button mat-raised-button class="btn btn-primary" [disabled]="!form.valid" type="submit">Submit</button>
+                </div>  
+
+                </ng-template>
+            </ng-container>
+
+        </nav>
+
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </form>
+
+
+
+
+
+    
+
+</div>

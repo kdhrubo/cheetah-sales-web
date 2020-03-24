@@ -1,26 +1,127 @@
 import { Component, OnInit } from '@angular/core';
-import { LeadService } from 'src/app/services/lead.service';
-import { Lead } from 'src/app/models/lead.model';
 import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { ContactService } from '../../services/contact.service';
+import { Contact } from 'src/app/models/contact.model';
 
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  selector: 'app-create',
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.css']
 })
-export class DetailComponent implements OnInit {
+export class CreateComponent implements OnInit {
 
   form = new FormGroup({});
-  model: Lead;
+  model = { email: 'email@gmail.com' };
 
-  options: FormlyFormOptions = {
-    formState: {
-      disabled: true,
+  fields: FormlyFieldConfig[] = [
+    {
+      className: 'section-label',
+      template: '<div><strong>Basic Information:</strong></div>',
     },
-  };
+    {
+      fieldGroupClassName: 'row',
+      fieldGroup: [
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'select',
+          key: 'salutation.id',
+          templateOptions: {
+            label: 'Salutation',
+            options: [
+              {label: 'X', value: 'X'},
+              {label: 'X', value: 'X'},
+              {label: 'X', value: 'X'},
+              {label: 'X', value: 'X'},
+              {label: 'X', value: 'X'}
 
+            ]
+          }
+        },
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'input',
+          key: 'firstName',
+          templateOptions: {
+            label: 'First Name',
+          },
+        },
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'input',
+          key: 'lastName',
+          templateOptions: {
+            label: 'Last Name',
+          }
+        }
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'row',
+      fieldGroup: [
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'input',
+          key: 'designation',
+          templateOptions: {
+            label: 'Designation',
+          }
+        },
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'input',
+          key: 'company',
+          templateOptions: {
+            label: 'Company',
+          },
+        },
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'input',
+          key: 'noOfEmployees',
+          templateOptions: {
+            label: '# of Employees',
+          }
+        }
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'row',
+      fieldGroup: [
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'input',
+          key: 'email',
+          templateOptions: {
+            label: 'Email',
+          }
+        },
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'input',
+          key: 'phone',
+          templateOptions: {
+            label: 'Phone',
+          }
+        },
+        {
+          className: 'col-md-4 col-sm-6',
+          type: 'input',
+          key: 'mobile',
+          templateOptions: {
+            label: 'Mobile',
+          }
+        }
+      ]
+    }
+
+  ];
+
+
+
+  /*
   fields: FormlyFieldConfig[] = [
     {
       className: 'section-label',
@@ -43,10 +144,6 @@ export class DetailComponent implements OnInit {
               {label: 'X', value: 'X'}
 
             ]
-          },
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
           }
         },
         {
@@ -56,10 +153,6 @@ export class DetailComponent implements OnInit {
           templateOptions: {
             label: 'First Name',
           },
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
-          }
         },
         {
           className: 'col-4',
@@ -67,13 +160,6 @@ export class DetailComponent implements OnInit {
           key: 'lastName',
           templateOptions: {
             label: 'Last Name',
-            required: true,
-            class: 'form-control form-control-sm'
-          }
-          ,
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
           }
         }
       ]
@@ -276,7 +362,7 @@ export class DetailComponent implements OnInit {
       fieldGroupClassName: 'row',
       fieldGroup: [
         {
-          className: 'col-md-4 col-sm-6',
+          className: 'col-3',
           type: 'input',
           key: 'city',
           templateOptions: {
@@ -284,7 +370,7 @@ export class DetailComponent implements OnInit {
           },
         },
         {
-          className: 'col-md-4 col-sm-6',
+          className: 'col-3',
           type: 'input',
           key: 'state',
           templateOptions: {
@@ -292,7 +378,7 @@ export class DetailComponent implements OnInit {
           },
         },
         {
-          className: 'col-md-4 col-sm-6',
+          className: 'col-3',
           type: 'input',
           key: 'country',
           templateOptions: {
@@ -300,7 +386,7 @@ export class DetailComponent implements OnInit {
           },
         },
         {
-          className: 'col-md-4 col-sm-6',
+          className: 'col-3',
           type: 'input',
           key: 'zip',
           templateOptions: {
@@ -360,43 +446,27 @@ export class DetailComponent implements OnInit {
             ]
           }
         }
+
       ]
     }
 
-  ]; 
+  ]; */
 
-  constructor(
-    private route: ActivatedRoute,
-    private leadService: LeadService) { }
+  constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
-
-    this.leadService.findOne(id)
-      .subscribe(
-        data => {
-          this.model = data;
-        },
-        error => {
-          console.log('Unable to retrieve lead details');
-        }
-
-      );
-
-  }
-
-  edit() {
-    this.options.formState.disabled = !this.options.formState.disabled;
   }
 
   onSubmit() {
-    this.leadService.save(this.model)
+    console.log(JSON.stringify(this.model));
+    const contact: Contact = this.model as Contact;
+    this.contactService.save(contact)
     .subscribe(
       data => {
-        console.log('Lead save success');
+        console.log('Contact save success');
       },
       error => {
-        console.log('Lead save failure');
+        console.log('Contact save failure');
       }
     );
   }
