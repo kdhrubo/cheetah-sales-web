@@ -13,7 +13,7 @@ import { FormService } from 'src/app/services/form.service';
 export class CreateComponent implements OnInit {
 
   form = new FormGroup({});
-  model = { email: 'email@gmail.com' };
+  model = {  };
 
   fields: FormlyFieldConfig[] ;
 

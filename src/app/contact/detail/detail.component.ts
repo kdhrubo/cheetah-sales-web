@@ -4,11 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ContactService } from 'src/app/services/contact.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormArray, FormGroup } from '@angular/forms';
+import { FormService } from 'src/app/services/form.service';
 
-export interface TabType {
-  label: string;
-  fields: FormlyFieldConfig[];
-}
 
 @Component({
   selector: 'app-detail',
@@ -19,7 +16,9 @@ export class DetailComponent implements OnInit {
 
   contact: Contact;
   id: any;
+  form = new FormGroup({});
 
+  fields: FormlyFieldConfig[] ;
 
   options: FormlyFormOptions = {
     formState: {
@@ -27,145 +26,18 @@ export class DetailComponent implements OnInit {
     },
   };
 
-  tabs: TabType[] = [
-    {
-      label: 'Personal data',
-      fields: [
-        {
-          fieldGroupClassName: 'row',
-          fieldGroup: [
-            {
-              className: 'col-4',
-              type: 'select',
-              key: 'salutation',
-              templateOptions: {
-                label: 'Salutation',
-                options: [
-                  {label: 'X', value: 'X'},
-                  {label: 'X', value: 'X'},
-                  {label: 'X', value: 'X'},
-                  {label: 'X', value: 'X'},
-                  {label: 'X', value: 'X'}
-    
-                ]
-              },
-              expressionProperties: {
-               // apply expressionProperty for disabled based on formState
-              'templateOptions.disabled': 'formState.disabled',
-              }
-            },
-            {
-              className: 'col-4',
-              type: 'input',
-              key: 'firstName',
-              templateOptions: {
-                label: 'First Name',
-              },
-              expressionProperties: {
-               // apply expressionProperty for disabled based on formState
-              'templateOptions.disabled': 'formState.disabled',
-              }
-            },
-            {
-              className: 'col-4',
-              type: 'input',
-              key: 'lastName',
-              templateOptions: {
-                label: 'Last Name',
-                required: true,
-                class: 'form-control form-control-sm'
-              }
-              ,
-              expressionProperties: {
-               // apply expressionProperty for disabled based on formState
-              'templateOptions.disabled': 'formState.disabled',
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      label: 'Destination',
-      fields: [
-        {
-          fieldGroupClassName: 'row',
-          fieldGroup: [
-            {
-              className: 'col-4',
-              type: 'input',
-              key: 'designation',
-              templateOptions: {
-                label: 'Designation',
-              }
-            },
-            {
-              className: 'col-4',
-              type: 'input',
-              key: 'company',
-              templateOptions: {
-                label: 'Company',
-              },
-            },
-            {
-              className: 'col-4',
-              type: 'input',
-              key: 'noOfEmployees',
-              templateOptions: {
-                label: '# of Employees',
-              }
-            }
-          ]
-        }
-
-
-
-      ]
-    },
-    {
-      label: 'Day of the trip',
-      fields: [
-        {
-          fieldGroupClassName: 'row',
-          fieldGroup: [
-            {
-              className: 'col-4',
-              type: 'input',
-              key: 'email',
-              templateOptions: {
-                label: 'Email',
-              }
-            },
-            {
-              className: 'col-4',
-              type: 'input',
-              key: 'phone',
-              templateOptions: {
-                label: 'Phone',
-              }
-            },
-            {
-              className: 'col-4',
-              type: 'input',
-              key: 'mobile',
-              templateOptions: {
-                label: 'Mobile',
-              }
-            }
-          ]
-        }
-      ]
-    },
-  ];
-  form = new FormArray(this.tabs.map(() => new FormGroup({})));
-  // options = this.tabs.map(() => {} as FormlyFormOptions);
-
-
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private contactService: ContactService) { }
+              private contactService: ContactService,
+              private formService: FormService) { }
 
   ngOnInit(): void {
+    this.getContact();
+
+    this.getFormConfig();
+  }
+
+  getContact() {
     this.id = this.route.snapshot.paramMap.get('id');
 
     this.contactService.findOne(this.id)
@@ -178,6 +50,20 @@ export class DetailComponent implements OnInit {
         }
 
       );
+  }
+
+  getFormConfig() {
+    this.formService.getFields('contact-form').subscribe(
+
+      data => {
+        this.fields = data;
+      },
+
+      error => {
+        console.log('Unable to retrieve form information');
+      }
+
+    );
   }
 
   onSubmit() {

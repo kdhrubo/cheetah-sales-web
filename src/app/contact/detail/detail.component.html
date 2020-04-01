@@ -1,35 +1,27 @@
 <div class="container-fluid">
-
-
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-        <nav ngbNav #nav="ngbNav" class="nav-tabs">
-            <ng-container ngbNavItem *ngFor="let tab of tabs;let index = index;"> 
-                <a ngbNavLink>{{tab?.label}}</a>
-                <ng-template ngbNavContent>
-                    <formly-form
-                    [form]="form.at(index)"
-                    [model]="contact"
-                    [fields]="tab.fields"
-                    [options]="options[index]">
-                  </formly-form>
-
-                <div>
-                <button mat-raised-button class="btn btn-primary" [disabled]="!form.valid" type="submit">Submit</button>
-                </div>  
-
-                </ng-template>
-            </ng-container>
-
-        </nav>
-
-        <div [ngbNavOutlet]="nav" class="mt-2"></div>
-    </form>
-
-
-
-
-
-    
-
-</div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+          <h5 class="mt-2">View Contact</h5>
+      </div>
+  
+      <div class="col-sm-6">
+  
+          
+      </div>
+      <div class="col-1"></div>
+    </div>
+  
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-lg-10">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <formly-form [form]="form" [fields]="fields" [model]="contact"></formly-form>
+          
+          <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
+          <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
+        </form>
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
