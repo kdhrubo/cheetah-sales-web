@@ -37,7 +37,15 @@ export class CreateComponent implements OnInit {
 
   onSubmit() {
     console.log(JSON.stringify(this.model));
-    const contact: Contact = this.model as Contact;
+    let contact: Contact = this.model as Contact;
+    
+    Object.keys(contact).forEach((key) => (contact[key] === null || contact[key] === '') && delete contact[key]);
+
+    console.log('=== after clean up ====');
+    console.log(JSON.stringify(contact));
+
+
+
     
     this.contactService.save(contact)
     .subscribe(
@@ -48,6 +56,7 @@ export class CreateComponent implements OnInit {
         console.log('Contact save failure');
       }
     );
+    
   }
 
 }

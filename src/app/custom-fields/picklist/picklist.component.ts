@@ -28,9 +28,10 @@ export class PicklistComponent extends FieldType implements OnInit {
   ngOnInit(): void {
     this.label = this.to.label;
     this.domain = this.to.attributes.pickList;
+
     // console.log('@@@ ckey -' + this.to.cKey);
     // console.log('model - ' + JSON.stringify(this.model[this.to.cKey]));
-    this.setField(this.model[this.to.cKey]);
+    // this.setField(this.model[this.to.cKey]);
     this.load();
   }
 
@@ -48,8 +49,10 @@ export class PicklistComponent extends FieldType implements OnInit {
   }
 
   setField(d: PickList) {
-    // console.log('selected - ' + JSON.stringify(d));
-    this.val = d?.value;
-    this.formControl.setValue(d?.id);
+    console.log('d - ' + JSON.stringify(d));
+    if ( d?.id != null ){
+      this.val = d?.value;
+      this.formControl.setValue(d?.id);
+    }
   }
 }
