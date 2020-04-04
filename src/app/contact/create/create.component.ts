@@ -4,6 +4,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from 'src/app/models/contact.model';
 import { FormService } from 'src/app/services/form.service';
+import { PicklistService } from 'src/app/services/picklist.service';
 
 @Component({
   selector: 'app-create',
@@ -37,6 +38,7 @@ export class CreateComponent implements OnInit {
   onSubmit() {
     console.log(JSON.stringify(this.model));
     const contact: Contact = this.model as Contact;
+    
     this.contactService.save(contact)
     .subscribe(
       data => {

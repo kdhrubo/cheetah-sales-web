@@ -11,4 +11,5 @@ export class Contact {
     city: string;
 
     salutation: PickList;
+    title: PickList;
 }

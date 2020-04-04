@@ -1,6 +1,7 @@
 <ng-template #longContent let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
+        <h4 class="modal-title">{{label}}</h4>
+        <small>Select one value.</small>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -14,41 +15,29 @@
                         <thead>
                             <tr>
                                 <th scope="col"></th>
-                                <ng-container *ngFor="let f of fields; let i = index;">
-                                    <th scope="col" *ngIf="f.checked">{{f.label}}</th>
-                                </ng-container>
-                                <th>Actions</th>
+                                
+                                
+                                <th>Name</th>
+                                
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let dataRow of dataPage?.content; let i = index;">
+                            <tr *ngFor="let pl of pickLists">
                                 <th scope="row"></th>
-                                <ng-container *ngFor="let f of fields; let i = index;">
-                                    <td>
-                                        {{dataRow[f.name]}}
-                                    </td>
-                                </ng-container>
-    
+                                
                                 <td>
                                     
-                                    <a class="text-danger" (click)='setField(dataRow)'>Delete</a>
-                                    
+
+                                    <a class="text-primary" (click)="setField(pl);modal.close('selected-close')">{{pl.value}}</a>
                                 </td>
+                               
+    
     
                             </tr>
     
                         </tbody>
                     </table>
-    
-                    <div class="d-flex justify-content-between p-2">
-    
-    
-                        <ngb-pagination [collectionSize]="collectionSize" [(page)]="pageNo" [maxSize]="5" [rotate]="true"
-                            class="pagination pagination-sm text-success"
-                            [pageSize]="pageSize" [boundaryLinks]="true">
-                        </ngb-pagination>
-    
-                    </div>
     
                 </div>
     
@@ -65,7 +54,8 @@
 <div class="form-group">
     <label>{{to.label}}</label>
     <div class="input-group">
-        <input class="form-control form-control-sm">
+        <input class="form-control form-control-sm" [value]="val">
+        <input class="form-control form-control-sm" [formControl]="formControl" [formlyAttributes]="field" type="hidden">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" (click)="openLg(longContent)" type="button">
                 <i class="fa fa-calendar"></i>

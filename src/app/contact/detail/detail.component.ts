@@ -33,8 +33,6 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContact();
-
-    this.getFormConfig();
   }
 
   getContact() {
@@ -44,6 +42,9 @@ export class DetailComponent implements OnInit {
       .subscribe(
         data => {
           this.contact = data;
+          console.log('# contact - ', JSON.stringify(this.contact));
+          console.log('=== get form config ===');
+          this.getFormConfig();
         },
         error => {
           console.log('Unable to retrieve Contact details');
