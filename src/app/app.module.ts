@@ -10,10 +10,13 @@ import { NavigationModule } from './navigation/navigation.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { PicklistComponent } from './custom-fields/picklist/picklist.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PicklistComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,11 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    FormlyModule.forRoot(),
+    FormlyModule.forRoot({
+      types: [
+        { name: 'pickList', component: PicklistComponent },
+      ],
+    }),
     FormlyBootstrapModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, ],

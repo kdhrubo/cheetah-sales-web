@@ -11,10 +11,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { ViewComponent } from './view/view.component';
 
 
 @NgModule({
-  declarations: [LeadComponent, ListComponent, CreateComponent, DetailComponent, ImportComponent],
+  declarations: [LeadComponent, ListComponent, CreateComponent, DetailComponent, ImportComponent, ViewComponent],
   imports: [
     CommonModule,
     LeadRoutingModule,

@@ -11,7 +11,11 @@ import { AuthJwt } from '../models/auth.model';
 export const AUTH_REQUIRED_ENDPOINTS = [
   '/leads',
   '/leads/q',
-  '/users/whoami'
+  '/contacts',
+  '/forms',
+  '/contacts/q',
+  '/users/whoami',
+  '/picklists'
 
 ];
 
