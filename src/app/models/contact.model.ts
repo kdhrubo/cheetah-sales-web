@@ -1,15 +1,21 @@
 import { PickList } from './picklist.model';
 
 export class Contact {
-    id: string;
-    firstName: string;
-    lastName: string;
+  id: string;
+  firstName: string;
+  lastName: string;
 
-    email: string;
-    company: string;
-    country: string;
-    city: string;
+  email: string;
+  dob: string;
 
-    salutation: PickList;
-    title: PickList;
+  company: string;
+  country: string;
+  city: string;
+
+  salutation: PickList;
+  title: PickList;
+  mobile: string;
+  linkedin: string;
+  facebook: string;
+  twitter: string;
 }

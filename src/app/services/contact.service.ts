@@ -26,6 +26,17 @@ export class ContactService {
     return throwError(message);
   }
 
+  saveAll(contacts: Contact[]) : Observable<any>{
+    const url = `${environment.api_base_url}/contacts/import`;
+
+    const data = {'contacts' : contacts};
+
+    return this.httpClient
+      .post<Observable<any>>(url, data)
+      .pipe(catchError(err => this.handleError(err, 'import-contact')));
+
+  }
+
   search(
     rsql: string,
     pageNo: number,
