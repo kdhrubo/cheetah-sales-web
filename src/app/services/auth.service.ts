@@ -42,6 +42,19 @@ export class AuthService {
     this.loggedIn.next(true);
   }
 
+  getTenant() {
+    //console.log('R Token - ' + this._authJwt?.refresh_token);
+    console.log('A Token - ' + this._authJwt?.access_token);
+    const token = this.helperService.decodeToken(this._authJwt?.access_token);
+
+    // tslint:disable-next-line: no-unused-expression
+    const tenantId = token?.tenantId;
+
+    console.log('tenant id -> ' + tenantId);
+
+    return tenantId;
+  }
+
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
