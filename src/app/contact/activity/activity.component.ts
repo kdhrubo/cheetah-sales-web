@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Activity } from '../../models/activity.model';
 import { Page } from '../../models/page.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-activity',
@@ -17,7 +18,7 @@ export class ActivityComponent implements OnInit {
   @Input() related: string;
   @Input() relatedId: string;
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
     console.log('related - ' + this.related);
@@ -26,5 +27,9 @@ export class ActivityComponent implements OnInit {
 
   edit(activity: Activity) {
 
+  }
+
+  openLg(content) {
+    this.modalService.open(content, { size: 'lg' });
   }
 }
