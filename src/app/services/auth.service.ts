@@ -11,7 +11,7 @@ import {
   User,
   AuthJwt,
   SignUpRequest,
-  ForgotPwdRequest
+  ForgotPwdRequest,
 } from '../models/auth.model';
 
 import { environment } from '../../environments/environment';
@@ -20,7 +20,7 @@ export const CURRENT_USER_KEY = 'currentUser';
 export const USER_CREDENTIALS_KEY = 'userCredentials';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private helperService = new JwtHelperService();
@@ -28,14 +28,14 @@ export class AuthService {
   private _authJwt: AuthJwt;
   private user: User;
 
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(private httpClient: HttpClient) {}
 
   getToken() {
-
     return localStorage.getItem(CURRENT_USER_KEY);
-
   }
 
   fakeSignin() {
@@ -43,14 +43,10 @@ export class AuthService {
   }
 
   getTenant() {
-    //console.log('R Token - ' + this._authJwt?.refresh_token);
-    console.log('A Token - ' + this._authJwt?.access_token);
     const token = this.helperService.decodeToken(this._authJwt?.access_token);
 
     // tslint:disable-next-line: no-unused-expression
     const tenantId = token?.tenantId;
-
-    console.log('tenant id -> ' + tenantId);
 
     return tenantId;
   }
@@ -80,7 +76,7 @@ export class AuthService {
         this.loggedIn.next(true);
         return true;
       }),
-      catchError(err => this.handleError(err, 'register'))
+      catchError((err) => this.handleError(err, 'register'))
     );
   }
 
@@ -88,7 +84,7 @@ export class AuthService {
     const url = `${environment.api_base_url}/users/register`;
     return this.httpClient
       .post<Observable<any>>(url, signUpRequest)
-      .pipe(catchError(err => this.handleError(err, 'register')));
+      .pipe(catchError((err) => this.handleError(err, 'register')));
   }
 
   whoAmI(): Observable<User> {
@@ -99,7 +95,7 @@ export class AuthService {
         this.user = u;
         return u;
       }),
-      catchError(err => this.handleError(err, 'register'))
+      catchError((err) => this.handleError(err, 'register'))
     );
   }
 
@@ -117,14 +113,14 @@ export class AuthService {
     const url = `${environment.auth_base_url}/users/otp/` + email;
     return this.httpClient
       .post<Observable<any>>(url, {})
-      .pipe(catchError(err => this.handleError(err, 'send-otp')));
+      .pipe(catchError((err) => this.handleError(err, 'send-otp')));
   }
 
   updatePassword(forgotPwdRequest: ForgotPwdRequest): Observable<any> {
     const url = `${environment.api_base_url}/users/changepassword`;
     return this.httpClient
       .post<Observable<any>>(url, forgotPwdRequest)
-      .pipe(catchError(err => this.handleError(err, 'changepassword')));
+      .pipe(catchError((err) => this.handleError(err, 'changepassword')));
   }
 
   refreshAccessToken() {
@@ -154,8 +150,8 @@ export class AuthService {
           'Basic ' +
           Base64.encode(
             `${environment.oauth_client_id}:${environment.oauth_client_secret}`
-          )
-      })
+          ),
+      }),
     };
   }
 

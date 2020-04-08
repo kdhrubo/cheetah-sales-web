@@ -1,0 +1,86 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+            <h5 class="mt-2">Activity</h5>
+        </div>
+
+        <div class="col-sm-8">
+
+
+
+            <a href="#" class="btn btn-sm btn-primary ml-1 mt-2">New</a>
+            
+
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-lg-10">
+            <div class="table-responsive-md">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>When</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let activity of activitiesPage?.content;">
+                            <th scope="row"></th>
+
+                            <td>
+                                {{activity?.subject}}
+                            </td>
+                            <td>
+                                {{activity?.status.value}}
+                            </td>
+
+                            <td>
+                                {{activity?.startDate}}
+                            </td>
+
+                            <td>
+
+                                <a class="text-danger" (click)='edit(activity)'>Delete</a>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-between p-2">
+
+
+
+
+                    <div>
+                        <span># of rows: </span>
+                        <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize">
+                            <option [value]="10">10</option>
+                            <option [value]="20">20</option>
+                            <option [value]="30">30</option>
+                        </select>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-1"></div>
+
+    </div>
+</div>
