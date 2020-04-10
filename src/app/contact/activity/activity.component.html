@@ -44,7 +44,7 @@
                                 {{activity?.subject}}
                             </td>
                             <td>
-                                {{activity?.status.value}}
+                                {{activity?.status?.value}}
                             </td>
 
                             <td>
@@ -90,7 +90,7 @@
 <ng-template #longContent let-modal>
     <div class="modal-header">
         <h4 class="modal-title">New Activity</h4>
-        <small>Select one value.</small>
+        
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -99,27 +99,15 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-lg-10">
-                <form>
-                    <div class="form-group">
-                        <label for="dateOfBirth">Date of birth</label>
-                        <div class="input-group">
-                            <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp"
-                                ngbDatepicker #dp="ngbDatepicker">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()"
-                                    type="button"></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+                
+                <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
+                <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
+              </form>
             </div>
-
             <div class="col-1"></div>
-
-        </div>
+          </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Save</button>
-    </div>
+    
 </ng-template>
