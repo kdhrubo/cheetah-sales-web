@@ -28,7 +28,7 @@ import { PicklistComponent } from './custom-fields/picklist/picklist.component';
     NgbModule,
     FormlyModule.forRoot({
       types: [
-        { name: 'pickList', component: PicklistComponent },
+        { name: 'pickList', component: PicklistComponent }
       ],
     }),
     FormlyBootstrapModule

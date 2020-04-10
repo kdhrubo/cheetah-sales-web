@@ -11,10 +11,11 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ActivityComponent } from './activity/activity.component';
 
 
 @NgModule({
-  declarations: [ContactComponent, ListComponent, ImportComponent, CreateComponent,  DetailComponent],
+  declarations: [ContactComponent, ListComponent, ImportComponent, CreateComponent,  DetailComponent, ActivityComponent],
   imports: [
     CommonModule,
     ContactRoutingModule,

@@ -13,7 +13,7 @@ export class PicklistService {
 
   constructor(private httpClient: HttpClient) {}
 
-  findAll(domain: string): Observable<any[]> {
+  findAll(domain: string): Observable<PickList[]> {
 
     const url = `${environment.api_base_url}/picklists/${domain}`;
 
@@ -24,6 +24,8 @@ export class PicklistService {
       .pipe(catchError(err => this.handleError(err, 'find-all-search-leads')));
 
   }
+
+  
 
   private handleError(error: any, methodName: string) {
     const message = !!error.detail ? error.detail : 'Please try again.';
