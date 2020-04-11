@@ -16,6 +16,9 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/contacts/q',
   '/contacts/import',
   '/activities',
+  '/activities/q',
+  '/notes',
+  '/notes/q',
   '/users/whoami',
   '/picklists'
 

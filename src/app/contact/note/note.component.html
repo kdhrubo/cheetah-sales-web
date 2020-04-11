@@ -1,0 +1,39 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+            <h5 class="mt-2">Notes</h5>
+        </div>
+
+        <div class="col-sm-8">
+
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-lg-10">
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+
+                <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
+                
+            </form>
+
+
+            <blockquote class="blockquote" *ngFor="let n of notes;">
+                <p class="mb-0">{{n.description}}</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite>
+                </footer>
+            </blockquote>
+
+        </div>
+
+        <div class="col-1"></div>
+
+    </div>
+</div>

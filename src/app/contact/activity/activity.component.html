@@ -37,7 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let activity of activitiesPage?.content;">
+                        <tr *ngFor="let activity of activities;">
                             <th scope="row"></th>
 
                             <td>
@@ -61,22 +61,6 @@
 
                     </tbody>
                 </table>
-
-                <div class="d-flex justify-content-between p-2">
-
-
-
-
-                    <div>
-                        <span># of rows: </span>
-                        <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize">
-                            <option [value]="10">10</option>
-                            <option [value]="20">20</option>
-                            <option [value]="30">30</option>
-                        </select>
-
-                    </div>
-                </div>
 
             </div>
 
