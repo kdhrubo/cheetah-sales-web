@@ -10,6 +10,8 @@ const routes: Routes = [
   { path: 'deals', loadChildren: () => import('./deal/deal.module').then(m => m.DealModule) },
   { path: 'contacts', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) , canActivate: [AuthGuard]},
   { path: 'accounts', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) , canActivate: [AuthGuard]},
+  { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
+  { path: 'category', loadChildren: () => import('./category/category.module').then(m => m.CategoryModule) },
 ];
 
 @NgModule({
