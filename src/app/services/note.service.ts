@@ -1,35 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Activity } from '../models/activity.model';
-
+import { Note } from '../models/note.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ActivityService {
-
+export class NoteService {
   constructor(private httpClient: HttpClient) {}
 
-  save(activity: Activity): Observable<any> {
-    const url = `${environment.api_base_url}/activities`;
+  save(note: Note): Observable<any> {
+    const url = `${environment.api_base_url}/notes`;
     return this.httpClient
-      .post<Observable<any>>(url, activity)
-      .pipe(catchError(err => this.handleError(err, 'save-activity')));
+      .post<Observable<any>>(url, note)
+      .pipe(catchError((err) => this.handleError(err, 'save-note')));
   }
 
-  search(
-    rsql: string
-  ): Observable<Activity[]> {
-    const url = `${environment.api_base_url}/activities/q?rsql=${rsql}`;
+  search(rsql: string): Observable<Note[]> {
+    const url = `${environment.api_base_url}/notes/q?rsql=${rsql}`;
 
     // console.log('url - ' + url);
 
     return this.httpClient
-      .get<Activity[]>(url)
-      .pipe(catchError(err => this.handleError(err, 'find-all-search-activities')));
+      .get<Note[]>(url)
+      .pipe(
+        catchError((err) => this.handleError(err, 'find-all-search-notes'))
+      );
   }
 
   private handleError(error: any, methodName: string) {
@@ -38,5 +37,4 @@ export class ActivityService {
 
     return throwError(message);
   }
-
 }

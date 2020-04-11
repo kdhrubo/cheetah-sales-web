@@ -32,15 +32,18 @@ export class AuthService {
     false
   );
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+
+    let sJwt = sessionStorage.getItem(CURRENT_USER_KEY);
+    this._authJwt = JSON.parse(sJwt);
+  }
+
+
 
   getToken() {
-    return localStorage.getItem(CURRENT_USER_KEY);
+    return sessionStorage.getItem(CURRENT_USER_KEY);
   }
 
-  fakeSignin() {
-    this.loggedIn.next(true);
-  }
 
   getTenant() {
     const token = this.helperService.decodeToken(this._authJwt?.access_token);
@@ -52,6 +55,7 @@ export class AuthService {
   }
 
   get isLoggedIn() {
+    this.loggedIn.next(this.isAuthenticated());
     return this.loggedIn.asObservable();
   }
 
@@ -60,6 +64,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
+    console.log('is authenticated');
     return (
       !!this._authJwt &&
       !this.helperService.isTokenExpired(this._authJwt.refresh_token)
@@ -72,8 +77,8 @@ export class AuthService {
     return this.httpClient.post(url, null, this.getOptions()).pipe(
       map((res: AuthJwt) => {
         this._authJwt = res;
-        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
-        this.loggedIn.next(true);
+        sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
+        
         return true;
       }),
       catchError((err) => this.handleError(err, 'register'))
@@ -131,13 +136,13 @@ export class AuthService {
       .post(url, body, this.getOptions())
       .subscribe((res: AuthJwt) => {
         this._authJwt = res;
-        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
+        sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
       });
   }
 
   logout(): void {
     console.log('----- logout called ----');
-    localStorage.removeItem(CURRENT_USER_KEY);
+    sessionStorage.removeItem(CURRENT_USER_KEY);
     this.loggedIn.next(false);
     this._authJwt = null;
   }

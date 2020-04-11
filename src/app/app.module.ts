@@ -10,13 +10,14 @@ import { NavigationModule } from './navigation/navigation.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { PicklistComponent } from './custom-fields/picklist/picklist.component';
+import { PicklistComponent } from './common/picklist/picklist.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PicklistComponent
+    PicklistComponent,
   ],
   imports: [
     BrowserModule,

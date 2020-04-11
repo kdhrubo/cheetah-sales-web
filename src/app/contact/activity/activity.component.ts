@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Activity } from '../../models/activity.model';
-import { Page } from '../../models/page.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
@@ -14,10 +13,7 @@ import { ActivityService } from '../../services/activity.service';
 })
 export class ActivityComponent implements OnInit {
   rsql = 'deleted==false';
-  activitiesPage: Page<Activity>;
-
-  pageNo = 1;
-  pageSize = 10;
+  activities: Activity[];
 
   model = {};
   form = new FormGroup({});
@@ -40,8 +36,10 @@ export class ActivityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('related - ' + this.related);
-    console.log('relatedId - ' + this.relatedId);
+    // console.log('related - ' + this.related);
+    // console.log('relatedId - ' + this.relatedId);
+
+    this.rsql = `deleted==false&relatedEntity=${this.related}&relatedEntityId=${this.relatedId}`;
 
     this.getFormConfig();
     this.search(this.rsql);
@@ -54,11 +52,9 @@ export class ActivityComponent implements OnInit {
   }
 
   search(sql: string) {
-    this.activityService.search(sql, this.pageNo - 1, this.pageSize ).subscribe(
+    this.activityService.search(sql ).subscribe(
       data => {
-        this.activitiesPage = data;
-        this.pageSize = this.activitiesPage.totalElements;
-        // console.log('Data - ' + JSON.stringify(data)) ;
+        this.activities = data;
       },
       error => console.log('Error - ' + error.message)
     );
