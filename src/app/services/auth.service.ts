@@ -33,7 +33,7 @@ export class AuthService {
   );
 
   constructor(private httpClient: HttpClient) {
-
+    console.log('inside auth service const');
     let sJwt = sessionStorage.getItem(CURRENT_USER_KEY);
     this._authJwt = JSON.parse(sJwt);
   }
@@ -78,7 +78,7 @@ export class AuthService {
       map((res: AuthJwt) => {
         this._authJwt = res;
         sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
-        
+        this.loggedIn.next(true);
         return true;
       }),
       catchError((err) => this.handleError(err, 'register'))
