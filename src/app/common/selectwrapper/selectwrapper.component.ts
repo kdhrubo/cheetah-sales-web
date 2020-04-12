@@ -16,14 +16,14 @@ export class SelectwrapperComponent extends FieldWrapper implements OnInit {
 
   constructor(private pickListService: PicklistService) {
     super();
-    console.log('** select wrapper **');
+    // console.log('** select wrapper **');
   }
 
   ngOnInit(): void {
 
     this.label = this.to.label;
     this.domain = this.to.domain;
-    console.log('** Calling load - ' + this.domain);
+    // console.log('** Calling load - ' + this.domain);
     this.load();
   }
 
@@ -31,7 +31,7 @@ export class SelectwrapperComponent extends FieldWrapper implements OnInit {
     this.pickListService.findAll(this.domain).subscribe(
       data => {
         this.pickLists = data;
-        console.log('picklists - ' + JSON.stringify(data));
+        // console.log('picklists - ' + JSON.stringify(data));
         this.to.options = data;
       },
       error => console.log('Error - ' + error.message)
