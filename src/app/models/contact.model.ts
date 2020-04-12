@@ -12,8 +12,12 @@ export class Contact {
   country: string;
   city: string;
 
-  salutation: PickList;
-  title: PickList;
+  salutationId: string;
+  leadSourceId: string;
+  contactTypeId: string;
+  contactStatusId: string;
+
+  designation: string;
   mobile: string;
   linkedin: string;
   facebook: string;
