@@ -9,8 +9,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavigationModule } from './navigation/navigation.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { FormlyModule } from '@ngx-formly/core';
-import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { FormlyBootstrapModule, FormlyFieldSelect } from '@ngx-formly/bootstrap';
 import { PicklistComponent } from './common/picklist/picklist.component';
+import { SelectwrapperComponent } from './common/selectwrapper/selectwrapper.component';
+
 
 
 
@@ -18,6 +20,7 @@ import { PicklistComponent } from './common/picklist/picklist.component';
   declarations: [
     AppComponent,
     PicklistComponent,
+    SelectwrapperComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,8 +31,16 @@ import { PicklistComponent } from './common/picklist/picklist.component';
     HttpClientModule,
     NgbModule,
     FormlyModule.forRoot({
+      wrappers: [
+        { name: 'formly-select-wrapper', component: SelectwrapperComponent },
+      ],
       types: [
-        { name: 'pickList', component: PicklistComponent }
+        { name: 'pickList', component: PicklistComponent },
+        {
+          name: 'select',
+          component: FormlyFieldSelect,
+          wrappers: ['formly-select-wrapper']
+        }
       ],
     }),
     FormlyBootstrapModule
