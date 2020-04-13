@@ -16,7 +16,7 @@
       <div class="col-1"></div>
       <div class="col-lg-10">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options"></formly-form>
+          <formly-form [form]="form" [fields]="fields" [model]="leadModel" [options]="options"></formly-form>
 
           
           <button type="submit" class="btn btn-sm btn-outline-primary float-right mr-2" (click)="edit()">Edit</button>

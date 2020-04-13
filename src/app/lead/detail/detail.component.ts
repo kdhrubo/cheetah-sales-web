@@ -4,6 +4,7 @@ import { Lead } from 'src/app/models/lead.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormService } from 'src/app/services/form.service';
 
 @Component({
   selector: 'app-detail',
@@ -13,7 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 export class DetailComponent implements OnInit {
 
   form = new FormGroup({});
-  model: Lead;
+  leadModel: Lead;
+  id: any;
 
   options: FormlyFormOptions = {
     formState: {
@@ -21,368 +23,42 @@ export class DetailComponent implements OnInit {
     },
   };
 
-  fields: FormlyFieldConfig[] = [
-    {
-      className: 'section-label',
-      template: '<div><strong>Basic Information:</strong></div>',
-    },
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'salutation',
-          templateOptions: {
-            label: 'Salutation',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          },
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'firstName',
-          templateOptions: {
-            label: 'First Name',
-          },
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'lastName',
-          templateOptions: {
-            label: 'Last Name',
-            required: true,
-            class: 'form-control form-control-sm'
-          }
-          ,
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'designation',
-          templateOptions: {
-            label: 'Designation',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'company',
-          templateOptions: {
-            label: 'Company',
-          },
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'noOfEmployees',
-          templateOptions: {
-            label: '# of Employees',
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'email',
-          templateOptions: {
-            label: 'Email',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'phone',
-          templateOptions: {
-            label: 'Phone',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'mobile',
-          templateOptions: {
-            label: 'Mobile',
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'website',
-          templateOptions: {
-            label: 'Website',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'fax',
-          templateOptions: {
-            label: 'Fax',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'annualRevenue',
-          templateOptions: {
-            label: 'Annual Revenue',
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'twitter',
-          templateOptions: {
-            label: 'Twitter Handle',
-          }
-        },
-        {
-          className: 'col-4',
-          key: 'emailOptIn',
-          type: 'checkbox',
-          templateOptions: {
-            label: 'Email Opt-In'
-
-          }
-        },
-        {
-          className: 'col-4',
-          key: 'smsOptIn',
-          type: 'checkbox',
-          templateOptions: {
-            label: 'SMS Opt-In'
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'industry',
-          templateOptions: {
-            label: 'Industry',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        },
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'leadSource',
-          templateOptions: {
-            label: 'Lead Source',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        },
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'leadStatus',
-          templateOptions: {
-            label: 'Lead Status',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        }
-
-      ]
-    },
-    {
-      type: 'textarea',
-      key: 'street',
-      templateOptions: {
-        label: 'Description',
-        rows: 2,
-      },
-    },
-    {
-      className: 'section-label',
-      template: '<hr /><div><strong>Address:</strong></div>',
-    },
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-md-4 col-sm-6',
-          type: 'input',
-          key: 'city',
-          templateOptions: {
-            label: 'City',
-          },
-        },
-        {
-          className: 'col-md-4 col-sm-6',
-          type: 'input',
-          key: 'state',
-          templateOptions: {
-            label: 'State',
-          },
-        },
-        {
-          className: 'col-md-4 col-sm-6',
-          type: 'input',
-          key: 'country',
-          templateOptions: {
-            label: 'Country',
-          },
-        },
-        {
-          className: 'col-md-4 col-sm-6',
-          type: 'input',
-          key: 'zip',
-          templateOptions: {
-            label: 'Zip'
-          },
-        },
-      ],
-    },
-    {
-      type: 'textarea',
-      key: 'street',
-      templateOptions: {
-        label: 'Street',
-        rows: 2,
-      },
-    },
-    {
-      className: 'section-label',
-      template: '<hr /><div><strong>Assignment:</strong></div>',
-    },
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'assignedTo',
-          templateOptions: {
-            label: 'Assigned To User',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        },
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'assignedTeam',
-          templateOptions: {
-            label: 'Assigned To Team',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        }
-      ]
-    }
-
-  ]; 
+  fields: FormlyFieldConfig[];
 
   constructor(
     private route: ActivatedRoute,
-    private leadService: LeadService) { }
+    private leadService: LeadService, private formService: FormService) { }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
+    this.getLead();
+  }
 
-    this.leadService.findOne(id)
+  getLead() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.leadService.findOne(this.id)
       .subscribe(
         data => {
-          this.model = data;
+          this.leadModel = data;
+          console.log('# contact - ', JSON.stringify(this.leadModel));
+          console.log('=== get Lead form config ===');
+          this.getLeadFormConfig();
         },
         error => {
           console.log('Unable to retrieve lead details');
         }
 
       );
+  }
 
+  getLeadFormConfig() {
+    this.formService.getFields('lead-form').subscribe(
+      data => {
+        this.fields = data;
+      },
+      error => {
+        console.log('Unable to retrieve lead form information');
+      }
+    );
   }
 
   edit() {
@@ -390,15 +66,15 @@ export class DetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.leadService.save(this.model)
-    .subscribe(
-      data => {
-        console.log('Lead save success');
-      },
-      error => {
-        console.log('Lead save failure');
-      }
-    );
+    this.leadService.save(this.leadModel)
+      .subscribe(
+        data => {
+          console.log('Lead saved successfully.');
+        },
+        error => {
+          console.log('Failed to update/save Lead details.');
+        }
+      );
   }
 
 }
