@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '',  redirectTo : 'list' , pathMatch : 'full'  },
   { path: 'list', component: ListComponent, canActivate: [AuthGuard]},
   { path: 'create', component: CreateComponent, canActivate: [AuthGuard]},
-  { path: 'view/:id', component: ViewComponent, canActivate: [AuthGuard]}
+  { path: 'detail/:id', component: DetailComponent, canActivate: [AuthGuard]}
 
 ];
 
