@@ -17,6 +17,7 @@ export class DetailComponent implements OnInit {
   contact: Contact;
   id: any;
   form = new FormGroup({});
+  active = 1;
 
   fields: FormlyFieldConfig[] ;
 
