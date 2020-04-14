@@ -1,80 +1,66 @@
-<div class="container-fluid">
+<div class="row">
+    <div class="col-md-3 col-sm-3">
+        <h5 class="mt-2">Meetings</h5>
+       
+    </div>
+    <div class="col-md-3 col-sm-3">
+       
+        <button class="btn btn-outline-secondary" (click)="openLg(longContent)" type="button">
+            New
+        </button>
+    </div>
+</div>
 
-    <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-2">
-            <h5 class="mt-2">Activity</h5>
-        </div>
+<div class="row">
+<div class="col-md-12">
+    <div class="table-responsive-md">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
 
-        <div class="col-sm-8">
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>When</th>
+                    <th>Action</th>
 
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of activities;">
+                    <th scope="row"></th>
 
+                    <td>
+                        {{activity?.subject}}
+                    </td>
+                    <td>
+                        {{activity?.status?.value}}
+                    </td>
 
-            <button class="btn btn-outline-secondary" (click)="openLg(longContent)" type="button">
-                <i class="fa fa-calendar"></i>
-            </button>
+                    <td>
+                        {{activity?.startDate}}
+                    </td>
 
+                    <td>
 
-        </div>
-        <div class="col-1"></div>
+                        <a class="text-danger" (click)='edit(activity)'>Delete</a>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
     </div>
 
-
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-lg-10">
-            <div class="table-responsive-md">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-
-                            <th>Subject</th>
-                            <th>Status</th>
-                            <th>When</th>
-                            <th>Action</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let activity of activities;">
-                            <th scope="row"></th>
-
-                            <td>
-                                {{activity?.subject}}
-                            </td>
-                            <td>
-                                {{activity?.status?.value}}
-                            </td>
-
-                            <td>
-                                {{activity?.startDate}}
-                            </td>
-
-                            <td>
-
-                                <a class="text-danger" (click)='edit(activity)'>Delete</a>
-
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-                </table>
-
-            </div>
-
-        </div>
-
-        <div class="col-1"></div>
-
-    </div>
+</div>
 </div>
 
 <ng-template #longContent let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">New Activity</h4>
-        
+        <h4 class="modal-title">New Meeting</h4>
+
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -83,15 +69,15 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-lg-10">
-              <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-                
-                <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
-                <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
-              </form>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+
+                    <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
+                    <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
+                </form>
             </div>
             <div class="col-1"></div>
-          </div>
+        </div>
     </div>
-    
+
 </ng-template>

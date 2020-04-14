@@ -1,20 +1,20 @@
 <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-4">
+      <div class="col-md-1"></div>
+      <div class="col-md-4">
           <h5 class="mt-2">View Contact</h5>
       </div>
   
-      <div class="col-sm-6">
+      <div class="col-md-6">
   
           
       </div>
-      <div class="col-1"></div>
+      <div class="col-md-1"></div>
     </div>
   
     <div class="row">
-      <div class="col-1"></div>
-      <div class="col-lg-10">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <formly-form [form]="form" [fields]="fields" [model]="contact"></formly-form>
           
@@ -22,14 +22,65 @@
           <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
         </form>
       </div>
-      <div class="col-1"></div>
+      <div class="col-md-1"></div>
     </div>
 
   </div>
 
-  <!--Activity-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-4">
+          <h5 class="mt-2">Activities</h5>
+      </div>
+  
+      <div class="col-md-6">
+  
+          
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink>Meetings</a>
+            <ng-template ngbNavContent>
+               <!--Activity-->
 
-  <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
+                <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink>Tasks</a>
+            <ng-template ngbNavContent>
+              <p>Tasks - Similar to Activity</p>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3">
+            <a ngbNavLink>Activity Log</a>
+            <ng-template ngbNavContent>
+              <p>Activity Log</p>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="4">
+            <a ngbNavLink>Notes</a>
+            <ng-template ngbNavContent>
+              <!--Note-->
+              <app-note [related]="'Contact'" [relatedId]="id"></app-note>
+            </ng-template>
+          </li>
+        </ul>
+        
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </div>
 
-  <!--Note-->
-  <app-note [related]="'Contact'" [relatedId]="id"></app-note>
+
+
+ 
+
+  
