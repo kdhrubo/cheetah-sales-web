@@ -29,6 +29,8 @@ export class PicklistComponent extends FieldType implements OnInit {
     this.label = this.to.label;
     this.domain = this.to.attributes.pickList;
 
+    
+
     // console.log('@@@ ckey -' + this.to.cKey);
     // console.log('model - ' + JSON.stringify(this.model[this.to.cKey]));
     // this.setField(this.model[this.to.cKey]);
