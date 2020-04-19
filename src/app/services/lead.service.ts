@@ -19,6 +19,15 @@ export class LeadService {
       .pipe(catchError(err => this.handleError(err, 'save-lead')));
   }
 
+  saveAll(leads: Lead[]) : Observable<any>{
+    const url = `${environment.api_base_url}/leads/import`;
+    const data = {'leads' : leads};
+    return this.httpClient
+      .post<Observable<any>>(url, data)
+      .pipe(catchError(err => this.handleError(err, 'import-lead')));
+
+  }
+
   private handleError(error: any, methodName: string) {
     const message = !!error.detail ? error.detail : 'Please try again.';
     console.log('Error in ', methodName, '\n', error);
