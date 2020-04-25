@@ -48,8 +48,10 @@
             <a ngbNavLink>Meetings</a>
             <ng-template ngbNavContent>
                <!--Activity-->
-
+                
                 <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
+                
+                
             </ng-template>
           </li>
           <li [ngbNavItem]="2">
@@ -68,7 +70,9 @@
             <a ngbNavLink>Notes</a>
             <ng-template ngbNavContent>
               <!--Note-->
+              
               <app-note [related]="'Contact'" [relatedId]="id"></app-note>
+              
             </ng-template>
           </li>
         </ul>
