@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Note } from '../../models/note.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { FormService } from '../../services/form.service';
-import { NoteService } from '../../services/note.service';
+import { Note } from 'src/app/models/note.model';
+import { FormService } from '../../../services/form.service';
+import { NoteService } from '../../../services/note.service';
+
 
 @Component({
   selector: 'app-note',

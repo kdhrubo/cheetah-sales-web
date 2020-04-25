@@ -11,13 +11,12 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivityComponent } from './activity/activity.component';
-import { NoteComponent } from './note/note.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
 @NgModule({
-  declarations: [ContactComponent, ListComponent, ImportComponent, CreateComponent,  DetailComponent, ActivityComponent, NoteComponent],
+  declarations: [ContactComponent, ListComponent, ImportComponent, CreateComponent,  DetailComponent],
   imports: [
     CommonModule,
     ContactRoutingModule,
@@ -25,7 +24,8 @@ import { NoteComponent } from './note/note.component';
     ReactiveFormsModule,
     FormsModule,
     FormlyModule.forChild(),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    SharedModule
   ]
 })
 export class ContactModule { }

@@ -13,7 +13,7 @@ import { FormlyBootstrapModule, FormlyFieldSelect } from '@ngx-formly/bootstrap'
 import { PicklistComponent } from './common/picklist/picklist.component';
 import { SelectwrapperComponent } from './common/selectwrapper/selectwrapper.component';
 import { AccountpicklistComponent } from './common/accountpicklist/accountpicklist.component';
-
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -22,7 +22,7 @@ import { AccountpicklistComponent } from './common/accountpicklist/accountpickli
     AppComponent,
     PicklistComponent,
     SelectwrapperComponent,
-    AccountpicklistComponent,
+    AccountpicklistComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +32,7 @@ import { AccountpicklistComponent } from './common/accountpicklist/accountpickli
     FormsModule,
     HttpClientModule,
     NgbModule,
+    SharedModule,
     FormlyModule.forRoot({
       wrappers: [
         { name: 'formly-select-wrapper', component: SelectwrapperComponent },

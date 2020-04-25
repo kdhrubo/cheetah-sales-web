@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Activity } from '../../models/activity.model';
+import { Activity } from '../../../models/activity.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormService } from 'src/app/services/form.service';
-import { ActivityService } from '../../services/activity.service';
+import { ActivityService } from '../../../services/activity.service';
 
 @Component({
   selector: 'app-activity',
