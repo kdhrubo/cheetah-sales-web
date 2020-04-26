@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit {
   form = new FormGroup({});
   leadModel: Lead;
   id: any;
+  active = 1;
 
   options: FormlyFormOptions = {
     formState: {
