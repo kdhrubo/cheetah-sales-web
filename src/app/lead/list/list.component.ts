@@ -87,6 +87,18 @@ export class ListComponent implements OnInit {
     this.search(this.rsql);
   }
 
+  listLeadElement(value: string): void {
+    console.log('Updating List Element count with new page size : ' + value);
+    this.pageSize = +value;
+    this.search(this.rsql);
+  }
+
+  loadNextPage(page: number): void {
+    console.log('Loading next page with pageNo : ' + page);
+    this.pageNo = page;
+    this.search(this.rsql);
+  }
+  
   search(sql: string) {
     this.leadService.search(sql, this.pageNo - 1, this.pageSize ).subscribe(
       data => {
