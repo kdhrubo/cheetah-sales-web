@@ -55,7 +55,7 @@ export class DetailComponent implements OnInit {
   }
 
   getFormConfig() {
-    this.formService.getFields('contact-form').subscribe(
+    this.formService.getFields('form-contact-edit').subscribe(
 
       data => {
         this.fields = data;

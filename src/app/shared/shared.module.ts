@@ -9,10 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivityComponent } from './components/activity/activity.component';
 import { TaskComponent } from './components/task/task.component';
+import { AddressComponent } from './components/address/address.component';
+import { EmailaddressComponent } from './components/emailaddress/emailaddress.component';
+
 
 
 @NgModule({
-  declarations: [NoteComponent, ActivityComponent, TaskComponent],
+  declarations: [NoteComponent, ActivityComponent, TaskComponent, AddressComponent, EmailaddressComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -22,6 +25,6 @@ import { TaskComponent } from './components/task/task.component';
     FormlyModule.forChild(),
     FormlyBootstrapModule
   ],
-  exports: [NoteComponent, ActivityComponent, TaskComponent]
+  exports: [NoteComponent, ActivityComponent, TaskComponent, AddressComponent, EmailaddressComponent]
 })
 export class SharedModule { }

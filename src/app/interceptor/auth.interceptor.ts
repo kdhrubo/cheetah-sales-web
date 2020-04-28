@@ -10,16 +10,12 @@ import { AuthJwt } from '../models/auth.model';
 
 export const AUTH_REQUIRED_ENDPOINTS = [
   '/leads',
-  '/leads/q',
   '/accounts',
-  '/contacts/q',
-  '/contacts/import',
+  '/emailaddresses',
   '/contacts',
   '/forms',
   '/activities',
-  '/activities/q',
   '/notes',
-  '/notes/q',
   '/tasks',
   '/picklists'
 
