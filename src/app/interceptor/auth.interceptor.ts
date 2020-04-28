@@ -20,7 +20,7 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/activities/q',
   '/notes',
   '/notes/q',
-  '/users/whoami',
+  '/tasks',
   '/picklists'
 
 ];

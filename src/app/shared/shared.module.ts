@@ -8,10 +8,11 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivityComponent } from './components/activity/activity.component';
+import { TaskComponent } from './components/task/task.component';
 
 
 @NgModule({
-  declarations: [NoteComponent, ActivityComponent],
+  declarations: [NoteComponent, ActivityComponent, TaskComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -21,6 +22,6 @@ import { ActivityComponent } from './components/activity/activity.component';
     FormlyModule.forChild(),
     FormlyBootstrapModule
   ],
-  exports: [NoteComponent, ActivityComponent]
+  exports: [NoteComponent, ActivityComponent, TaskComponent]
 })
 export class SharedModule { }
