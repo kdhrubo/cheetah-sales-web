@@ -57,7 +57,11 @@
           <li [ngbNavItem]="2">
             <a ngbNavLink>Tasks</a>
             <ng-template ngbNavContent>
-              <p>Tasks - Similar to Activity</p>
+              <!--Task-->
+              <app-task [related]="'Contact'" [relatedId]="id"></app-task>
+              
+
+
             </ng-template>
           </li>
           <li [ngbNavItem]="3">
@@ -78,6 +82,61 @@
         </ul>
         
         <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </div>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-4">
+          <h5 class="mt-2">Engage</h5>
+      </div>
+  
+      <div class="col-md-6">
+  
+          
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <ul ngbNav #nav2="ngbNav" [(activeId)]="active" class="nav-tabs">
+          <li [ngbNavItem]="5">
+            <a ngbNavLink>Addresses</a>
+            <ng-template ngbNavContent>
+               <!--Activity-->
+                
+                <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
+                
+                
+            </ng-template>
+          </li>
+          
+          <li [ngbNavItem]="6">
+            <a ngbNavLink>Social</a>
+            <ng-template ngbNavContent>
+              <p>Social</p>
+            </ng-template>
+          </li>
+         
+          <li [ngbNavItem]="7">
+            <a ngbNavLink>Communication</a>
+            <ng-template ngbNavContent>
+              <!--Note-->
+              
+              <app-note [related]="'Contact'" [relatedId]="id"></app-note>
+              
+            </ng-template>
+          </li>
+        </ul>
+        
+        <div [ngbNavOutlet]="nav2" class="mt-2"></div>
+        
+
       </div>
       <div class="col-md-1"></div>
     </div>
