@@ -1,149 +1,51 @@
+
+
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-4">
-          <h5 class="mt-2">View Contact</h5>
-      </div>
-  
-      <div class="col-md-6">
-  
-          
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-  
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <formly-form [form]="form" [fields]="fields" [model]="contact"></formly-form>
-          
-          <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
-          <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
-        </form>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
+  <div class="row">
+    
+    <div class="col-md-9">
 
-  </div>
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-4">
-          <h5 class="mt-2">Activities</h5>
-      </div>
-  
-      <div class="col-md-6">
-  
-          
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-          <li [ngbNavItem]="1">
-            <a ngbNavLink>Meetings</a>
-            <ng-template ngbNavContent>
-               <!--Activity-->
-                
-                <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
-                
-                
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="2">
-            <a ngbNavLink>Tasks</a>
-            <ng-template ngbNavContent>
-              <!--Task-->
-              <app-task [related]="'Contact'" [relatedId]="id"></app-task>
-              
-
-
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="3">
-            <a ngbNavLink>Activity Log</a>
-            <ng-template ngbNavContent>
-              <p>Activity Log</p>
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="4">
-            <a ngbNavLink>Notes</a>
-            <ng-template ngbNavContent>
-              <!--Note-->
-              
-              <app-note [related]="'Contact'" [relatedId]="id"></app-note>
-              
-            </ng-template>
-          </li>
-        </ul>
+      <!-- Contact form START -->
+      <div class="row">
+      
+        <div class="col-md-12">
+            <h5 class="mt-1">View Contact</h5>
+        </div>
         
-        <div [ngbNavOutlet]="nav" class="mt-2"></div>
       </div>
-      <div class="col-md-1"></div>
-    </div>
-  </div>
-
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-4">
-          <h5 class="mt-2">Engage</h5>
-      </div>
-  
-      <div class="col-md-6">
-  
-          
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <ul ngbNav #nav2="ngbNav" [(activeId)]="active" class="nav-tabs">
-          <li [ngbNavItem]="5">
-            <a ngbNavLink>Addresses</a>
-            <ng-template ngbNavContent>
-               <!--Activity-->
-                
-                <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
-                
-                
-            </ng-template>
-          </li>
-          
-          <li [ngbNavItem]="6">
-            <a ngbNavLink>Social</a>
-            <ng-template ngbNavContent>
-              <p>Social</p>
-            </ng-template>
-          </li>
-         
-          <li [ngbNavItem]="7">
-            <a ngbNavLink>Communication</a>
-            <ng-template ngbNavContent>
-              <!--Note-->
-              
-              <app-note [related]="'Contact'" [relatedId]="id"></app-note>
-              
-            </ng-template>
-          </li>
-        </ul>
+      
+      <div class="row">
+      
+        <div class="col-md-12">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <formly-form [form]="form" [fields]="fields" [model]="contact"></formly-form>
+            
+            <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
+            <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
+          </form>
+        </div>
         
-        <div [ngbNavOutlet]="nav2" class="mt-2"></div>
-        
-
       </div>
-      <div class="col-md-1"></div>
+      <!-- Contact form END -->
+
+
+      <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
+      <app-task [related]="'Contact'" [relatedId]="id"></app-task>
+      <app-note [related]="'Contact'" [relatedId]="id"></app-note>
+
+
     </div>
+
+
+    <div class="col-md-3 bg-light sidebar">
+
+      <app-emailaddress [related]="'Contact'" [relatedId]="id"></app-emailaddress>
+
+    </div>
+    
   </div>
+</div>  
 
 
-
- 
 
   
