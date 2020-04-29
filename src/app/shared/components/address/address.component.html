@@ -1,1 +1,50 @@
-<p>address works!</p>
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        <h5 class="mt-2">Addresses</h5>
+       
+    </div>
+    <div class="col-md-6 col-sm-6">
+       
+        <button class="btn btn-outline-secondary" (click)="openLg(addrContent)" type="button">
+            New
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        
+           <address *ngFor="let a of addresses;">
+                {{a.street}} <br/>
+                {{a.city}}, <br/>
+                {{a.state}} - {{a.zip}} <br/>
+                {{a.country}}
+           </address>
+
+    </div>
+</div>
+
+<ng-template #addrContent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">New Address</h4>
+
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+
+                    <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
+                    <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+</ng-template>
