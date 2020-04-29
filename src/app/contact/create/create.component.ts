@@ -3,8 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from 'src/app/models/contact.model';
-import { FormService } from 'src/app/services/form.service';
-import { PicklistService } from 'src/app/services/picklist.service';
+import { FormService } from '../../services/form.service';
 
 @Component({
   selector: 'app-create',
