@@ -12,13 +12,14 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/leads',
   '/accounts',
   '/emailaddresses',
+  '/postal',
   '/contacts',
   '/forms',
   '/activities',
   '/notes',
   '/tasks',
-  '/picklists',
-  '/links'
+  '/links',
+  '/picklists'
 
 ];
 
