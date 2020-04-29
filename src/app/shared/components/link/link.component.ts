@@ -1,19 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EmailAddress } from 'src/app/models/emailaddress.model';
+import { Link } from '../../../models/link.model';
+import { LinkService } from '../../../services/link.service';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { FormService } from '../../../services/form.service';
-import { EmailaddressService } from '../../../services/emailaddress.service';
+import { FormService } from 'src/app/services/form.service';
 
 @Component({
-  selector: 'app-emailaddress',
-  templateUrl: './emailaddress.component.html',
-  styleUrls: ['./emailaddress.component.css']
+  selector: 'app-link',
+  templateUrl: './link.component.html',
+  styleUrls: ['./link.component.css']
 })
-export class EmailaddressComponent implements OnInit {
+export class LinkComponent implements OnInit {
 
   rsql = 'deleted==false';
-  emailAddresses: EmailAddress[];
+  links: Link[];
 
   model = {};
   form = new FormGroup({});
@@ -29,7 +29,7 @@ export class EmailaddressComponent implements OnInit {
   @Input() related: string;
   @Input() relatedId: string;
 
-  constructor(private formService: FormService, private emailaddressService: EmailaddressService) {}
+  constructor(private formService: FormService, private linkService: LinkService) {}
 
   ngOnInit(): void {
     this.rsql = `deleted==false&relatedEntity=${this.related}&relatedEntityId=${this.relatedId}`;
@@ -38,16 +38,16 @@ export class EmailaddressComponent implements OnInit {
     this.search(this.rsql);
   }
   search(sql: string) {
-    this.emailaddressService.search(sql ).subscribe(
+    this.linkService.search(sql ).subscribe(
       data => {
-        this.emailAddresses = data;
+        this.links = data;
       },
       error => console.log('Error - ' + error.message)
     );
   }
 
   getFormConfig() {
-    this.formService.getFields('form-emailaddress').subscribe(
+    this.formService.getFields('form-link').subscribe(
       (data) => {
         this.fields = data;
       },
@@ -59,19 +59,18 @@ export class EmailaddressComponent implements OnInit {
   }
 
   onSubmit() {
-    let emailAddress: EmailAddress = this.model as EmailAddress;
-    emailAddress.relatedEntity = this.related;
-    emailAddress.relatedEntityId = this.relatedId;
-    this.emailaddressService.save(emailAddress).subscribe(
+    let link: Link = this.model as Link;
+    link.relatedEntity = this.related;
+    link.relatedEntityId = this.relatedId;
+    this.linkService.save(link).subscribe(
       (data) => {
-        console.log('EmailAddress save success');
+        console.log('Link save success');
         this.search(this.rsql);
       },
       (error) => {
-        console.log('EmailAddress save failure');
+        console.log('Link save failure');
       }
     );
 
   }
-
 }

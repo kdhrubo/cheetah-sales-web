@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from 'src/app/models/contact.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ContactService } from 'src/app/services/contact.service';
+import { ContactService } from '../../services/contact.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { FormArray, FormGroup } from '@angular/forms';
-import { FormService } from 'src/app/services/form.service';
+import { FormGroup } from '@angular/forms';
+import { FormService } from '../../services/form.service';
 
 
 @Component({
