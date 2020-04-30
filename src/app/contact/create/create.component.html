@@ -19,9 +19,10 @@
           <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
           
           <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
+          <!--
           <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
-
-          <a class="nav-link" [routerLink]="'/contacts/list'">Deals</a>
+          -->  
+          <a class="nav-link float-right mr-2" [routerLink]="'/contacts/list'">Cancel</a>
 
 
         </form>

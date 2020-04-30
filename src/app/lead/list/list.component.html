@@ -153,7 +153,8 @@
 
                     <div>
                         <span># of rows: </span>
-                        <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize" (change)="listLeadElement($event.target.value)">
+                        <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize" 
+                        (change)="listLeadElement($event.target.value)">
                             <option [value]="10">10</option>
                             <option [value]="20">20</option>
                             <option [value]="30">30</option>

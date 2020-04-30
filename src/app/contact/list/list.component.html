@@ -148,12 +148,13 @@
 
                     <ngb-pagination [collectionSize]="collectionSize" [(page)]="pageNo" [maxSize]="5" [rotate]="true"
                         class="pagination pagination-sm text-success"
-                        [pageSize]="pageSize" [boundaryLinks]="true">
+                        [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="loadNextPage($event)">
                     </ngb-pagination>
 
                     <div>
                         <span># of rows: </span>
-                        <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize">
+                        <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize"
+                        (change)="listLeadElement($event.target.value)">
                             <option [value]="10">10</option>
                             <option [value]="20">20</option>
                             <option [value]="30">30</option>
