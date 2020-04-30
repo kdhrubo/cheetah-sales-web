@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
   constructor(private contactService: ContactService, private formService: FormService) { }
 
   ngOnInit(): void {
-    this.formService.getFields('contact-form').subscribe(
+    this.formService.getFields('form-contact-create').subscribe(
 
       data => {
         this.fields = data;
