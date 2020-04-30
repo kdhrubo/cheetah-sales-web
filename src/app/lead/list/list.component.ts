@@ -86,12 +86,13 @@ export class ListComponent implements OnInit {
     // console.log('Fields - ' + this.fields);
     this.search(this.rsql);
   }
-
+  
   listLeadElement(value: string): void {
     console.log('Updating List Element count with new page size : ' + value);
     this.pageSize = +value;
     this.search(this.rsql);
   }
+  
 
   loadNextPage(page: number): void {
     console.log('Loading next page with pageNo : ' + page);
