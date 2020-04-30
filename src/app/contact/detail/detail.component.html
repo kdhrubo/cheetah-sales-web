@@ -3,13 +3,13 @@
 <div class="container-fluid">
   <div class="row">
     
-    <div class="col-md-9">
+    <div class="col-md-9 mt-n3">
 
-      <!-- Contact form START -->
+      
       <div class="row">
       
         <div class="col-md-12">
-            <h5 class="mt-1">View Contact</h5>
+            <h5 class="mt-1">Contact Details</h5>
         </div>
         
       </div>
@@ -20,35 +20,39 @@
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <formly-form [form]="form" [fields]="fields" [model]="contact"></formly-form>
             
-            <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
-            <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">Save</button>
+            <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2">Cancel</button>
           </form>
         </div>
         
       </div>
-      <!-- Contact form END -->
+     
 
+      <hr/>
 
       <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
       <app-task [related]="'Contact'" [relatedId]="id"></app-task>
       <app-note [related]="'Contact'" [relatedId]="id"></app-note>
-
+      
 
     </div>
+    
 
-
-    <div class="col-md-3 bg-light sidebar">
+    <div class="col-md-3 bg-light mt-n3">
       
       <app-address [related]="'Contact'" [relatedId]="id"></app-address>
       
 
       <app-emailaddress [related]="'Contact'" [relatedId]="id"></app-emailaddress>
 
-      <app-link [related]="'Contact'" [relatedId]="id"></app-link>
+      <app-phone [related]="'Contact'" [relatedId]="id"></app-phone>
 
+      <app-link [related]="'Contact'" [relatedId]="id"></app-link>
+      
     </div>
     
   </div>
+
 </div>  
 
 
