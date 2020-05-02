@@ -6,7 +6,6 @@ import { ListComponent } from './list/list.component';
 import { AuthGuard } from '../guard/auth.guard';
 import { DetailComponent } from './detail/detail.component';
 import { CreateComponent } from './create/create.component';
-import { ViewComponent } from './view/view.component';
 import { ImportComponent } from './import/import.component';
 
 const routes: Routes = [

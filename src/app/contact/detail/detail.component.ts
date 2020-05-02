@@ -34,6 +34,7 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContact();
+    this.form.disable();
   }
 
   getContact() {
