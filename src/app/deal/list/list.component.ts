@@ -56,21 +56,21 @@ export class ListComponent implements OnInit {
     {
       id: 5,
       name: 'contactId',
-      label: 'Contact Id',
+      label: 'Contact',
       checked: true
     },
 
     {
       id: 6,
       name: 'accountId',
-      label: 'Account Id',
+      label: 'Account',
       checked: true
     },
 
     {
       id: 7,
       name: 'expectedClose',
-      label: 'Expected Close',
+      label: 'Date',
       checked: true
     }
   ];

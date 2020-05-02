@@ -20,6 +20,7 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/tasks',
   '/links',
   '/picklists',
+  '/phones',
   '/deals'
 
 ];
