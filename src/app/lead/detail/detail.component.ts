@@ -40,7 +40,7 @@ export class DetailComponent implements OnInit {
       .subscribe(
         data => {
           this.leadModel = data;
-          console.log('# contact - ', JSON.stringify(this.leadModel));
+          console.log('# lead - ', JSON.stringify(this.leadModel));
           console.log('=== get Lead form config ===');
           this.getLeadFormConfig();
         },
