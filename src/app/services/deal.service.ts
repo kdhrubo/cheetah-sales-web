@@ -44,11 +44,16 @@ export class DealService {
       .pipe(catchError(err => this.handleError(err, 'find-all-search-deals')));
   }
 
+  findOne(id: string): Observable<Deal> {
+    const url = `${environment.api_base_url}/deals/findOne/` + id;
+    return this.httpClient
+      .get<Deal>(url)
+      .pipe(catchError(err => this.handleError(err, 'find-one-deal')));
+  }
 
   private handleError(error: any, methodName: string) {
     const message = !!error.detail ? error.detail : 'Please try again.';
     console.log('Error in ', methodName, '\n', error);
-
     return throwError(message);
   }
 }
