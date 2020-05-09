@@ -14,6 +14,7 @@ import { PicklistComponent } from './common/picklist/picklist.component';
 import { SelectwrapperComponent } from './common/selectwrapper/selectwrapper.component';
 import { AccountpicklistComponent } from './common/accountpicklist/accountpicklist.component';
 import { SharedModule } from './shared/shared.module';
+import { ContactPicklistComponent } from './common/contact-picklist/contact-picklist.component';
 
 
 
@@ -22,7 +23,8 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
     PicklistComponent,
     SelectwrapperComponent,
-    AccountpicklistComponent
+    AccountpicklistComponent,
+    ContactPicklistComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { SharedModule } from './shared/shared.module';
       types: [
         { name: 'pickList', component: PicklistComponent },
         { name: 'accountLookup', component: AccountpicklistComponent },
+        { name: 'contactLookup', component: ContactPicklistComponent },
         {
           name: 'select',
           component: FormlyFieldSelect,
