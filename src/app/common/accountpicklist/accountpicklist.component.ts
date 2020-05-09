@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from '../../services/account.service';
-import { Page } from 'src/app/models/page.model';
+import { Page } from '../../models/page.model';
+import { Account } from '../../models/account.model';
 
 @Component({
   selector: 'app-accountpicklist',

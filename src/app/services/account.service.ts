@@ -4,6 +4,7 @@ import { Page } from '../models/page.model';
 import { environment } from '../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Account } from '../models/account.model';
 
 @Injectable({
   providedIn: 'root'
