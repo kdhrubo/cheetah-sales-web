@@ -1,4 +1,4 @@
-import { PickList } from './picklist.model';
+import { EmailAddress } from './emailaddress.model';
 
 export class Contact {
   id: string;
@@ -22,4 +22,5 @@ export class Contact {
   linkedin: string;
   facebook: string;
   twitter: string;
+  emailAddresses: EmailAddress[];
 }

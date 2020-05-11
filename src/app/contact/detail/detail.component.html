@@ -43,7 +43,7 @@
       <app-address [related]="'Contact'" [relatedId]="id"></app-address>
       
 
-      <app-emailaddress [related]="'Contact'" [relatedId]="id"></app-emailaddress>
+      <app-emailaddress [emailAddresses]="contact?.emailAddresses" (addEmail)="addEmail($event)"></app-emailaddress>
 
       <app-phone [related]="'Contact'" [relatedId]="id"></app-phone>
 
