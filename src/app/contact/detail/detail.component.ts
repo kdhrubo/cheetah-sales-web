@@ -5,6 +5,7 @@ import { ContactService } from '../../services/contact.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../services/form.service';
+import { EmailAddress } from '../../models/emailaddress.model';
 
 
 @Component({
@@ -64,6 +65,20 @@ export class DetailComponent implements OnInit {
 
       error => {
         console.log('Unable to retrieve form information');
+      }
+
+    );
+  }
+
+  addEmail(emailAddress: EmailAddress) {
+    console.log('Email address ->>> ' + JSON.stringify(emailAddress));
+
+    this.contactService.addEmail(this.id, emailAddress).subscribe(
+      data => {
+        this.contact = data;
+      },
+      error => {
+        console.log('Error adding email address.');
       }
 
     );

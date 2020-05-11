@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { Contact } from '../models/contact.model';
 import { Page } from '../models/page.model';
+import { EmailAddress } from '../models/emailaddress.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,13 @@ export class ContactService {
       .post<Observable<any>>(url, data)
       .pipe(catchError(err => this.handleError(err, 'import-contact')));
 
+  }
+
+  addEmail(id: any, emailAddress: EmailAddress): Observable<any>  {
+    const url = `${environment.api_base_url}/contacts/${id}/emails`;
+    return this.httpClient
+      .post<Observable<any>>(url, emailAddress)
+      .pipe(catchError(err => this.handleError(err, 'save-email-address-contact')));
   }
 
   search(

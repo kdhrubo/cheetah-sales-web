@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { EmailAddress } from 'src/app/models/emailaddress.model';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { EmailAddress } from '../../../models/emailaddress.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormService } from '../../../services/form.service';
@@ -12,38 +12,19 @@ import { EmailaddressService } from '../../../services/emailaddress.service';
 })
 export class EmailaddressComponent implements OnInit {
 
-  rsql = 'deleted==false';
-  emailAddresses: EmailAddress[];
-
   model = {};
   form = new FormGroup({});
 
   fields: FormlyFieldConfig[];
 
-  options: FormlyFormOptions = {
-    formState: {
-      disabled: true,
-    },
-  };
+  @Input() emailAddresses: EmailAddress[];
 
-  @Input() related: string;
-  @Input() relatedId: string;
+  @Output() addEmail = new EventEmitter<object>();
 
   constructor(private formService: FormService, private emailaddressService: EmailaddressService) {}
 
   ngOnInit(): void {
-    this.rsql = `deleted==false&relatedEntity=${this.related}&relatedEntityId=${this.relatedId}`;
-
     this.getFormConfig();
-    this.search(this.rsql);
-  }
-  search(sql: string) {
-    this.emailaddressService.search(sql ).subscribe(
-      data => {
-        this.emailAddresses = data;
-      },
-      error => console.log('Error - ' + error.message)
-    );
   }
 
   getFormConfig() {
@@ -59,19 +40,12 @@ export class EmailaddressComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('Model - ' + this.model);
     let emailAddress: EmailAddress = this.model as EmailAddress;
-    emailAddress.relatedEntity = this.related;
-    emailAddress.relatedEntityId = this.relatedId;
-    this.emailaddressService.save(emailAddress).subscribe(
-      (data) => {
-        console.log('EmailAddress save success');
-        this.search(this.rsql);
-      },
-      (error) => {
-        console.log('EmailAddress save failure');
-      }
-    );
 
+    console.log('Model emailAddress- ' + JSON.stringify(emailAddress));
+
+    this.addEmail.emit(emailAddress);
   }
 
 }
