@@ -3,7 +3,6 @@ import { EmailAddress } from '../../../models/emailaddress.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormService } from '../../../services/form.service';
-import { EmailaddressService } from '../../../services/emailaddress.service';
 
 @Component({
   selector: 'app-emailaddress',
@@ -21,7 +20,7 @@ export class EmailaddressComponent implements OnInit {
 
   @Output() addEmail = new EventEmitter<object>();
 
-  constructor(private formService: FormService, private emailaddressService: EmailaddressService) {}
+  constructor(private formService: FormService) {}
 
   ngOnInit(): void {
     this.getFormConfig();

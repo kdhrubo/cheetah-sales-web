@@ -6,6 +6,8 @@ import { catchError } from 'rxjs/operators';
 import { Contact } from '../models/contact.model';
 import { Page } from '../models/page.model';
 import { EmailAddress } from '../models/emailaddress.model';
+import { Address } from '../models/address.model';
+import { Phone } from '../models/phone.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +45,20 @@ export class ContactService {
     return this.httpClient
       .post<Observable<any>>(url, emailAddress)
       .pipe(catchError(err => this.handleError(err, 'save-email-address-contact')));
+  }
+
+  addAddress(id: any, address: Address): Observable<any>  {
+    const url = `${environment.api_base_url}/contacts/${id}/addresses`;
+    return this.httpClient
+      .post<Observable<any>>(url, address)
+      .pipe(catchError(err => this.handleError(err, 'save-address-contact')));
+  }
+
+  addPhone(id: any, phone: Phone): Observable<any>  {
+    const url = `${environment.api_base_url}/contacts/${id}/phones`;
+    return this.httpClient
+      .post<Observable<any>>(url, phone)
+      .pipe(catchError(err => this.handleError(err, 'save-phone-contact')));
   }
 
   search(
