@@ -5,7 +5,5 @@ export class Address {
     city: string;
     state: string;
     country: string;
-
-    relatedEntity: string;
-    relatedEntityId: string;
+    type: string;
 }

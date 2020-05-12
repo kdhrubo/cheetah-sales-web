@@ -40,12 +40,11 @@
 
     <div class="col-md-3 bg-light mt-n3">
       
-      <app-address [related]="'Contact'" [relatedId]="id"></app-address>
-      
+      <app-address [addresses]="contact?.addresses" (addAddress)="addAddress($event)"></app-address>
 
       <app-emailaddress [emailAddresses]="contact?.emailAddresses" (addEmail)="addEmail($event)"></app-emailaddress>
 
-      <app-phone [related]="'Contact'" [relatedId]="id"></app-phone>
+      <app-phone [phones]="contact?.phones" (addPhone)="addPhone($event)"></app-phone>
 
       <app-link [related]="'Contact'" [relatedId]="id"></app-link>
       

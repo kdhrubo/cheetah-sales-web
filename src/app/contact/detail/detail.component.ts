@@ -6,6 +6,8 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../services/form.service';
 import { EmailAddress } from '../../models/emailaddress.model';
+import { Address } from '../../models/address.model';
+import { Phone } from '../../models/phone.model';
 
 
 @Component({
@@ -70,6 +72,20 @@ export class DetailComponent implements OnInit {
     );
   }
 
+  addAddress(address: Address) {
+    console.log('Address ->>> ' + JSON.stringify(address));
+
+    this.contactService.addAddress(this.id, address).subscribe(
+      data => {
+        this.contact = data;
+      },
+      error => {
+        console.log('Error adding  address.');
+      }
+
+    );
+  }
+
   addEmail(emailAddress: EmailAddress) {
     console.log('Email address ->>> ' + JSON.stringify(emailAddress));
 
@@ -79,6 +95,20 @@ export class DetailComponent implements OnInit {
       },
       error => {
         console.log('Error adding email address.');
+      }
+
+    );
+  }
+
+  addPhone(phone: Phone) {
+    console.log('Phone a ->>> ' + JSON.stringify(phone));
+
+    this.contactService.addPhone(this.id, phone).subscribe(
+      data => {
+        this.contact = data;
+      },
+      error => {
+        console.log('Error adding phone.');
       }
 
     );
