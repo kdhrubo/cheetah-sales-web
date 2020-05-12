@@ -32,7 +32,8 @@
 
       <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
       <app-task [related]="'Contact'" [relatedId]="id"></app-task>
-      <app-note [related]="'Contact'" [relatedId]="id"></app-note>
+
+      <app-note [notes]="contact?.notes" (addNote)="addNote($event)"></app-note>
       
 
     </div>
@@ -46,7 +47,7 @@
 
       <app-phone [phones]="contact?.phones" (addPhone)="addPhone($event)"></app-phone>
 
-      <app-link [related]="'Contact'" [relatedId]="id"></app-link>
+      <app-link [links]="contact?.links" (addLink)="addLink($event)"></app-link>
       
     </div>
     

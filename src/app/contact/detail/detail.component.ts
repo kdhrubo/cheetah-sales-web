@@ -8,6 +8,8 @@ import { FormService } from '../../services/form.service';
 import { EmailAddress } from '../../models/emailaddress.model';
 import { Address } from '../../models/address.model';
 import { Phone } from '../../models/phone.model';
+import { Link } from '../../models/link.model';
+import { Note } from 'src/app/models/note.model';
 
 
 @Component({
@@ -109,6 +111,31 @@ export class DetailComponent implements OnInit {
       },
       error => {
         console.log('Error adding phone.');
+      }
+
+    );
+  }
+
+  addLink(link: Link) {
+
+    this.contactService.addLink(this.id, link).subscribe(
+      data => {
+        this.contact = data;
+      },
+      error => {
+        console.log('Error adding link.');
+      }
+
+    );
+  }
+
+  addNote(note: Note) {
+    this.contactService.addNote(this.id, note).subscribe(
+      data => {
+        this.contact = data;
+      },
+      error => {
+        console.log('Error adding note.');
       }
 
     );
