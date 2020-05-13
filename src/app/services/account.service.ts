@@ -34,6 +34,12 @@ export class AccountService {
       .pipe(catchError(err => this.handleError(err, 'find-one-account')));
   }
 
+  save(account: any): Observable<any> {
+    const url = `${environment.api_base_url}/accounts`;
+    return this.httpClient
+      .post<Observable<any>>(url, account)
+      .pipe(catchError(err => this.handleError(err, 'Error reorted while saving accounts')));
+  }
 
   private handleError(error: any, methodName: string) {
     const message = !!error.detail ? error.detail : 'Please try again.';
