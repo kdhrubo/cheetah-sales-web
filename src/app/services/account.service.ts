@@ -41,6 +41,15 @@ export class AccountService {
       .pipe(catchError(err => this.handleError(err, 'Error reorted while saving accounts')));
   }
 
+  saveAll(accounts: Account[]): Observable<any> {
+    const url = `${environment.api_base_url}/accounts/import`;
+    const data = { 'accounts': accounts };
+    return this.httpClient
+      .post<Observable<any>>(url, data)
+      .pipe(catchError(err => this.handleError(err, 'Error while bulk import of accounts')));
+
+  }
+
   private handleError(error: any, methodName: string) {
     const message = !!error.detail ? error.detail : 'Please try again.';
     console.log('Error in ', methodName, '\n', error);
