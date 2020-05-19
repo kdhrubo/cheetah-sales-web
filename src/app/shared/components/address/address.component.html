@@ -1,29 +1,30 @@
-<div class="row">
-    <div class="col-md-6 col-sm-6">
-        <h5 class="mt-2 text-primary">Addresses</h5>
-       
-    </div>
-    <div class="col-md-6 col-sm-6">
-       
-        <button class="btn btn-sm btn-outline-success float-right mt-1" (click)="openLg(addrContent)" type="button">
-            <i class="fas fa-plus"></i> New 
-        </button>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
+<div class="shadow p-3 mb-2 bg-white rounded">
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <h5 class="mt-2 text-primary">Addresses</h5>
         
-           <address *ngFor="let a of addresses;">
-                {{a.street}} <br/>
-                {{a.city}}, <br/>
-                {{a.state}} - {{a.zip}} <br/>
-                {{a.country}}
-           </address>
+        </div>
+        <div class="col-md-6 col-sm-6">
+        
+            <button class="btn btn-sm btn-outline-success float-right mt-1" (click)="openLg(addrContent)" type="button">
+                <i class="fas fa-plus"></i> New 
+            </button>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            
+            <address *ngFor="let a of addresses;">
+                    {{a.street}} <br/>
+                    {{a.city}}, <br/>
+                    {{a.state}} - {{a.zip}} <br/>
+                    {{a.country}}
+            </address>
+
+        </div>
     </div>
 </div>
-
 <ng-template #addrContent let-modal>
     <div class="modal-header">
         <h4 class="modal-title">New Address</h4>
@@ -39,8 +40,10 @@
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
 
-                    <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
-                    <button type="button" class="btn btn-outline-primary float-right mr-2">Cancel</button>
+                    <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2" 
+                    (click)="modal.close('Close click')" 
+                    >Cancel</button>
                 </form>
             </div>
             <div class="col-1"></div>

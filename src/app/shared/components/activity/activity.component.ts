@@ -48,7 +48,7 @@ export class ActivityComponent implements OnInit {
   edit(activity: Activity) {}
 
   openLg(content) {
-    this.modalService.open(content, { size: 'lg' });
+    this.modalService.open(content, { size: 'xl', centered: true });
   }
 
   search(sql: string) {
