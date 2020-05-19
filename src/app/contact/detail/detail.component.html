@@ -1,50 +1,52 @@
-
-
 <div class="container-fluid">
+
+
   <div class="row">
-    
-    <div class="col-md-9 mt-n3">
+    <div class="col-md-1 mt-n3"></div>
 
-      
-      <div class="row">
-      
-        <div class="col-md-12">
+    <div class="col-md-8 mt-n3">
+
+      <div class="shadow p-3 mb-2 bg-white rounded">
+
+        <div class="row">
+
+          <div class="col-md-12">
             <h5 class="mt-1 text-primary">Contact Details</h5>
-        </div>
-        
-      </div>
-      
-      <div class="row">
-      
-        <div class="col-md-12">
-          <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <formly-form [form]="form" [fields]="fields" [model]="contact"></formly-form>
-            
-            <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
-              <i class="far fa-save"></i> 
-              Save</button>
-            <a type="button" class="btn btn-sm btn-outline-primary float-right mr-2" [routerLink]="['/contacts']">
-              <i class="fas fa-chevron-circle-left"></i> 
-              Cancel</a>
-          </form>
-        </div>
-        
-      </div>
-     
+          </div>
 
-      <hr/>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-12">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <formly-form [form]="form" [fields]="fields" [model]="contact"></formly-form>
+
+              <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                <i class="far fa-save"></i>
+                Save</button>
+              <a type="button" class="btn btn-sm btn-outline-primary float-right mr-2" [routerLink]="['/contacts']">
+                <i class="fas fa-chevron-circle-left"></i>
+                Cancel</a>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+
 
       <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
       <app-task [related]="'Contact'" [relatedId]="id"></app-task>
 
       <app-note [notes]="contact?.notes" (addNote)="addNote($event)"></app-note>
-      
+
 
     </div>
-    
 
-    <div class="col-md-3 bg-light mt-n3">
-      
+
+    <div class="col-md-2 mt-n3">
+
       <app-address [addresses]="contact?.addresses" (addAddress)="addAddress($event)"></app-address>
 
       <app-emailaddress [emailAddresses]="contact?.emailAddresses" (addEmail)="addEmail($event)"></app-emailaddress>
@@ -52,13 +54,11 @@
       <app-phone [phones]="contact?.phones" (addPhone)="addPhone($event)"></app-phone>
 
       <app-link [links]="contact?.links" (addLink)="addLink($event)"></app-link>
-      
+
     </div>
-    
+
+    <div class="col-md-1 mt-n3"></div>
+
   </div>
 
-</div>  
-
-
-
-  
+</div>
