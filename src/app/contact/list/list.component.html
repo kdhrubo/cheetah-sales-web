@@ -1,160 +1,73 @@
 <div class="container-fluid">
 
+   
     <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-2">
-            <h5 class="mt-2">Contacts</h5>
-        </div>
-
-        <div class="col-sm-8">
-
-            <button type="button" class="btn btn-sm btn-outline-primary mt-2" (click)="isCollapsed = !isCollapsed"
-                [attr.aria-expanded]="!isCollapsed" aria-controls="column-selectors">
-                Columns
-            </button>
-
-            <button type="button" class="btn btn-sm btn-outline-primary ml-1 mt-2" (click)="isCollapsedFilter = !isCollapsedFilter"
-                [attr.aria-expanded]="!isCollapsedFilter" aria-controls="column-filters">
-                Filters
-            </button>
-
-            <a routerLink="/contacts/create" class="btn btn-sm btn-primary ml-1 mt-2">New</a>
-            <a routerLink="/contacts/import" class="btn btn-sm btn-primary-outline ml-1 mt-2">Import Contacts</a>
-
-        </div>
-        <div class="col-1"></div>
-    </div>
-    <!--column selector-->
-    <div class="row pt-1 pb-1">
 
         <div class="col-1"></div>
+        <div class="col-md-10">
 
-        <div class="col-lg-10">
-            <div id="column-selectors" [ngbCollapse]="isCollapsed">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-1" *ngFor="let f of fields; let i = index">
+            <div class="p-3 bg-white rounded shadow-lg">
 
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" [value]="f.id"
-                                        [checked]="f.checked" (change)="toggleEditable($event)">
-                                    <label class="form-check-label" for="exampleCheck1">{{f.label}}</label>
-                                </div>
+                <div class="d-flex bd-highlight border-bottom border-gray pb-2 mb-0 d-block  mt-1">
+                    <div class="p-2 flex-fill bd-highlight"><h5 class="text-primary">Contacts</h5></div>
+                    <div class="p-2 flex-fill bd-highlight"> 
+                        <a routerLink="/contacts/create" class="btn btn-sm btn-outline-success ">
+                            <i class="fas fa-plus"></i> 
+                            New
+                        </a>
+        
+                        <a routerLink="/contacts/import" class="btn btn-sm btn-outline-success ml-2">
+                            <i class="fas fa-upload"></i> 
+                        Import 
+                        </a>
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight text-right small"><a href="#"><i class="fas fa-sync"></i> Refresh</a></div>
+                </div>
 
 
-                            </div>
+                <div class="media text-muted pt-3" *ngFor="let contact of contactPage?.content; let i = index;">
+                    <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32"
+                        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
+                        role="img" aria-label="Placeholder: 32x32">
+                        <title>Placeholder</title>
+                        <g>
+                            <rect width="100%" height="100%" fill="#007bff" />
+                            <text x="50%" y="50%" fill="#fff"
+                                dy=".3em">{{contact.firstName | titlecase| slice:0:1}}
+                            </text>
+                        </g>
+                    </svg>
+
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <strong class="text-gray-dark">
+                                <a routerLink="/contacts/{{contact['id']}}">
+                                    {{contact.firstName}} {{contact.lastName}}
+                                </a>
+                            </strong>
+
+                            <a class="text-danger" (click)='delete(contact)'>Delete</a>
+                        </div>
+                        <div class="d-block">
+                            <span>@username</span> |
+                            <span>@username</span>
                         </div>
                     </div>
+
                 </div>
-            </div>
-        </div>
-
-        <div class="col-1"></div>
-
-    </div>
-
-    <!-- column filter -->
-
-    <div class="row pt-1 pb-1">
-
-        <div class="col-lg-1"></div>
-
-        <div class="col-lg-10">
-            <div id="column-filters" [ngbCollapse]="isCollapsedFilter">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row"  *ngFor="let f of fields; let i = index">
-                            <ng-container *ngIf="f?.filter?.type == 'string'">
-                                <div class="col-sm-3" >
-                                    {{f.label}}
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <select class="custom-select custom-select-sm" [(ngModel)]="f.filter.operator">
-                                        <option value="==">Eq</option>
-                                        <option value="!=">Not Eq</option>
-                                        <option value="*">Contains</option>
-                                    </select>
-    
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="f.filter.operand">
-                                </div>
-    
-                            </ng-container>    
-
-                            
-
-                        </div>
-                        <!--to be fixed-->
-                        <div class="row justify-content-end">
-                            <button type="button" class="btn btn-sm btn-primary float-right mt-2" 
-                                (click)="applyfilterSearch()">
-                                Apply
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-1"></div>
-
-    </div>
-
-
-
-
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-lg-10">
-            <div class="table-responsive-md">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <ng-container *ngFor="let f of fields; let i = index; trackBy: trackFn">
-                                <th scope="col" *ngIf="f.checked">{{f.label}}</th>
-                            </ng-container>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let contact of contactPage?.content; let i = index;">
-                            <th scope="row"></th>
-                            <ng-container *ngFor="let f of fields; let i = index;">
-                                <td *ngIf="f.checked">
-                                    <a routerLink="/contacts/{{contact['id']}}">
-                                        {{contact[f.name]}}
-                                    </a>
-                                </td>
-                            </ng-container>
-
-                            <td>
-                                
-                                <a class="text-danger" (click)='delete(contact)'>Delete</a>
-                                
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-                </table>
 
                 <div class="d-flex justify-content-between p-2">
 
 
                     <ngb-pagination [collectionSize]="collectionSize" [(page)]="pageNo" [maxSize]="5" [rotate]="true"
-                        class="pagination pagination-sm text-success"
-                        [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="loadNextPage($event)">
+                        class="pagination pagination-sm small text-success" [pageSize]="pageSize" [boundaryLinks]="true"
+                        (pageChange)="loadNextPage($event)">
                     </ngb-pagination>
 
                     <div>
-                        <span># of rows: </span>
-                        <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize"
-                        (change)="listLeadElement($event.target.value)">
+                        <small># of rows: </small>
+                        <select class="custom-select small custom-select-sm" style="width: auto" [(ngModel)]="pageSize"
+                            (change)="listLeadElement($event.target.value)">
                             <option [value]="10">10</option>
                             <option [value]="20">20</option>
                             <option [value]="30">30</option>
@@ -164,10 +77,12 @@
                 </div>
 
             </div>
-
         </div>
 
         <div class="col-1"></div>
-
     </div>
+
+
+
+
 </div>
