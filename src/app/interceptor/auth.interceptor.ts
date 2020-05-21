@@ -43,11 +43,10 @@ export class AuthInterceptor implements HttpInterceptor {
     // console.log('Auth - ' + authJwt) ;
 
     if (!!authJwt && AUTH_REQUIRED_ENDPOINTS.find(data => req.url.includes(data))) {
-      const tenantId = this.authService.getTenant();
+      
       req = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.getToken(authJwt)}`,
-          'X-TENANT-ID': `${tenantId}`
+          Authorization: `Bearer ${this.getToken(authJwt)}`
         }
       });
     }
