@@ -45,15 +45,6 @@ export class AuthService {
   }
 
 
-  getTenant() {
-    const token = this.helperService.decodeToken(this._authJwt?.access_token);
-
-    // tslint:disable-next-line: no-unused-expression
-    const tenantId = token?.tenantId;
-
-    return tenantId;
-  }
-
   get isLoggedIn() {
     this.loggedIn.next(this.isAuthenticated());
     return this.loggedIn.asObservable();
