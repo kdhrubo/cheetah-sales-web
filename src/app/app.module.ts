@@ -40,7 +40,7 @@ import { ContactPicklistComponent } from './common/contact-picklist/contact-pick
         { name: 'formly-select-wrapper', component: SelectwrapperComponent },
       ],
       types: [
-        { name: 'pickList', component: PicklistComponent },
+        { name: 'picklist', component: PicklistComponent },
         { name: 'accountLookup', component: AccountpicklistComponent },
         { name: 'contactLookup', component: ContactPicklistComponent },
         {
