@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PickList } from 'src/app/models/picklist.model';
 import { PicklistService } from 'src/app/services/picklist.service';
 
@@ -10,16 +9,15 @@ import { PicklistService } from 'src/app/services/picklist.service';
   styleUrls: ['./picklist.component.css']
 })
 export class PicklistComponent extends FieldType implements OnInit {
-  to: any;
+ 
   pickLists: PickList[];
 
   label: string;
   domain: string;
 
-  val = '';
+  fieldName: string;
 
   constructor(
-    private modalService: NgbModal,
     private pickListService: PicklistService
   ) {
     super();
@@ -27,12 +25,9 @@ export class PicklistComponent extends FieldType implements OnInit {
 
   ngOnInit(): void {
     this.label = this.to.label;
-    this.domain = this.to.attributes.pickList;
-
-    
-
-    // console.log('@@@ ckey -' + this.to.cKey);
-    // console.log('model - ' + JSON.stringify(this.model[this.to.cKey]));
+    this.domain = this.to.domain;
+    this.fieldName = this.to.val;
+    console.log('model - ' + JSON.stringify(this.to));
     // this.setField(this.model[this.to.cKey]);
     this.load();
   }
@@ -46,15 +41,11 @@ export class PicklistComponent extends FieldType implements OnInit {
     );
   }
 
-  openLg(content) {
-    this.modalService.open(content, { size: 'lg' });
-  }
 
-  setField(d: PickList) {
+  onItemSelectionChanged(d: any) {
     console.log('d - ' + JSON.stringify(d));
-    if ( d?.id != null ){
-      this.val = d?.value;
-      this.formControl.setValue(d?.id);
-    }
+    let p = this.pickLists.find(e => e.id === d);
+    console.log('PL - ' + JSON.stringify(p));
+    this.model[this.fieldName] = p?.value;
   }
 }
