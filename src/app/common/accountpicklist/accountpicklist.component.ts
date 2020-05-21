@@ -22,6 +22,7 @@ export class AccountpicklistComponent extends FieldType implements OnInit {
 
   accountId: string;
   account: Account;
+  fieldName = 'accountName';
 
   constructor(private modalService: NgbModal,
               private accountService: AccountService) {
@@ -29,8 +30,8 @@ export class AccountpicklistComponent extends FieldType implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('### key - ' + this.field.key);
-    console.log('### account id - ' + this.model[this.field.key]);
+    // console.log('### key - ' + this.field.key);
+    // console.log('### account id - ' + this.model[this.field.key]);
     this.accountId = this.model[this.field.key];
     if (this.accountId != null) {
       console.log('## get account details ');
@@ -59,10 +60,11 @@ export class AccountpicklistComponent extends FieldType implements OnInit {
   }
 
   setField(a: Account) {
-    console.log('a - ' + JSON.stringify(a));
+    // console.log('a - ' + JSON.stringify(a));
     if ( a?.id != null ) {
       this.val = a?.name;
       this.formControl.setValue(a?.id);
+      this.model[this.fieldName] = a?.name;
     }
   }
 
