@@ -22,7 +22,6 @@ export class DetailComponent implements OnInit {
   contact: Contact;
   id: any;
   form = new FormGroup({});
-  active = 1;
 
   fields: FormlyFieldConfig[] ;
 
@@ -33,7 +32,6 @@ export class DetailComponent implements OnInit {
   };
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
               private contactService: ContactService,
               private formService: FormService) { }
 

@@ -21,7 +21,8 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/links',
   '/picklists',
   '/phones',
-  '/deals'
+  '/deals',
+  '/tenants'
 
 ];
 
