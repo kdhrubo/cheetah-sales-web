@@ -20,12 +20,6 @@ export class ActivityComponent implements OnInit {
 
   fields: FormlyFieldConfig[];
 
-  options: FormlyFormOptions = {
-    formState: {
-      disabled: true,
-    },
-  };
-
   @Input() related: string;
   @Input() relatedId: string;
 
