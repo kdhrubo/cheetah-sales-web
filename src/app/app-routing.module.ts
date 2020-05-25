@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'accounts', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) , canActivate: [AuthGuard]},
   { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
   { path: 'category', loadChildren: () => import('./category/category.module').then(m => m.CategoryModule) },
-  { path: 'admin', loadChildren: () => import('./tenant/tenant.module').then(m => m.TenantModule) , canActivate: [AuthGuard] },
+  { path: 'cockpit', loadChildren: () => import('./tenant/tenant.module').then(m => m.TenantModule) , canActivate: [AuthGuard] },
   { path: 'guest', loadChildren: () => import('./guest/guest.module').then(m => m.GuestModule) },
 ];
 

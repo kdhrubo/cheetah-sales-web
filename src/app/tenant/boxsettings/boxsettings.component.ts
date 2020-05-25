@@ -2,29 +2,39 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormService } from '../../services/form.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BoxsettingService } from '../../services/boxsetting.service';
+import { BoxSetting } from 'src/app/models/boxsetting.model';
 
 @Component({
   selector: 'app-boxsettings',
   templateUrl: './boxsettings.component.html',
-  styleUrls: ['./boxsettings.component.css']
+  styleUrls: ['./boxsettings.component.css'],
 })
 export class BoxsettingsComponent implements OnInit {
-  
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
+  boxSettings: BoxSetting;
 
-  @Input() boxSettings: any;
-
-  @Output() addBox = new EventEmitter<object>();
-
-
-
-  constructor(private modalService: NgbModal,
-              private formService: FormService) { }
+  constructor(
+    private boxsettingService: BoxsettingService,
+    private formService: FormService
+  ) {}
 
   ngOnInit(): void {
-    this.getFormConfig();
+    this.getContact();
+  }
+
+  getContact() {
+    this.boxsettingService.findOne().subscribe(
+      (data) => {
+        console.log('data - ' + data);
+        this.boxSettings = data;
+        this.getFormConfig();
+      },
+      (error) => {
+        console.log('Unable to retrieve Boxsettings details');
+      }
+    );
   }
 
   getFormConfig() {
@@ -41,7 +51,18 @@ export class BoxsettingsComponent implements OnInit {
 
   onSubmit() {
 
-    this.addBox.emit(this.boxSettings);
-  }
 
+    console.log('Box settings - ' + JSON.stringify(this.boxSettings));
+
+    this.boxsettingService.save(this.boxSettings).subscribe(
+        data => {
+          this.boxSettings = data;
+        },
+        error => {
+          console.log('Error adding  box.');
+        }
+
+      );
+
+  }
 }
