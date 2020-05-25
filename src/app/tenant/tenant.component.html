@@ -2,16 +2,16 @@
 
 
     <div class="row">
-      <div class="col-md-1 mt-n3"></div>
+      <div class="col-md-1"></div>
   
-      <div class="col-md-8 mt-n3">
+      <div class="col-md-8">
   
         <div class="shadow p-3 mb-2 bg-white rounded">
   
           <div class="row">
   
             <div class="col-md-12">
-              <h5 class="mt-1 text-primary">Cockpit</h5>
+              <h5 class="mt-1 text-primary">Company Info</h5>
             </div>
   
           </div>
@@ -21,7 +21,7 @@
             <div class="col-md-12">
              
               <form [formGroup]="form" >
-                <formly-form [form]="form" [fields]="fields" [model]="tenant"></formly-form>
+                <formly-form [form]="form" [fields]="fields" [model]="tenant" [options]="options"></formly-form>
                 
                 <!--
                 <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
@@ -38,18 +38,12 @@
           </div>
         </div>
   
-  
-        <!--
-        <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
-        <app-task [related]="'Contact'" [relatedId]="id"></app-task>
-  
-        <app-note [notes]="contact?.notes" (addNote)="addNote($event)"></app-note>
-            -->
-  
+        <app-boxsettings [boxSettings]="tenant?.boxSettings" (addBox)="addBox($event)"></app-boxsettings>
+       
       </div>
   
   
-      <div class="col-md-2 mt-n3">
+      <div class="col-md-2">
         <!--
         <app-address [addresses]="contact?.addresses" (addAddress)="addAddress($event)"></app-address>
   
@@ -61,7 +55,7 @@
             -->
       </div>
   
-      <div class="col-md-1 mt-n3"></div>
+      <div class="col-md-1"></div>
   
     </div>
   

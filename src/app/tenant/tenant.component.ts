@@ -59,4 +59,18 @@ export class TenantComponent implements OnInit {
     );
   }
 
+  addBox(boxSettings:any) {
+    console.log('Box settings - ' + JSON.stringify(boxSettings));
+
+    this.tenantService.addBox(boxSettings).subscribe(
+      data => {
+        this.tenant = data;
+      },
+      error => {
+        console.log('Error adding  box.');
+      }
+
+    );
+  }
+
 }
