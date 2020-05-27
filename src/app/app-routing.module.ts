@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'category', loadChildren: () => import('./category/category.module').then(m => m.CategoryModule) },
   { path: 'cockpit', loadChildren: () => import('./tenant/tenant.module').then(m => m.TenantModule) , canActivate: [AuthGuard] },
   { path: 'guest', loadChildren: () => import('./guest/guest.module').then(m => m.GuestModule) },
+  { path: 'docs', loadChildren: () => import('./document/document.module').then(m => m.DocumentModule) },
 ];
 
 @NgModule({
