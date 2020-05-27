@@ -9,9 +9,11 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isMenuCollapsed" >
         <ul class="navbar-nav mr-auto">
+
             <li class="nav-item active">
                 <a class="nav-link" [routerLink]="'.'" (click)="isMenuCollapsed = true">Dashboard <span class="sr-only">(current)</span></a>
             </li>
+            <!--
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="'leads'" (click)="isMenuCollapsed = true">Leads</a>
             </li>
@@ -24,17 +26,46 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="'accounts'" (click)="isMenuCollapsed = true">Accounts</a>
             </li>
+            -->
 
-           
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">Inventory</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" [routerLink]="'leads'" (click)="isMenuCollapsed = true">Categories</a>
-                    <a class="dropdown-item" [routerLink]="'leads'" (click)="isMenuCollapsed = true">Products</a>
-                    <a class="dropdown-item" [routerLink]="'leads'" (click)="isMenuCollapsed = true">Price Books</a>
+            <li class="nav-item" ngbDropdown>
+                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown1" role="button">
+                  Sales
+                </a>
+                <div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu">
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'leads'">Leads</a>
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'contacts'">Contacts</a>
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'deals'">Deals</a>
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'accounts'">Accounts</a>
                 </div>
             </li>
+
+            <li class="nav-item" ngbDropdown>
+                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown2" role="button">
+                    Inventory
+                </a>
+                <div ngbDropdownMenu aria-labelledby="navbarDropdown2" class="dropdown-menu">
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'categories'">Categories</a>
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'products'">Products</a>
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'pricebooks'">Price Books</a>
+                  
+                </div>
+            </li>
+
+            <li class="nav-item" ngbDropdown>
+                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown2" role="button">
+                    Inventory
+                </a>
+                <div ngbDropdownMenu aria-labelledby="navbarDropdown2" class="dropdown-menu">
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'docs'">Documents</a>
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'calendars'">Calendar</a>
+                  <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'todo'">TODO</a>
+                  
+                </div>
+            </li>
+
+           
+
             
         </ul>
         <ul class="navbar-nav">
