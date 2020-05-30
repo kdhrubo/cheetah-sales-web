@@ -30,8 +30,6 @@ export class ActivityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // console.log('related - ' + this.related);
-    // console.log('relatedId - ' + this.relatedId);
 
     this.rsql = `deleted==false&relatedEntity=${this.related}&relatedEntityId=${this.relatedId}`;
 

@@ -1,1 +1,115 @@
-<p>document works!</p>
+<div class="container-fluid">
+
+    <div class="row no-gutters">
+        
+        <div class="col-md-1 col-lg-1"></div>
+
+        <div class="col-md-2 col-lg-2 col-sm-2 col-2">
+            
+            <h5 class="text-primary">Documents</h5>
+        </div>
+
+        <div class="col-md-3 col-lg-3 col-sm-3">
+
+            <div ngbDropdown class="d-inline-block float-left">
+                <button class="btn btn-sm btn-outline-success dropdown-toggle" 
+                    id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-plus"></i> New</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem (click)="openCreateFolder(newFolderContent)" class="btn-sm">Folder</button>
+                  <button ngbDropdownItem (click)="openCreateFolder(newFolderContent)" class="btn-sm">File</button>
+                  <button ngbDropdownItem (click)="openCreateFolder(newFolderContent)" class="btn-sm">Link</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-5 col-lg-5 col-sm-2">
+            <div class="input-group"> 
+                <input type="text" class="form-control form-control-sm col-md-8 col-lg-8"  placeholder="Search">
+                <div class="input-group-append"> 
+                    <button class="btn btn-primary btn-sm search-button" type="submit"> <i class="fa fa-search"></i> </button>
+                </div>
+            </div>
+        </div>
+
+
+        
+        
+        <div class="col-md-1 col-lg-1"></div>
+
+    </div>
+    
+
+    <div class="row mt-2">
+        
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10">
+            <div class="row">
+                <div *ngIf="!documents || documents.length === 0">
+                    <div class="col-md-12 float-right">
+                        <a class="text-danger small" (click)="goBack()"><i class="fas fa-long-arrow-alt-left"></i> {{parentName}}</a>
+                        <span class="text-danger small border-left"> 0 Items</span> 
+                    </div>
+                </div>
+
+                <div *ngIf="documents && documents.length > 0">
+                    <div class="col-md-12 float-right">
+                        <a class="text-success small" (click)="goBack()"><i class="fas fa-long-arrow-alt-left"></i> {{parentName}}</a>
+                        <span class="text-success small border-left"> {{documents.length}} Items.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="shadow bg-white rounded" *ngIf="documents && documents.length > 0">
+
+                <ul class="list-group list-group-flush" >
+                    <li class="list-group-item" *ngFor="let d of documents;">
+                        <div>
+                            <a (click)="go(d)"  *ngIf="d.documentType == 'folder'" class="text-primary"><i class="fas fa-folder"></i> {{d.name}}</a>
+                            <a href="#"  *ngIf="d.documentType != 'folder'"><i class="fas fa-file-{{d.documentType}}"></i> {{d.name}}</a>
+                        </div>
+                        <div class="small">{{d.createdDate | date:'mediumDate'}}</div>
+                    </li>
+                  </ul>
+
+            </div>
+           
+        </div>
+
+        <div class="col-md-1"></div>
+
+    </div>
+
+</div>
+
+<!-- create folder template -->
+<ng-template #newFolderContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">New Folder</h5>
+
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <form [formGroup]="form" (ngSubmit)="onSubmitForNewFolder()">
+                    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+
+                    <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                        <i class="far fa-save"></i> 
+                        Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+                    (click)="modal.close('Cross click')">
+                    <i class="fas fa-window-close"></i> 
+                    Cancel</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+</ng-template>
