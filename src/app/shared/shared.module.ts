@@ -15,7 +15,6 @@ import { LinkComponent } from './components/link/link.component';
 import { PhoneComponent } from './components/phone/phone.component';
 
 
-
 @NgModule({
   declarations: [NoteComponent, ActivityComponent, TaskComponent, AddressComponent, EmailaddressComponent, LinkComponent, PhoneComponent],
   imports: [
@@ -26,6 +25,7 @@ import { PhoneComponent } from './components/phone/phone.component';
     FormsModule,
     FormlyModule.forChild(),
     FormlyBootstrapModule
+
   ],
   exports: [NoteComponent, ActivityComponent, TaskComponent, AddressComponent, EmailaddressComponent, LinkComponent, PhoneComponent]
 })
