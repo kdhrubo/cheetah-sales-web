@@ -20,6 +20,14 @@ export class DocumentService {
       .pipe(catchError(err => this.handleError(err, 'save-folder')));
   }
 
+  saveFile(formData: any): Observable<any> {
+    console.log('Saving file');
+    const url = `${environment.api_base_url}/docs/files`;
+    return this.httpClient
+      .post<Observable<any>>(url, formData)
+      .pipe(catchError(err => this.handleError(err, 'save-ffile')));
+  }
+
   search(
     rsql: string
   ): Observable<DocumentItem[]> {
