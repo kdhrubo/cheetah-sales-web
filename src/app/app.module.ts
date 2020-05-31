@@ -15,6 +15,8 @@ import { SelectwrapperComponent } from './common/selectwrapper/selectwrapper.com
 import { AccountpicklistComponent } from './common/accountpicklist/accountpicklist.component';
 import { SharedModule } from './shared/shared.module';
 import { ContactPicklistComponent } from './common/contact-picklist/contact-picklist.component';
+import { FormlyFieldFile } from './common/file/filetype.component';
+import { FileValueAccessor } from './common/file/file-value-accessor';
 
 
 
@@ -24,7 +26,9 @@ import { ContactPicklistComponent } from './common/contact-picklist/contact-pick
     PicklistComponent,
     SelectwrapperComponent,
     AccountpicklistComponent,
-    ContactPicklistComponent
+    ContactPicklistComponent,
+    FileValueAccessor,
+    FormlyFieldFile
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,7 @@ import { ContactPicklistComponent } from './common/contact-picklist/contact-pick
       ],
       types: [
         { name: 'picklist', component: PicklistComponent },
+        { name: 'file', component: FormlyFieldFile },
         { name: 'accountLookup', component: AccountpicklistComponent },
         { name: 'contactLookup', component: ContactPicklistComponent },
         {

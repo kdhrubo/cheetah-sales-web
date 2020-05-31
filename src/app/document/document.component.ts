@@ -51,7 +51,6 @@ export class DocumentComponent implements OnInit {
   }
 
   onSubmitForNewFolder() {
-    
     const docItem: DocumentItem = this.model as DocumentItem;
 
     docItem.documentType = 'folder';
@@ -73,6 +72,37 @@ export class DocumentComponent implements OnInit {
     );
   }
 
+  openCreateFile(content) {
+
+    this.loadForm('create-file-form', content);
+  }
+
+  onSubmitForNewFile() {
+    const docItem: DocumentItem = this.model as DocumentItem;
+
+    const rsql = `deleted==false;parentName=="${this.parentName}"`;
+
+    const formData: FormData = new FormData();
+    formData.append('file', this.model.file[0]);
+
+    formData.append('parentName', this.currentDoc ? this.currentDoc?.name : this.parentName);
+    formData.append('parentId', this.currentDoc? this.currentDoc?.id : null);
+
+    formData.append('documentSourceId', docItem.documentSourceId);
+    formData.append('documentSource', docItem.documentSource);
+
+    this.documentService.saveFile(formData).subscribe(
+      (data) => {
+        console.log('DocumentItem save success');
+        this.search(rsql);
+      },
+      (error) => {
+        console.log('DocumentItem save failure');
+      }
+    );
+
+  }
+
   loadForm(formName: string, content: any) {
     this.formService.getFields(formName).subscribe(
       (data) => {
@@ -90,7 +120,7 @@ export class DocumentComponent implements OnInit {
     this.parentName = doc.name;
     this.prevDoc = this.currentDoc;
     this.currentDoc = doc;
-    console.log('current doc - ' + JSON.stringify(this.currentDoc));
+    // console.log('current doc - ' + JSON.stringify(this.currentDoc));
     const rsql = `deleted==false;parentName=="${this.parentName}"`;
     this.search(rsql);
   }
@@ -99,7 +129,7 @@ export class DocumentComponent implements OnInit {
     this.parentName = this.currentDoc?.parentName;
     this.currentDoc = this.prevDoc;
     const rsql = `deleted==false;parentName=="${this.parentName}"`;
-    console.log('rsql - ' + rsql);
+    // console.log('rsql - ' + rsql);
     this.search(rsql);
   }
 
