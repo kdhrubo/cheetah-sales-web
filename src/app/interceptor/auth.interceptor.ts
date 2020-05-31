@@ -1,9 +1,9 @@
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {catchError} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {JwtHelperService} from '@auth0/angular-jwt';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { AuthService } from '../services/auth.service';
 import { AuthJwt } from '../models/auth.model';
@@ -23,7 +23,8 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/phones',
   '/deals',
   '/cockpit',
-  '/docs'
+  '/docs',
+  '/category'
 ];
 
 @Injectable()
@@ -32,7 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
   private helperService = new JwtHelperService();
 
   constructor(private authService: AuthService,
-              private router: Router) {
+    private router: Router) {
 
 
   }
@@ -44,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // console.log('Auth - ' + authJwt) ;
 
     if (!!authJwt && AUTH_REQUIRED_ENDPOINTS.find(data => req.url.includes(data))) {
-      
+
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${this.getToken(authJwt)}`

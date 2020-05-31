@@ -1,1 +1,29 @@
-<p>detail works!</p>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+          <h5 class="mt-2">View Category</h5>
+      </div>
+  
+      <div class="col-sm-6">
+  
+          
+      </div>
+      <div class="col-1"></div>
+    </div>
+  
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-lg-10">
+        <form [formGroup]="form" (ngSubmit)="updateCategoryRecord()">
+          <formly-form [form]="form" [fields]="fields" [model]="categoryModel" [options]="options"></formly-form>
+
+          
+          <button type="submit" class="btn btn-sm btn-outline-primary float-right mr-2" (click)="edit()">Edit</button>
+          <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">Save</button>
+          <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2" (click)="cancel()">Cancel</button>
+        </form>
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
