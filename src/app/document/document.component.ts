@@ -80,13 +80,17 @@ export class DocumentComponent implements OnInit {
   onSubmitForNewFile() {
     const docItem: DocumentItem = this.model as DocumentItem;
 
+    console.log('Save file  - ' + docItem);
+
     const rsql = `deleted==false;parentName=="${this.parentName}"`;
 
     const formData: FormData = new FormData();
-    formData.append('file', this.model.file[0]);
+    formData.append('file', docItem?.file[0]);
 
     formData.append('parentName', this.currentDoc ? this.currentDoc?.name : this.parentName);
-    formData.append('parentId', this.currentDoc? this.currentDoc?.id : null);
+    if (this.currentDoc) { 
+      formData.append('parentId', this.currentDoc?.id );
+    }
 
     formData.append('documentSourceId', docItem.documentSourceId);
     formData.append('documentSource', docItem.documentSource);
