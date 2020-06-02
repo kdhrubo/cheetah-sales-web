@@ -7,6 +7,7 @@ export class DocumentItem {
   parentName: string;
   parentId: string;
 
+  file: any[];
   
   version: number;
   createdBy: string;
