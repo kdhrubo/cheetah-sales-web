@@ -1,62 +1,47 @@
-<div class="shadow p-3 mb-2 bg-white rounded">
-
-    <div class="row">
-        <div class="col-md-3 col-sm-3">
-            <h5 class="mt-2 text-primary">Tasks</h5>
-
-        </div>
-        <div class="col-md-3 col-sm-3">
-
-            <button class="btn btn-sm btn-outline-success" (click)="openLg(longContent)" type="button">
-                <i class="fas fa-plus"></i> New
-            </button>
-        </div>
+<div class="table-responsive-md">
+    <div class="mt-1 mb-1 float-right">
+        <button class="btn btn-sm btn-outline-success" (click)="openLg(longContent)" type="button">
+            <i class="fas fa-plus"></i> New
+        </button>
     </div>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col"></th>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table-responsive-md">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
+                <th>Subject</th>
 
-                            <th>Subject</th>
+                <th>When</th>
+                <th>Action</th>
 
-                            <th>When</th>
-                            <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let task of tasks;">
+                <th scope="row"></th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let task of tasks;">
-                            <th scope="row"></th>
-
-                            <td>
-                                {{task?.subject}}
-                            </td>
+                <td>
+                    {{task?.subject}}
+                </td>
 
 
-                            <td>
-                                {{task?.dueDate}}
-                            </td>
+                <td>
+                    {{task?.dueDate}}
+                </td>
 
-                            <td>
+                <td>
 
-                                <a class="text-danger" (click)='edit(task)'>Delete</a>
+                    <a class="text-danger" (click)='edit(task)'>Delete</a>
 
-                            </td>
+                </td>
 
-                        </tr>
+            </tr>
 
-                    </tbody>
-                </table>
+        </tbody>
+    </table>
 
-            </div>
-
-        </div>
-    </div>
 </div>
+
 <ng-template #longContent let-modal>
     <div class="modal-header">
         <h4 class="modal-title">New Task</h4>

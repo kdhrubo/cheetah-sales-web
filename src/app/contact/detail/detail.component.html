@@ -1,23 +1,24 @@
 <div class="container-fluid">
 
-
   <div class="row">
-    <div class="col-md-1 mt-n3"></div>
 
-    <div class="col-md-8 mt-n3">
+    <!-- column 1 -->
+    <div class="col-md-1 col-lg-1 col-1 mt-n2">
+      
+    </div>
 
-      <div class="shadow p-3 mb-2 bg-white rounded">
+    <!--column 2-->
+    <div class="col-md-8 col-lg-8 col-8 mt-n2">
 
-        <div class="row">
+      <div class="row">
 
-          <div class="col-md-12">
-            <h5 class="mt-1 text-primary">Contact Details</h5>
-          </div>
-
+        <div class="col-md-12">
+          <h5 class="text-primary">Contact Details</h5>
         </div>
+      </div>
 
-        <div class="row">
-
+      <div class="row shadow p-3 mb-2 bg-white rounded">
+        
           <div class="col-md-12">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
               <formly-form [form]="form" [fields]="fields" [model]="contact"></formly-form>
@@ -31,21 +32,97 @@
             </form>
           </div>
 
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Activities</h5>
+        </div>
+      </div>
+      
+      <div class="row shadow p-3 mb-2 bg-white rounded">
+        <div class="col-md-12">
+          <ul ngbNav #nav="ngbNav" class="nav-pills">
+            <li ngbNavItem>
+              <a ngbNavLink>Meetings</a>
+              <ng-template ngbNavContent>
+
+                <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
+
+              </ng-template>
+            </li>
+            
+            <li ngbNavItem>
+              <a ngbNavLink>TODOs</a>
+              <ng-template ngbNavContent>
+
+                <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
+
+              </ng-template>
+            </li>
+            <li ngbNavItem>
+              <a ngbNavLink>Notes</a>
+              <ng-template ngbNavContent>
+
+                <app-note [notes]="contact?.notes" (addNote)="addNote($event)"></app-note>
+
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Products</h5>
         </div>
       </div>
 
 
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Documents</h5>
+        </div>
+      </div>
 
-      <app-activity [related]="'Contact'" [relatedId]="id"></app-activity>
-      <app-task [related]="'Contact'" [relatedId]="id"></app-task>
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Marketing Lists</h5>
+        </div>
+      </div>
 
-      <app-note [notes]="contact?.notes" (addNote)="addNote($event)"></app-note>
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Campaigns</h5>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Text Messages</h5>
+        </div>
+      </div>
 
     </div>
 
-
+    <!--column 3-->
     <div class="col-md-2 mt-n3">
+      
+    </div>
+
+    <!--column 4-->
+    <div class="col-md-1 mt-n3">
+      4
+    </div>
+
+  </div>
+
+</div>
+
+
+<!--
+
 
       <app-address [addresses]="contact?.addresses" (addAddress)="addAddress($event)"></app-address>
 
@@ -55,10 +132,8 @@
 
       <app-link [links]="contact?.links" (addLink)="addLink($event)"></app-link>
 
-    </div>
+   
 
-    <div class="col-md-1 mt-n3"></div>
+ 
 
-  </div>
-
-</div>
+-->

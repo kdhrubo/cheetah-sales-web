@@ -1,62 +1,48 @@
-<div class="shadow p-3 mb-2 bg-white rounded">
-    <div class="row">
-        <div class="col-md-3 col-sm-3">
-            <h5 class="mt-2 text-primary">Meetings</h5>
 
-        </div>
-        <div class="col-md-3 col-sm-3">
-
-            <button class="btn btn-sm btn-outline-success" (click)="openLg(longContent)" type="button">
-                <i class="fas fa-plus"></i> New
-            </button>
-        </div>
+<div class="table-responsive-md">
+    <div class="mt-1 mb-1 float-right">
+        <button class="btn btn-sm btn-outline-success" (click)="openLg(longContent)" type="button">
+            <i class="fas fa-plus"></i> New
+        </button>
     </div>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col"></th>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table-responsive-md">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
+                <th scope="col">Subject</th>
+                <th scope="col">Status</th>
+                <th scope="col">When</th>
+                <th scope="col">Action</th>
 
-                            <th>Subject</th>
-                            <th>Status</th>
-                            <th>When</th>
-                            <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let activity of activities;">
+                <th scope="row"></th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let activity of activities;">
-                            <th scope="row"></th>
+                <td>
+                    {{activity?.subject}}
+                </td>
+                <td>
+                    {{activity?.status?.value}}
+                </td>
 
-                            <td>
-                                {{activity?.subject}}
-                            </td>
-                            <td>
-                                {{activity?.status?.value}}
-                            </td>
+                <td>
+                    {{activity?.startDate}}
+                </td>
 
-                            <td>
-                                {{activity?.startDate}}
-                            </td>
+                <td>
 
-                            <td>
+                    <a class="text-danger" (click)='edit(activity)'>Delete</a>
 
-                                <a class="text-danger" (click)='edit(activity)'>Delete</a>
+                </td>
 
-                            </td>
+            </tr>
 
-                        </tr>
+        </tbody>
+    </table>
 
-                    </tbody>
-                </table>
-
-            </div>
-
-        </div>
-    </div>
 </div>
 
 <ng-template #longContent let-modal>
