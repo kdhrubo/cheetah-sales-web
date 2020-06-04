@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { EmailAddress } from '../../../models/emailaddress.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormService } from '../../../services/form.service';
+import { Emails } from '../../../models/emails.model';
 
 @Component({
   selector: 'app-emailaddress',
@@ -16,7 +16,7 @@ export class EmailaddressComponent implements OnInit {
 
   fields: FormlyFieldConfig[];
 
-  @Input() emailAddresses: EmailAddress[];
+  @Input() emails: Emails;
 
   @Output() addEmail = new EventEmitter<object>();
 
@@ -27,7 +27,7 @@ export class EmailaddressComponent implements OnInit {
   }
 
   getFormConfig() {
-    this.formService.getFields('form-emailaddress').subscribe(
+    this.formService.getFields('form-emails').subscribe(
       (data) => {
         this.fields = data;
       },
@@ -39,12 +39,12 @@ export class EmailaddressComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Model - ' + this.model);
-    let emailAddress: EmailAddress = this.model as EmailAddress;
+    //console.log('Model - ' + this.model);
+    //let emails: Emails = this.model as Emails;
 
-    console.log('Model emailAddress- ' + JSON.stringify(emailAddress));
+    console.log('Model emailAddress- ' + JSON.stringify(this.emails));
 
-    this.addEmail.emit(emailAddress);
+    this.addEmail.emit(this.emails);
   }
 
 }

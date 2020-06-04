@@ -1,8 +1,8 @@
-import { EmailAddress } from './emailaddress.model';
 import { Address } from './address.model';
 import { Phone } from './phone.model';
 import { Note } from './note.model';
 import { Link } from './link.model';
+import { Emails } from './emails.model';
 
 export class Contact {
   id: string;
@@ -26,7 +26,7 @@ export class Contact {
   linkedin: string;
   facebook: string;
   twitter: string;
-  emailAddresses: EmailAddress[];
+  emails: Emails;
   addresses: Address[];
   phones: Phone[];
   links: Link[];

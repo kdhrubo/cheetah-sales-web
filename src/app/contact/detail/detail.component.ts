@@ -5,7 +5,7 @@ import { ContactService } from '../../services/contact.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../services/form.service';
-import { EmailAddress } from '../../models/emailaddress.model';
+import { Emails } from '../../models/emails.model';
 import { Address } from '../../models/address.model';
 import { Phone } from '../../models/phone.model';
 import { Link } from '../../models/link.model';
@@ -86,10 +86,10 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  addEmail(emailAddress: EmailAddress) {
-    console.log('Email address ->>> ' + JSON.stringify(emailAddress));
+  addEmail(emails: Emails) {
+    console.log('Email address ->>> ' + JSON.stringify(emails));
 
-    this.contactService.addEmail(this.id, emailAddress).subscribe(
+    this.contactService.addEmails(this.id, emails).subscribe(
       data => {
         this.contact = data;
       },
