@@ -35,7 +35,7 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(JSON.stringify(this.model));
+    
     let contact: Contact = this.model as Contact;
     
     Object.keys(contact).forEach((key) => (contact[key] === null || contact[key] === '') && delete contact[key]);
