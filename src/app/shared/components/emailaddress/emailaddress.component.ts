@@ -11,7 +11,6 @@ import { Emails } from '../../../models/emails.model';
 })
 export class EmailaddressComponent implements OnInit {
 
-  model = {};
   form = new FormGroup({});
 
   fields: FormlyFieldConfig[];
@@ -39,8 +38,6 @@ export class EmailaddressComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log('Model - ' + this.model);
-    //let emails: Emails = this.model as Emails;
 
     console.log('Model emailAddress- ' + JSON.stringify(this.emails));
 
