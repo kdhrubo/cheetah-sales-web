@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^9.0.7",
+    "@angular/animations": "^9.1.9",
     "@angular/common": "^9.0.7",
     "@angular/compiler": "^9.0.7",
     "@angular/core": "^9.0.7",
@@ -28,6 +28,7 @@
     "@ngx-formly/schematics": "^5.6.2",
     "bootstrap": "^4.5.0",
     "js-base64": "^2.5.2",
+    "ngx-toastr": "^12.1.0",
     "rxjs": "^6.5.5",
     "tslib": "^1.13.0",
     "zone.js": "^0.10.3"
