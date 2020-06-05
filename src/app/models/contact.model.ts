@@ -1,7 +1,6 @@
 import { Address } from './address.model';
 import { Phone } from './phone.model';
 import { Note } from './note.model';
-import { Link } from './link.model';
 import { Emails } from './emails.model';
 
 export class Contact {
@@ -23,12 +22,15 @@ export class Contact {
 
   designation: string;
   mobile: string;
+  //social
   linkedin: string;
   facebook: string;
   twitter: string;
+  website: string;
+
   emails: Emails;
   addresses: Address[];
   phones: Phone[];
-  links: Link[];
+
   notes: Note[];
 }

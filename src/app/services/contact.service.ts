@@ -7,7 +7,6 @@ import { Contact } from '../models/contact.model';
 import { Page } from '../models/page.model';
 import { Address } from '../models/address.model';
 import { Phone } from '../models/phone.model';
-import { Link } from '../models/link.model';
 import { Note } from '../models/note.model';
 import { Emails } from '../models/emails.model';
 
@@ -63,12 +62,13 @@ export class ContactService {
       .pipe(catchError(err => this.handleError(err, 'save-phone-contact')));
   }
 
+  /*
   addLink(id: any, link: Link): Observable<any>  {
     const url = `${environment.api_base_url}/contacts/${id}/links`;
     return this.httpClient
       .post<Observable<any>>(url, link)
       .pipe(catchError(err => this.handleError(err, 'save-link-contact')));
-  }
+  }*/
 
   addNote(id: any, note: Note): Observable<any>  {
     const url = `${environment.api_base_url}/contacts/${id}/notes`;

@@ -11,12 +11,12 @@ import { ActivityComponent } from './components/activity/activity.component';
 import { TaskComponent } from './components/task/task.component';
 import { AddressComponent } from './components/address/address.component';
 import { EmailaddressComponent } from './components/emailaddress/emailaddress.component';
-import { LinkComponent } from './components/link/link.component';
+import { SocialComponent } from './components/social/social.component';
 import { PhoneComponent } from './components/phone/phone.component';
 
 
 @NgModule({
-  declarations: [NoteComponent, ActivityComponent, TaskComponent, AddressComponent, EmailaddressComponent, LinkComponent, PhoneComponent],
+  declarations: [NoteComponent, ActivityComponent, TaskComponent, AddressComponent, EmailaddressComponent, SocialComponent, PhoneComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -27,6 +27,6 @@ import { PhoneComponent } from './components/phone/phone.component';
     FormlyBootstrapModule
 
   ],
-  exports: [NoteComponent, ActivityComponent, TaskComponent, AddressComponent, EmailaddressComponent, LinkComponent, PhoneComponent]
+  exports: [NoteComponent, ActivityComponent, TaskComponent, AddressComponent, EmailaddressComponent, SocialComponent, PhoneComponent]
 })
 export class SharedModule { }
