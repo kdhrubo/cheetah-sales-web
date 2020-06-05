@@ -17,6 +17,8 @@ import { SharedModule } from './shared/shared.module';
 import { ContactPicklistComponent } from './common/contact-picklist/contact-picklist.component';
 import { FormlyFieldFile } from './common/file/filetype.component';
 import { FileValueAccessor } from './common/file/file-value-accessor';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -40,6 +42,9 @@ import { FileValueAccessor } from './common/file/file-value-accessor';
     NgbModule,
     SharedModule,
     FormlyModule.forRoot({
+      validationMessages: [
+        { name: 'required', message: 'This field is required' }
+      ],
       wrappers: [
         { name: 'formly-select-wrapper', component: SelectwrapperComponent },
       ],
@@ -55,7 +60,12 @@ import { FileValueAccessor } from './common/file/file-value-accessor';
         }
       ],
     }),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true,
+    }) // ToastrModule added
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, ],
   bootstrap: [AppComponent]

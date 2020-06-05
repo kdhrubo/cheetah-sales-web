@@ -4,6 +4,8 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Lead } from '../../models/lead.model';
 import { FormService } from 'src/app/services/form.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -13,17 +15,17 @@ import { FormService } from 'src/app/services/form.service';
 export class CreateComponent implements OnInit {
 
   form = new FormGroup({});
-  model = { email: 'email@gmail.com' };
+  model = { };
   fields: FormlyFieldConfig[] ;
 
 
-
-
-
-  constructor(private leadService: LeadService, private formService: FormService) { }
+  constructor(private leadService: LeadService,
+              private formService: FormService,
+              private toastr: ToastrService,
+              private router: Router ) { }
 
   ngOnInit(): void {
-    this.formService.getFields('lead-form').subscribe(
+    this.formService.getFields('form-lead-create').subscribe(
 
       data => {
         this.fields = data;
@@ -37,16 +39,18 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(JSON.stringify(this.model));
-    const lead: Lead = this.model as Lead;
+    let lead: Lead = this.model as Lead;
     Object.keys(lead).forEach((key) => (lead[key] === null || lead[key] === '') && delete lead[key]);
-    console.log('=== after clean up lead model ====');
-    console.log(JSON.stringify(lead));
 
     this.leadService.save(lead)
     .subscribe(
       data => {
-        console.log('Lead save success');
+        
+        this.toastr.success('Lead Saved Successfully.', '', {
+          
+        });
+
+        this.router.navigate(['/leads' , data?.id]);
       },
       error => {
         console.log('Lead save failure');
