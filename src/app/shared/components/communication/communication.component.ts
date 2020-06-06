@@ -1,20 +1,19 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Phone } from 'src/app/models/phone.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormService } from '../../../services/form.service';
+import { Communication } from '../../../models/communication.model';
 
 @Component({
-  selector: 'app-phone',
-  templateUrl: './phone.component.html',
-  styleUrls: ['./phone.component.css']
+  selector: 'app-communication',
+  templateUrl: './communication.component.html',
+  styleUrls: ['./communication.component.css']
 })
-export class PhoneComponent implements OnInit {
+export class CommunicationComponent implements OnInit {
 
-  @Input() phones: Phone[];
-  @Output() addPhone = new EventEmitter<object>();
+  @Input() communication: any;
+  @Output() updateCommunication = new EventEmitter<object>();
 
-  model = {};
   form = new FormGroup({});
 
   fields: FormlyFieldConfig[];
@@ -24,12 +23,10 @@ export class PhoneComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFormConfig();
-    
   }
-  
 
   getFormConfig() {
-    this.formService.getFields('form-phone').subscribe(
+    this.formService.getFields('form-communication').subscribe(
       (data) => {
         this.fields = data;
       },
@@ -41,8 +38,7 @@ export class PhoneComponent implements OnInit {
   }
 
   onSubmit() {
-    let phone: Phone = this.model as Phone;
-    this.addPhone.emit(phone);
+    this.updateCommunication.emit(this.communication);
   }
 
 }

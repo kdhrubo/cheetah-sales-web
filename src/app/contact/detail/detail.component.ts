@@ -7,27 +7,25 @@ import { FormGroup } from '@angular/forms';
 import { FormService } from '../../services/form.service';
 import { Emails } from '../../models/emails.model';
 import { Address } from '../../models/address.model';
-import { Phone } from '../../models/phone.model';
 import { Note } from 'src/app/models/note.model';
-
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-
   contact: Contact;
   id: any;
   form = new FormGroup({});
 
-  fields: FormlyFieldConfig[] ;
+  fields: FormlyFieldConfig[];
 
-
-  constructor(private route: ActivatedRoute,
-              private contactService: ContactService,
-              private formService: FormService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private contactService: ContactService,
+    private formService: FormService
+  ) {}
 
   ngOnInit(): void {
     this.getContact();
@@ -36,31 +34,26 @@ export class DetailComponent implements OnInit {
   getContact() {
     this.id = this.route.snapshot.paramMap.get('id');
 
-    this.contactService.findOne(this.id)
-      .subscribe(
-        data => {
-          this.contact = data;
-          this.getFormConfig();
-        },
-        error => {
-          console.log('Unable to retrieve Contact details');
-        }
-
-      );
+    this.contactService.findOne(this.id).subscribe(
+      (data) => {
+        this.contact = data;
+        this.getFormConfig();
+      },
+      (error) => {
+        console.log('Unable to retrieve Contact details');
+      }
+    );
   }
-  
 
   getFormConfig() {
     this.formService.getFields('form-contact-edit').subscribe(
-
-      data => {
+      (data) => {
         this.fields = data;
       },
 
-      error => {
+      (error) => {
         console.log('Unable to retrieve form information');
       }
-
     );
   }
 
@@ -68,13 +61,12 @@ export class DetailComponent implements OnInit {
     console.log('Address ->>> ' + JSON.stringify(address));
 
     this.contactService.addAddress(this.id, address).subscribe(
-      data => {
+      (data) => {
         this.contact = data;
       },
-      error => {
+      (error) => {
         console.log('Error adding  address.');
       }
-
     );
   }
 
@@ -82,66 +74,34 @@ export class DetailComponent implements OnInit {
     console.log('Email address ->>> ' + JSON.stringify(emails));
 
     this.contactService.addEmails(this.id, emails).subscribe(
-      data => {
+      (data) => {
         this.contact = data;
       },
-      error => {
+      (error) => {
         console.log('Error adding email address.');
       }
-
     );
   }
-
-  addPhone(phone: Phone) {
-    console.log('Phone a ->>> ' + JSON.stringify(phone));
-
-    this.contactService.addPhone(this.id, phone).subscribe(
-      data => {
-        this.contact = data;
-      },
-      error => {
-        console.log('Error adding phone.');
-      }
-
-    );
-  }
-  /*
-  addLink(link: Link) {
-
-    this.contactService.addLink(this.id, link).subscribe(
-      data => {
-        this.contact = data;
-      },
-      error => {
-        console.log('Error adding link.');
-      }
-
-    );
-  }
-  */
 
   addNote(note: Note) {
     this.contactService.addNote(this.id, note).subscribe(
-      data => {
+      (data) => {
         this.contact = data;
       },
-      error => {
+      (error) => {
         console.log('Error adding note.');
       }
-
     );
   }
 
   onSubmit() {
-    this.contactService.save(this.contact)
-    .subscribe(
-      data => {
+    this.contactService.save(this.contact).subscribe(
+      (data) => {
         console.log('Contact save success');
       },
-      error => {
+      (error) => {
         console.log('Contact save failure');
       }
     );
   }
-
 }

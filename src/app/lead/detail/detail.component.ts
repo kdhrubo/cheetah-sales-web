@@ -48,10 +48,8 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  updateSocial(inlead: any) {
-   
+  updateExt(inlead: any) {
     this.lead = inlead;
-    
     this.onSubmit();
   }
 

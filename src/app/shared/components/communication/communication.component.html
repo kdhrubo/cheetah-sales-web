@@ -1,8 +1,9 @@
 <div class="shadow p-3 mb-2 bg-white rounded">
-    <div class="row ">
+
+    <div class="row">
 
         <div class="col-md-12">
-            <h5 class="mt-1 text-primary">Social</h5>
+            <h5 class="mt-1 text-primary">Communication</h5>
         </div>
 
     </div>
@@ -12,7 +13,7 @@
         <div class="col-md-12">
 
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <formly-form [form]="form" [fields]="fields" [model]="social"></formly-form>
+                <formly-form [form]="form" [fields]="fields" [model]="communication"></formly-form>
 
                 <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
                     <i class="far fa-save"></i>
@@ -22,4 +23,5 @@
 
         </div>
     </div>
+
 </div>
