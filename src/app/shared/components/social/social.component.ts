@@ -1,20 +1,19 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Link } from '../../../models/link.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormService } from 'src/app/services/form.service';
 
 @Component({
-  selector: 'app-link',
-  templateUrl: './link.component.html',
-  styleUrls: ['./link.component.css']
+  selector: 'app-social',
+  templateUrl: './social.component.html',
+  styleUrls: ['./social.component.css']
 })
-export class LinkComponent implements OnInit {
+export class SocialComponent implements OnInit {
 
-  @Output() addLink = new EventEmitter<object>();
-  @Input() links: Link[];
+  @Output() updateSocial = new EventEmitter<object>();
+  @Input() social: any;
 
-  model = {};
+ 
   form = new FormGroup({});
 
   fields: FormlyFieldConfig[];
@@ -22,13 +21,14 @@ export class LinkComponent implements OnInit {
   constructor(private formService: FormService) {}
 
   ngOnInit(): void {
+
     this.getFormConfig();
-    
+
   }
 
 
   getFormConfig() {
-    this.formService.getFields('form-link').subscribe(
+    this.formService.getFields('form-social').subscribe(
       (data) => {
         this.fields = data;
       },
@@ -40,8 +40,8 @@ export class LinkComponent implements OnInit {
   }
 
   onSubmit() {
-    let link: Link = this.model as Link;
-    this.addLink.emit(link);
+    
+    this.updateSocial.emit(this.social);
 
   }
 }

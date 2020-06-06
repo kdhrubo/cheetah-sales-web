@@ -17,11 +17,9 @@ export class PicklistService {
 
     const url = `${environment.api_base_url}/picklists/${domain}`;
 
-    console.log('URL - ' + url);
-
     return this.httpClient
       .get<any[]>(url)
-      .pipe(catchError(err => this.handleError(err, 'find-all-search-leads')));
+      .pipe(catchError(err => this.handleError(err, 'find-all-picklist')));
 
   }
 

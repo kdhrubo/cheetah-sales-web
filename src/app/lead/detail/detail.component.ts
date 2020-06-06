@@ -9,12 +9,11 @@ import { FormService } from 'src/app/services/form.service';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-
   form = new FormGroup({});
-  leadModel: Lead;
+  lead: Lead;
   id: any;
   active = 1;
 
@@ -28,7 +27,9 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private leadService: LeadService, private formService: FormService) { }
+    private leadService: LeadService,
+    private formService: FormService
+  ) {}
 
   ngOnInit(): void {
     this.getLead();
@@ -36,27 +37,30 @@ export class DetailComponent implements OnInit {
 
   getLead() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.leadService.findOne(this.id)
-      .subscribe(
-        data => {
-          this.leadModel = data;
-          console.log('# lead - ', JSON.stringify(this.leadModel));
-          console.log('=== get Lead form config ===');
-          this.getLeadFormConfig();
-        },
-        error => {
-          console.log('Unable to retrieve lead details');
-        }
+    this.leadService.findOne(this.id).subscribe(
+      (data) => {
+        this.lead = data;
+        this.getLeadFormConfig();
+      },
+      (error) => {
+        console.log('Unable to retrieve lead details');
+      }
+    );
+  }
 
-      );
+  updateSocial(inlead: any) {
+   
+    this.lead = inlead;
+    
+    this.onSubmit();
   }
 
   getLeadFormConfig() {
-    this.formService.getFields('lead-form').subscribe(
-      data => {
+    this.formService.getFields('form-lead-detail').subscribe(
+      (data) => {
         this.fields = data;
       },
-      error => {
+      (error) => {
         console.log('Unable to retrieve lead form information');
       }
     );
@@ -67,15 +71,14 @@ export class DetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.leadService.save(this.leadModel)
-      .subscribe(
-        data => {
-          console.log('Lead saved successfully.');
-        },
-        error => {
-          console.log('Failed to update/save Lead details.');
-        }
-      );
+    console.log('#### lead - ', JSON.stringify(this.lead));
+    this.leadService.save(this.lead).subscribe(
+      (data) => {
+        console.log('Lead saved successfully.');
+      },
+      (error) => {
+        console.log('Failed to update/save Lead details.');
+      }
+    );
   }
-
 }

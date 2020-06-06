@@ -8,7 +8,6 @@ import { FormService } from '../../services/form.service';
 import { Emails } from '../../models/emails.model';
 import { Address } from '../../models/address.model';
 import { Phone } from '../../models/phone.model';
-import { Link } from '../../models/link.model';
 import { Note } from 'src/app/models/note.model';
 
 
@@ -25,11 +24,6 @@ export class DetailComponent implements OnInit {
 
   fields: FormlyFieldConfig[] ;
 
-  options: FormlyFormOptions = {
-    formState: {
-      disabled: true,
-    },
-  };
 
   constructor(private route: ActivatedRoute,
               private contactService: ContactService,
@@ -37,7 +31,6 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContact();
-    this.form.disable();
   }
 
   getContact() {
@@ -47,8 +40,6 @@ export class DetailComponent implements OnInit {
       .subscribe(
         data => {
           this.contact = data;
-          console.log('# contact - ', JSON.stringify(this.contact));
-          console.log('=== get form config ===');
           this.getFormConfig();
         },
         error => {
@@ -57,6 +48,7 @@ export class DetailComponent implements OnInit {
 
       );
   }
+  
 
   getFormConfig() {
     this.formService.getFields('form-contact-edit').subscribe(
@@ -113,7 +105,7 @@ export class DetailComponent implements OnInit {
 
     );
   }
-
+  /*
   addLink(link: Link) {
 
     this.contactService.addLink(this.id, link).subscribe(
@@ -126,6 +118,7 @@ export class DetailComponent implements OnInit {
 
     );
   }
+  */
 
   addNote(note: Note) {
     this.contactService.addNote(this.id, note).subscribe(
