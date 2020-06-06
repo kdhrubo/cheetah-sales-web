@@ -57,6 +57,11 @@ export class DetailComponent implements OnInit {
     );
   }
 
+  updateExt(incontact: any) {
+    this.contact = incontact;
+    this.onSubmit();
+  }
+
   addAddress(address: Address) {
     console.log('Address ->>> ' + JSON.stringify(address));
 
@@ -70,18 +75,6 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  addEmail(emails: Emails) {
-    console.log('Email address ->>> ' + JSON.stringify(emails));
-
-    this.contactService.addEmails(this.id, emails).subscribe(
-      (data) => {
-        this.contact = data;
-      },
-      (error) => {
-        console.log('Error adding email address.');
-      }
-    );
-  }
 
   addNote(note: Note) {
     this.contactService.addNote(this.id, note).subscribe(
