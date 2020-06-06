@@ -3,8 +3,9 @@ import { LeadService } from 'src/app/services/lead.service';
 import { Lead } from 'src/app/models/lead.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from 'src/app/services/form.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail',
@@ -28,16 +29,22 @@ export class DetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private leadService: LeadService,
-    private formService: FormService
+    private formService: FormService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getLead();
+    this.route.params.subscribe((params) => {
+      const id = params?.id;
+
+      this.id = id;
+      this.findOne(id);
+    });
   }
 
-  getLead() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.leadService.findOne(this.id).subscribe(
+  findOne(id: any) {
+    this.leadService.findOne(id).subscribe(
       (data) => {
         this.lead = data;
         this.getLeadFormConfig();
@@ -51,6 +58,19 @@ export class DetailComponent implements OnInit {
   updateExt(inlead: any) {
     this.lead = inlead;
     this.onSubmit();
+  }
+
+  copy() {
+    this.leadService.copy(this.lead.id).subscribe(
+      (data) => {
+        this.toastr.success('Lead Copied Successfully.', '', {});
+
+        this.router.navigate(['/leads', data?.id]);
+      },
+      (error) => {
+        this.toastr.error('Lead copy failed.', error?.detail, {});
+      }
+    );
   }
 
   getLeadFormConfig() {
@@ -69,7 +89,6 @@ export class DetailComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('#### lead - ', JSON.stringify(this.lead));
     this.leadService.save(this.lead).subscribe(
       (data) => {
         console.log('Lead saved successfully.');

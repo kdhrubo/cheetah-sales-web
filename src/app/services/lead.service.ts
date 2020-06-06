@@ -19,6 +19,13 @@ export class LeadService {
       .pipe(catchError(err => this.handleError(err, 'save-lead')));
   }
 
+  copy(id: any): Observable<any> {
+    const url = `${environment.api_base_url}/leads/copy/${id}`;
+    return this.httpClient
+      .post<Observable<any>>(url, null)
+      .pipe(catchError(err => this.handleError(err, 'copy-lead')));
+  }
+
   saveAll(leads: Lead[]) : Observable<any>{
     const url = `${environment.api_base_url}/leads/import`;
     const data = {'leads' : leads};
