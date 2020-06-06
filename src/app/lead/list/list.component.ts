@@ -56,28 +56,8 @@ export class ListComponent implements OnInit {
       name: 'email',
       label: 'Email',
       checked: true
-    },
-
-    {
-      id: 5,
-      name: 'city',
-      label: 'City',
-      checked: true
-    },
-
-    {
-      id: 6,
-      name: 'country',
-      label: 'Country',
-      checked: true
-    },
-
-    {
-      id: 7,
-      name: 'company',
-      label: 'Company',
-      checked: true
     }
+
   ];
 
   constructor(private leadService: LeadService) {}
