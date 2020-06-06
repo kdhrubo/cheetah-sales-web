@@ -13,7 +13,6 @@ export class SocialComponent implements OnInit {
   @Output() updateSocial = new EventEmitter<object>();
   @Input() social: any;
 
- 
   form = new FormGroup({});
 
   fields: FormlyFieldConfig[];
@@ -40,8 +39,6 @@ export class SocialComponent implements OnInit {
   }
 
   onSubmit() {
-    
     this.updateSocial.emit(this.social);
-
   }
 }

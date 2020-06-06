@@ -42,7 +42,7 @@
       
       <div class="row">
         <div class="col-md-12">
-          <ul ngbNav #nav="ngbNav" class="nav-pills">
+          <ul ngbNav #nav="ngbNav" class="nav">
             <li ngbNavItem>
               <a ngbNavLink>Meetings</a>
               <ng-template ngbNavContent>
@@ -107,9 +107,14 @@
     </div>
 
     <!--column 3-->
-    <div class="col-md-2 bg-light">
+    <div class="col-md-2 ">
 
-      <app-social [social]="lead" (updateSocial)="updateSocial($event)"></app-social>
+      <app-communication [communication]="lead" (updateCommunication)="updateExt($event)"></app-communication>
+
+      <app-social [social]="lead" (updateSocial)="updateExt($event)"></app-social>
+
+      
+
     </div>
 
     <!--column 4-->

@@ -1,5 +1,4 @@
 import { Address } from './address.model';
-import { Phone } from './phone.model';
 import { Note } from './note.model';
 import { Emails } from './emails.model';
 
@@ -8,7 +7,6 @@ export class Contact {
   firstName: string;
   lastName: string;
 
-  email: string;
   dob: string;
 
   company: string;
@@ -21,16 +19,24 @@ export class Contact {
   contactStatusId: string;
 
   designation: string;
-  mobile: string;
-  //social
+
+
+  // social
   linkedin: string;
   facebook: string;
   twitter: string;
   website: string;
 
+  // communication
+  email: string;
+  otherEmail: string;
+  phone: string;
+  otherPhone: string;
+  mobile: string;
+  fax: string;
+
   emails: Emails;
   addresses: Address[];
-  phones: Phone[];
 
   notes: Note[];
 }
