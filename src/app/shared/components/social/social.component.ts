@@ -13,7 +13,7 @@ export class SocialComponent implements OnInit {
   @Output() updateSocial = new EventEmitter<object>();
   @Input() social: any;
 
-  model = {};
+ 
   form = new FormGroup({});
 
   fields: FormlyFieldConfig[];
@@ -21,7 +21,9 @@ export class SocialComponent implements OnInit {
   constructor(private formService: FormService) {}
 
   ngOnInit(): void {
+
     this.getFormConfig();
+
   }
 
 
@@ -39,7 +41,7 @@ export class SocialComponent implements OnInit {
 
   onSubmit() {
     
-    this.updateSocial.emit(this.model);
+    this.updateSocial.emit(this.social);
 
   }
 }

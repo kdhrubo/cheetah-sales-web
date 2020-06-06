@@ -27,8 +27,7 @@ export class PicklistComponent extends FieldType implements OnInit {
     this.label = this.to.label;
     this.domain = this.to.domain;
     this.fieldName = this.to.val;
-    console.log('model - ' + JSON.stringify(this.to));
-    // this.setField(this.model[this.to.cKey]);
+   
     this.load();
   }
 
@@ -43,9 +42,8 @@ export class PicklistComponent extends FieldType implements OnInit {
 
 
   onItemSelectionChanged(d: any) {
-    console.log('d - ' + JSON.stringify(d));
+    
     let p = this.pickLists.find(e => e.id === d);
-    console.log('PL - ' + JSON.stringify(p));
     this.model[this.fieldName] = p?.value;
   }
 }

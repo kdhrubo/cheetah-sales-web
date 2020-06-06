@@ -48,16 +48,11 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  updateSocial(social: any) {
-    console.log('#### lead - {}', JSON.stringify(this.lead));
-    for (let key of Object.keys(social)) {
-      let val = social[key];
-      // ... do something with mealName
-      console.log(key+ ':' + val);
-
-      this.lead[key] = val;
-    }
-    console.log('#### lead 2 - {}', JSON.stringify(this.lead));
+  updateSocial(inlead: any) {
+   
+    this.lead = inlead;
+    
+    this.onSubmit();
   }
 
   getLeadFormConfig() {
@@ -76,6 +71,7 @@ export class DetailComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('#### lead - ', JSON.stringify(this.lead));
     this.leadService.save(this.lead).subscribe(
       (data) => {
         console.log('Lead saved successfully.');

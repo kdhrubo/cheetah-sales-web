@@ -12,7 +12,7 @@
         <div class="col-md-12">
 
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+                <formly-form [form]="form" [fields]="fields" [model]="social"></formly-form>
 
                 <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
                     <i class="far fa-save"></i>
