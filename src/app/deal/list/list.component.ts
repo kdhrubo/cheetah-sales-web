@@ -46,12 +46,6 @@ export class ListComponent implements OnInit {
       checked: true
     },
 
-    {
-      id: 4,
-      name: 'email',
-      label: 'Email',
-      checked: true
-    },
 
     {
       id: 5,
@@ -70,7 +64,7 @@ export class ListComponent implements OnInit {
     {
       id: 7,
       name: 'expectedClose',
-      label: 'Date',
+      label: 'Expected Close',
       checked: true
     }
   ];

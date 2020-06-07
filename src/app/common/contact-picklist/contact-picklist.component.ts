@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-//import { AccountService } from '../../services/account.service';
 import { Page } from '../../models/page.model';
-import { ContactService } from 'src/app/services/contact.service';
+import { ContactService } from '../../services/contact.service';
 import { Contact } from '../../models/contact.model';
 
 @Component({
@@ -19,36 +18,35 @@ export class ContactPicklistComponent extends FieldType implements OnInit {
   pageSize = 10;
   collectionSize: number;
   val = '';
+
   contactId: string;
   contact: Contact;
+  fieldName = 'contactName';
+
 
   constructor(private modalService: NgbModal,private contactService: ContactService) {
     super();
    }
 
   ngOnInit(): void {
-    console.log('### key - ' + this.field.key);
-    console.log('### Contact id - ' + this.model[this.field.key]);
     this.contactId = this.model[this.field.key];
+    const contactName = this.model[this.fieldName];
+
     if (this.contactId != null) {
-      console.log('## get contact details ');
-      this.contactService.findOne(this.contactId).subscribe(
-        data => {
-          this.contact = data;
-          this.setField(this.contact);
-        },
-        error => console.log('Error reported while loading contact details - ' + error.message)
-      );
+
+      this.val = contactName;
+      this.formControl.setValue(this.contactId);
+      this.model[this.fieldName] = contactName;
     }
 
     this.load();
   }
 
-  setField(contactModel: Contact) {
-    console.log('contactModel - ' + JSON.stringify(contactModel));
-    if ( contactModel?.id != null ) {
-      this.val = contactModel?.firstName;
-      this.formControl.setValue(contactModel?.id);
+  setField(c: Contact) {
+    if ( c?.id != null ) {
+      this.val = c?.firstName + ' ' + c?.lastName;
+      this.formControl.setValue(c?.id);
+      this.model[this.fieldName] = c?.firstName + ' ' + c?.lastName;
     }
   }
 

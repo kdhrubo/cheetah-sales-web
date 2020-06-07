@@ -16,7 +16,6 @@ export class DetailComponent implements OnInit {
   form = new FormGroup({});
   lead: Lead;
   id: any;
-  active = 1;
 
   options: FormlyFormOptions = {
     formState: {
@@ -47,7 +46,7 @@ export class DetailComponent implements OnInit {
     this.leadService.findOne(id).subscribe(
       (data) => {
         this.lead = data;
-        this.getLeadFormConfig();
+        this.getFormConfig();
       },
       (error) => {
         console.log('Unable to retrieve lead details');
@@ -73,7 +72,7 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  getLeadFormConfig() {
+  getFormConfig() {
     this.formService.getFields('form-lead-detail').subscribe(
       (data) => {
         this.fields = data;
@@ -91,10 +90,10 @@ export class DetailComponent implements OnInit {
   onSubmit() {
     this.leadService.save(this.lead).subscribe(
       (data) => {
-        console.log('Lead saved successfully.');
+        this.toastr.success('Lead saved successfully.', '', {});
       },
       (error) => {
-        console.log('Failed to update/save Lead details.');
+        this.toastr.error('Lead save failed.', error?.detail, {});
       }
     );
   }

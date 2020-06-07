@@ -30,6 +30,13 @@ export class DealService {
 
   }
 
+  copy(id: any): Observable<any> {
+    const url = `${environment.api_base_url}/deals/copy/${id}`;
+    return this.httpClient
+      .post<Observable<any>>(url, null)
+      .pipe(catchError(err => this.handleError(err, 'copy-deal')));
+  }
+
 
   search(
     rsql: string,
