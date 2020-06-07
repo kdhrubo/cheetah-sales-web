@@ -1,4 +1,4 @@
-import { PickList } from './picklist.model';
+import { Address } from './address.model';
 
 export class Lead {
     salutationId: string;
@@ -17,4 +17,7 @@ export class Lead {
     linkedin: string;
     facebook: string;
     twitter: string;
+
+    primaryAddress: Address;
+    secondaryAddress: Address;
 }
