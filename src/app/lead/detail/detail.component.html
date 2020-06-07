@@ -122,8 +122,8 @@
 
       <app-social [social]="lead" (updateSocial)="updateExt($event)"></app-social>
 
-      
-
+      <app-address [address]="lead?.primaryAddress" (addAddress)="updatePrimaryAddress($event)" [headerText]="'Primary Address'"></app-address>
+      <app-address [address]="lead?.secondaryAddress" (addAddress)="updateSecondaryAddress($event)" [headerText]="'Secondary Address'"></app-address>
     </div>
 
     <!--column 4-->
@@ -136,21 +136,5 @@
 </div>
 
 
-<!--
-
-
-      <app-address [addresses]="contact?.addresses" (addAddress)="addAddress($event)"></app-address>
-
-      
-
-      <app-phone [phones]="contact?.phones" (addPhone)="addPhone($event)"></app-phone>
-
-      <app-link [links]="contact?.links" (addLink)="addLink($event)"></app-link>
-
-   
-
- 
-
--->
 
 

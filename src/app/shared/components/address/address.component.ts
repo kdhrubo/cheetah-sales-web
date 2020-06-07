@@ -15,8 +15,8 @@ export class AddressComponent implements OnInit {
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
 
-  @Input() addresses: Address[];
-
+  @Input() address: Address;
+  @Input() headerText: string;
   @Output() addAddress = new EventEmitter<object>();
 
 
@@ -29,12 +29,16 @@ export class AddressComponent implements OnInit {
     this.getFormConfig();
   }
 
-  edit(address: Address) {}
 
   openLg(content) {
-    console.log('content - ' + content);
 
+    if(this.address) {
+      for (let key of Object.keys(this.address)) {
+        this.model[key] =  this.address[key];
+      }
+    }
     this.modalService.open(content, { size: 'lg' });
+
   }
 
   getFormConfig() {
@@ -50,10 +54,8 @@ export class AddressComponent implements OnInit {
   }
 
   onSubmit() {
-    let address: Address = this.model as Address;
-
-    console.log('Model address- ' + JSON.stringify(address));
-
+    const address: Address = this.model as Address;
+    Object.keys(address).forEach((key) => (address[key] === null || address[key] === '') && delete address[key]);
     this.addAddress.emit(address);
   }
 }

@@ -10,7 +10,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivityComponent } from './components/activity/activity.component';
 import { TaskComponent } from './components/task/task.component';
 import { AddressComponent } from './components/address/address.component';
-import { EmailaddressComponent } from './components/emailaddress/emailaddress.component';
 import { SocialComponent } from './components/social/social.component';
 import { CommunicationComponent } from './components/communication/communication.component';
 
@@ -21,7 +20,6 @@ import { CommunicationComponent } from './components/communication/communication
     ActivityComponent,
     TaskComponent,
     AddressComponent,
-    EmailaddressComponent,
     SocialComponent,
     CommunicationComponent],
   imports: [
@@ -39,7 +37,6 @@ import { CommunicationComponent } from './components/communication/communication
     ActivityComponent,
     TaskComponent,
     AddressComponent,
-    EmailaddressComponent,
     SocialComponent,
     CommunicationComponent]
 })

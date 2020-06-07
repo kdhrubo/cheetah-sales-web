@@ -6,6 +6,7 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from 'src/app/services/form.service';
 import { ToastrService } from 'ngx-toastr';
+import { Address } from 'src/app/models/address.model';
 
 @Component({
   selector: 'app-detail',
@@ -70,6 +71,16 @@ export class DetailComponent implements OnInit {
         this.toastr.error('Lead copy failed.', error?.detail, {});
       }
     );
+  }
+
+  updatePrimaryAddress(address: Address) {
+    this.lead.primaryAddress = address;
+    this.onSubmit();
+  }
+
+  updateSecondaryAddress(address: Address) {
+    this.lead.secondaryAddress = address;
+    this.onSubmit();
   }
 
   getFormConfig() {
