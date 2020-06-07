@@ -4,6 +4,8 @@ import { DealService } from 'src/app/services/deal.service';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Deal } from 'src/app/models/deal.model';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -13,17 +15,17 @@ import { Deal } from 'src/app/models/deal.model';
 export class CreateComponent implements OnInit {
 
   form = new FormGroup({});
-  model = { email: 'email@gmail.com' };
+  model = {  };
   fields: FormlyFieldConfig[];
 
-  constructor(private dealService: DealService, private formService: FormService) { }
+  constructor(private dealService: DealService,
+              private formService: FormService,
+              private toastr: ToastrService,
+              private router: Router
+              ) { }
 
   ngOnInit(): void {
-    this.fetchDealForm();
-  }
-
-  fetchDealForm(): void {
-    this.formService.getFields('deal-form').subscribe(
+    this.formService.getFields('form-deal-create').subscribe(
       data => {
         this.fields = data;
         console.log('Retrieved deal form information sucessfully.');
@@ -34,20 +36,20 @@ export class CreateComponent implements OnInit {
     );
   }
 
-  saveDeal() {
-    console.log(JSON.stringify(this.model));
+
+  onSubmit() {
     const deal: Deal = this.model as Deal;
     Object.keys(deal).forEach((key) => (deal[key] === null || deal[key] === '') && delete deal[key]);
-    console.log('=== After clean up deal model ====');
     console.log(JSON.stringify(deal));
 
     this.dealService.save(deal)
       .subscribe(
         data => {
-          console.log('Deal saved successfully:');
+          this.toastr.success('Deal Saved Successfully.', '', {});
+          this.router.navigate(['/deals' , data?.id]);
         },
         error => {
-          console.log('Exception reported while saving deal:');
+          console.log('Deal save failure.');
         }
       );
   }

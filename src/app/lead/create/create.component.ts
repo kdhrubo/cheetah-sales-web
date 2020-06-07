@@ -39,21 +39,17 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit() {
-    let lead: Lead = this.model as Lead;
+    const lead: Lead = this.model as Lead;
     Object.keys(lead).forEach((key) => (lead[key] === null || lead[key] === '') && delete lead[key]);
 
     this.leadService.save(lead)
     .subscribe(
       data => {
-        
-        this.toastr.success('Lead Saved Successfully.', '', {
-          
-        });
-
+        this.toastr.success('Lead Saved Successfully.', '', {});
         this.router.navigate(['/leads' , data?.id]);
       },
       error => {
-        console.log('Lead save failure');
+        console.log('Lead save failure.');
       }
     );
   }

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { Deal } from 'src/app/models/deal.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DealService } from 'src/app/services/deal.service';
 import { FormService } from 'src/app/services/form.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail',
@@ -14,9 +15,8 @@ import { FormService } from 'src/app/services/form.service';
 export class DetailComponent implements OnInit {
 
   form = new FormGroup({});
-  dealModel: Deal;
+  deal: Deal;
   id: any;
-  active = 1;
 
   options: FormlyFormOptions = {
     formState: {
@@ -26,22 +26,29 @@ export class DetailComponent implements OnInit {
 
   fields: FormlyFieldConfig[];
 
-  constructor(private route: ActivatedRoute,
-    private dealService: DealService, private formService: FormService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private dealService: DealService, 
+    private formService: FormService,
+    private toastr: ToastrService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
-    this.getDeal();
+    this.route.params.subscribe((params) => {
+      const id = params?.id;
+
+      this.id = id;
+      this.findOne(id);
+    });
   }
 
-  getDeal() {
-    this.id = this.route.snapshot.paramMap.get('id');
+  findOne(id: any) {
     this.dealService.findOne(this.id)
       .subscribe(
         data => {
-          this.dealModel = data;
-          console.log('# deal - ', JSON.stringify(this.dealModel));
-          console.log('=== get Deal form config ===');
-          this.getLeadFormConfig();
+          this.deal = data;
+          this.getFormConfig();
         },
         error => {
           console.log('Unable to retrieve Deal details');
@@ -50,7 +57,25 @@ export class DetailComponent implements OnInit {
       );
   }
 
-  getLeadFormConfig() {
+  updateExt(inDeal: any) {
+    this.deal = inDeal;
+    this.onSubmit();
+  }
+
+  copy() {
+    this.dealService.copy(this.deal.id).subscribe(
+      (data) => {
+        this.toastr.success('Deal Copied Successfully.', '', {});
+
+        this.router.navigate(['/deals', data?.id]);
+      },
+      (error) => {
+        this.toastr.error('Deal copy failed.', error?.detail, {});
+      }
+    );
+  }
+
+  getFormConfig() {
     this.formService.getFields('form-deal-details').subscribe(
       data => {
         this.fields = data;
@@ -61,14 +86,14 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  updateDealRecord() {
-    this.dealService.save(this.dealModel)
+  onSubmit() {
+    this.dealService.save(this.deal)
       .subscribe(
         data => {
-          console.log('Deal saved successfully.');
+          this.toastr.success('Deal saved successfully.', '', {});
         },
         error => {
-          console.log('Failed to update/save Deal details.');
+          this.toastr.error('Lead save failed.', error?.detail, {});
         }
       );
   }

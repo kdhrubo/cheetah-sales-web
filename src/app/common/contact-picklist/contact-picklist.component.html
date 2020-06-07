@@ -14,11 +14,7 @@
                         <thead>
                             <tr>
                                 <th scope="col"></th>
-                                
-                                
-                                <th>Name</th>
-                                
-                                
+                                <th scope="col">Name</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,13 +22,10 @@
                                 <th scope="row"></th>
                                 
                                 <td>
-                                    
-
-                                    <a class="text-primary" (click)="setField(contact);modal.close('selected-close')">{{contact.firstName}}</a>
+                                    <a class="text-primary" (click)="setField(contact);modal.close('selected-close')">
+                                        {{contact.firstName}}</a>
                                 </td>
                                
-    
-    
                             </tr>
     
                         </tbody>
@@ -50,14 +43,15 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     </div>
 </ng-template>
+
 <div class="form-group">
     <label>{{to.label}}</label>
     <div class="input-group">
         <input class="form-control form-control-sm" [value]="val">
         <input class="form-control form-control-sm" [formControl]="formControl" [formlyAttributes]="field" type="hidden">
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" (click)="openLg(longContent)" type="button">
-                <i class="fa fa-calendar"></i>
+            <button class="btn btn-sm btn-outline-primary" (click)="openLg(longContent)" type="button">
+                <i class="fas fa-eye"></i>
             </button>
         </div>
     </div>
