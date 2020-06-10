@@ -24,7 +24,8 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/deals',
   '/cockpit',
   '/docs',
-  '/category'
+  '/category',
+  '/products'
 ];
 
 @Injectable()
