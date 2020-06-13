@@ -12,7 +12,7 @@ import { FormService } from 'src/app/services/form.service';
 })
 export class CreateComponent implements OnInit {
   form = new FormGroup({});
-  model = { supportName: 'email@gmail.com' };
+  model = { supportName: 'supportName' };
   fields: FormlyFieldConfig[];
 
   constructor(private productService: ProductService, private formService: FormService) { }

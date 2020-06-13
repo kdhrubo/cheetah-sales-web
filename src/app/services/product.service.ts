@@ -51,6 +51,13 @@ export class ProductService {
       .pipe(catchError(err => this.handleError(err, 'find-one-product')));
   }
 
+  copy(id: any): Observable<any> {
+    const url = `${environment.api_base_url}/products/copy/${id}`;
+    return this.httpClient
+      .post<Observable<any>>(url, null)
+      .pipe(catchError(err => this.handleError(err, 'copy-product')));
+  }
+
   private handleError(error: any, methodName: string) {
     const message = !!error.detail ? error.detail : 'Please try again.';
     console.log('Error in ', methodName, '\n', error);
