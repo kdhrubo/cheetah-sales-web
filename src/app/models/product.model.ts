@@ -1,6 +1,7 @@
 import { PickList } from './picklist.model';
 
 export class Product {
+    id: string;
     availability: boolean;
     categoryId: string;
     cost: number;
