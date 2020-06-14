@@ -9,6 +9,7 @@ export class SignUpRequest {
   firstName: string;
   lastName: string;
   company: string;
+  country: string;
 }
 
 export class ForgotPwdRequest {
