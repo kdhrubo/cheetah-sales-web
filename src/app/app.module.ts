@@ -19,6 +19,7 @@ import { FormlyFieldFile } from './common/file/filetype.component';
 import { FileValueAccessor } from './common/file/file-value-accessor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SidebarModule } from 'ng-sidebar';
 
 
 
@@ -41,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     NgbModule,
     SharedModule,
+    SidebarModule.forRoot(),
     FormlyModule.forRoot({
       validationMessages: [
         { name: 'required', message: 'This field is required' }

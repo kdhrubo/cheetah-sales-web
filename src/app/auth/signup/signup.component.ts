@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SignUpRequest } from 'src/app/models/auth.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,8 @@ export class SignupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -31,8 +33,7 @@ export class SignupComponent implements OnInit {
       password: ['', [Validators.required ]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      company: ['', [Validators.required]],
-      country: ['', [Validators.required]],
+      company: ['', [Validators.required]]
     });
 
 
@@ -60,11 +61,13 @@ export class SignupComponent implements OnInit {
 
         .subscribe(
             data => {
+                this.loading = false;
                 console.log('Signup complete');
             },
             error => {
-                // this.alertService.error(error);
-                this.loading = false;
+              console.log('Detail - ' + JSON.stringify(error));
+              this.toastr.error('Registration Error', error?.detail, {});
+              this.loading = false;
             });
 }
 
