@@ -18,10 +18,12 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
           
-          <button type="submit" class="btn btn-primary float-right" [disabled]="!form.valid">Save</button>
-           
-          <a class="nav-link float-right mr-2" [routerLink]="'/contacts/list'">Cancel</a>
-
+         <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+          <i class="far fa-save"></i>
+          Save</button>
+        <a type="button" class="btn btn-sm btn-outline-primary float-right mr-2" [routerLink]="['/contacts']">
+          <i class="fas fa-chevron-circle-left"></i>
+          Cancel</a>
 
         </form>
       </div>

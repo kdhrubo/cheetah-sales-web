@@ -4,6 +4,8 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from 'src/app/models/contact.model';
 import { FormService } from '../../services/form.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -17,7 +19,10 @@ export class CreateComponent implements OnInit {
 
   fields: FormlyFieldConfig[] ;
 
-  constructor(private contactService: ContactService, private formService: FormService) { }
+  constructor(private contactService: ContactService,
+              private formService: FormService,
+              private toastr: ToastrService,
+              private router: Router ) { }
 
   ngOnInit(): void {
     this.formService.getFields('form-contact-create').subscribe(
@@ -35,27 +40,19 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit() {
-    
-    let contact: Contact = this.model as Contact;
-    
+    const contact: Contact = this.model as Contact;
     Object.keys(contact).forEach((key) => (contact[key] === null || contact[key] === '') && delete contact[key]);
 
-    console.log('=== after clean up ====');
-    console.log(JSON.stringify(contact));
-
-
-
-    
     this.contactService.save(contact)
     .subscribe(
       data => {
-        console.log('Contact save success');
+        this.toastr.success('Contact Saved Successfully.', '', {});
+        this.router.navigate(['/contacts' , data?.id]);
       },
       error => {
         console.log('Contact save failure');
       }
     );
-    
   }
 
 }
