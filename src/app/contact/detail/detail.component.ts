@@ -8,6 +8,7 @@ import { FormService } from '../../services/form.service';
 import { Emails } from '../../models/emails.model';
 import { Address } from '../../models/address.model';
 import { Note } from 'src/app/models/note.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail',
@@ -24,15 +25,21 @@ export class DetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private contactService: ContactService,
-    private formService: FormService
+    private formService: FormService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getContact();
+    this.route.params.subscribe((params) => {
+      const id = params?.id;
+
+      this.id = id;
+      this.findOne(id);
+    });
   }
 
-  getContact() {
-    this.id = this.route.snapshot.paramMap.get('id');
+  findOne(id: any) {
 
     this.contactService.findOne(this.id).subscribe(
       (data) => {
@@ -41,6 +48,24 @@ export class DetailComponent implements OnInit {
       },
       (error) => {
         console.log('Unable to retrieve Contact details');
+      }
+    );
+  }
+
+  updateExt(incontact: any) {
+    this.contact = incontact;
+    this.onSubmit();
+  }
+
+  copy() {
+    this.contactService.copy(this.contact.id).subscribe(
+      (data) => {
+        this.toastr.success('Contact Copied Successfully.', '', {});
+
+        this.router.navigate(['/contacts', data?.id]);
+      },
+      (error) => {
+        this.toastr.error('Contact copy failed.', error?.detail, {});
       }
     );
   }
@@ -57,10 +82,6 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  updateExt(incontact: any) {
-    this.contact = incontact;
-    this.onSubmit();
-  }
 
   addAddress(address: Address) {
     console.log('Address ->>> ' + JSON.stringify(address));
@@ -90,10 +111,10 @@ export class DetailComponent implements OnInit {
   onSubmit() {
     this.contactService.save(this.contact).subscribe(
       (data) => {
-        console.log('Contact save success');
+        this.toastr.success('Contact saved successfully.', '', {});
       },
       (error) => {
-        console.log('Contact save failure');
+        this.toastr.error('Contact save failed.', error?.detail, {});
       }
     );
   }
