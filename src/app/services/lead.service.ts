@@ -19,6 +19,13 @@ export class LeadService {
       .pipe(catchError(err => this.handleError(err, 'save-lead')));
   }
 
+  convert(config: any): Observable<any> {
+    const url = `${environment.api_base_url}/leads/convert`;
+    return this.httpClient
+      .post<Observable<any>>(url, config)
+      .pipe(catchError(err => this.handleError(err, 'convert-lead')));
+  }
+
   copy(id: any): Observable<any> {
     const url = `${environment.api_base_url}/leads/copy/${id}`;
     return this.httpClient

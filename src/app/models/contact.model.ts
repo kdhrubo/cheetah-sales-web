@@ -36,7 +36,8 @@ export class Contact {
   fax: string;
 
   emails: Emails;
-  addresses: Address[];
+  primaryAddress: Address;
+  secondaryAddress: Address;
 
   notes: Note[];
 }

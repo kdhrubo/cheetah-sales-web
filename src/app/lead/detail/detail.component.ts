@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from 'src/app/services/form.service';
 import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/models/address.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detail',
@@ -26,12 +27,16 @@ export class DetailComponent implements OnInit {
 
   fields: FormlyFieldConfig[];
 
+  convertLeadModel = {id: ''};
+  convertfields: FormlyFieldConfig[];
+
   constructor(
     private route: ActivatedRoute,
     private leadService: LeadService,
     private formService: FormService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +76,36 @@ export class DetailComponent implements OnInit {
         this.toastr.error('Lead copy failed.', error?.detail, {});
       }
     );
+  }
+
+  startConvert(content: any) {
+
+    this.formService.getFields('form-lead-convert').subscribe(
+      (data) => {
+        this.convertfields = data;
+        this.modalService.open(content, { size: 'xl', centered: true });
+      },
+      (error) => {
+        console.log('Unable to retrieve lead convert form information');
+      }
+    );
+  }
+
+  submitConvert() {
+    console.log('complete convert - trying to load modal - ' + JSON.stringify(this.convertLeadModel));
+    console.log('complete convert - trying to load modal - ' + this.id);
+
+    this.convertLeadModel.id = this.id;
+
+    this.leadService.convert(this.convertLeadModel).subscribe(
+      (data) => {
+        this.toastr.success('Lead converted successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Lead conversion failed.', error?.detail, {});
+      }
+    );
+
   }
 
   updatePrimaryAddress(address: Address) {

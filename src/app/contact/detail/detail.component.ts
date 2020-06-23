@@ -82,19 +82,17 @@ export class DetailComponent implements OnInit {
     );
   }
 
-
-  addAddress(address: Address) {
-    console.log('Address ->>> ' + JSON.stringify(address));
-
-    this.contactService.addAddress(this.id, address).subscribe(
-      (data) => {
-        this.contact = data;
-      },
-      (error) => {
-        console.log('Error adding  address.');
-      }
-    );
+  updatePrimaryAddress(address: Address) {
+    this.contact.primaryAddress = address;
+    this.onSubmit();
   }
+
+  updateSecondaryAddress(address: Address) {
+    this.contact.secondaryAddress = address;
+    this.onSubmit();
+  }
+
+
 
 
   addNote(note: Note) {
