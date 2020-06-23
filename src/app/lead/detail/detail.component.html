@@ -26,13 +26,19 @@
               <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
                 <i class="far fa-save"></i>
                 Save</button>
-              <a type="button" class="btn btn-sm btn-outline-primary float-right mr-1" [routerLink]="['/leads']">
-                <i class="fas fa-chevron-circle-left"></i>
-                Cancel</a>
+              
 
               <button type="button" class="btn btn-sm btn-outline-primary float-right mr-1" (click)="copy()">
                 <i class="far fa-copy"></i>
                   Copy </button>  
+
+              <button type="button" class="btn btn-sm btn-outline-success float-right mr-1" (click)="startConvert(longContent)">
+                <i class="fas fa-bullseye"></i>
+                  Convert </button>      
+
+              <a type="button" class="btn btn-sm btn-outline-primary float-right mr-1" [routerLink]="['/leads']">
+                <i class="fas fa-chevron-circle-left"></i>
+                Cancel</a>    
 
             </form>
           </div>
@@ -137,4 +143,32 @@
 
 
 
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Convert Lead</h5>
 
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <form [formGroup]="form" (ngSubmit)="submitConvert()">
+                    <formly-form [form]="form" [fields]="convertfields" [model]="convertLeadModel"></formly-form>
+
+                    <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                        <i class="far fa-save"></i> 
+                        Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+                    (click)="modal.close('Cross click')">
+                    <i class="fas fa-window-close"></i> 
+                    Cancel</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+</ng-template>

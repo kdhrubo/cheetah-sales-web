@@ -48,7 +48,7 @@
         </div>
       </div>
       
-      <div class="row shadow p-3 mb-2 bg-white rounded">
+      <div class="row">
         <div class="col-md-12">
           <ul ngbNav #nav="ngbNav" class="nav-pills">
             <li ngbNavItem>
@@ -116,11 +116,23 @@
 
     <!--column 3-->
     <div class="col-md-2">
-      <app-communication [communication]="contact" (updateCommunication)="updateExt($event)"></app-communication>
+      <app-communication [communication]="contact" 
+          (updateCommunication)="updateExt($event)"></app-communication>
 
-      <app-social [social]="contact" (updateSocial)="updateExt($event)"></app-social>
+      <app-social [social]="contact" 
+        (updateSocial)="updateExt($event)"></app-social>
 
-          </div>
+
+      <app-address [address]="contact?.primaryAddress" 
+        (addAddress)="updatePrimaryAddress($event)" 
+          [headerText]="'Primary Address'"></app-address>
+
+      <app-address [address]="contact?.secondaryAddress" 
+        (addAddress)="updateSecondaryAddress($event)" 
+        [headerText]="'Secondary Address'"></app-address>
+      
+
+    </div>
 
     <!--column 4-->
     <div class="col-md-1">
