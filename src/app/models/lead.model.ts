@@ -20,4 +20,11 @@ export class Lead {
 
     primaryAddress: Address;
     secondaryAddress: Address;
+
+    products: LeadProduct[];
+}
+
+class LeadProduct {
+    id: string;
+    name: string;
 }

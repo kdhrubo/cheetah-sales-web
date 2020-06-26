@@ -19,11 +19,7 @@ export class DetailComponent implements OnInit {
   lead: Lead;
   id: any;
 
-  options: FormlyFormOptions = {
-    formState: {
-      disabled: true,
-    },
-  };
+  options: FormlyFormOptions = {};
 
   fields: FormlyFieldConfig[];
 
@@ -124,13 +120,9 @@ export class DetailComponent implements OnInit {
         this.fields = data;
       },
       (error) => {
-        console.log('Unable to retrieve lead form information');
+        this.toastr.error('Unable to retrieve lead form information', error?.detail, {});
       }
     );
-  }
-
-  edit() {
-    this.options.formState.disabled = !this.options.formState.disabled;
   }
 
   onSubmit() {
@@ -142,5 +134,38 @@ export class DetailComponent implements OnInit {
         this.toastr.error('Lead save failed.', error?.detail, {});
       }
     );
+  }
+
+  addProduct(product: any){
+
+    const p = {
+      id: product.id,
+      name: product.productName
+    };
+
+    this.leadService.addProduct(this.id, p).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Product added successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to add product to lead.', error?.detail, {});
+      }
+    );
+
+  }
+
+  removeProduct(product: any){
+    this.leadService.removeProduct(this.id, product.id).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Product removed successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to removed product from lead.', error?.detail, {});
+      }
+    );
+
+
   }
 }

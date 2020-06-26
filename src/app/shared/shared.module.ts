@@ -12,6 +12,7 @@ import { TaskComponent } from './components/task/task.component';
 import { AddressComponent } from './components/address/address.component';
 import { SocialComponent } from './components/social/social.component';
 import { CommunicationComponent } from './components/communication/communication.component';
+import { ProductRelationComponent } from './components/product-relation/product-relation.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CommunicationComponent } from './components/communication/communication
     TaskComponent,
     AddressComponent,
     SocialComponent,
-    CommunicationComponent],
+    CommunicationComponent,
+    ProductRelationComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -38,6 +40,7 @@ import { CommunicationComponent } from './components/communication/communication
     TaskComponent,
     AddressComponent,
     SocialComponent,
-    CommunicationComponent]
+    CommunicationComponent,
+    ProductRelationComponent]
 })
 export class SharedModule { }

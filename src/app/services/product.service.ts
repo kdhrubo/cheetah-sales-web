@@ -37,7 +37,6 @@ export class ProductService {
     pageSize: number
   ): Observable<Page<Product>> {
     const url = `${environment.api_base_url}/products/search?rsql=${rsql}&page=${pageNo}&size=${pageSize}`;
-    console.log('url - ' + url);
 
     return this.httpClient
       .get<Page<Product>>(url)
