@@ -69,4 +69,18 @@ export class LeadService {
       .get<Lead>(url)
       .pipe(catchError(err => this.handleError(err, 'find-one-lead')));
   }
+
+  addProduct(id: any, product: any): Observable<any> {
+    const url = `${environment.api_base_url}/leads/${id}/products`;
+    return this.httpClient
+      .post<Observable<any>>(url, product)
+      .pipe(catchError(err => this.handleError(err, 'add-lead-product')));
+  }
+
+  removeProduct(id: any, productId: any): Observable<any> {
+    const url = `${environment.api_base_url}/leads/${id}/products/${productId}`;
+    return this.httpClient
+      .post<Observable<any>>(url, null)
+      .pipe(catchError(err => this.handleError(err, 'renove-lead-product')));
+  }
 }
