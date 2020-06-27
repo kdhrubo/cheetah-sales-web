@@ -20,6 +20,7 @@ import { FileValueAccessor } from './common/file/file-value-accessor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from 'ng-sidebar';
+import { PriceBookComponent } from './price-book/price-book.component';
 
 
 
@@ -31,7 +32,8 @@ import { SidebarModule } from 'ng-sidebar';
     AccountpicklistComponent,
     ContactPicklistComponent,
     FileValueAccessor,
-    FormlyFieldFile
+    FormlyFieldFile,
+    PriceBookComponent
   ],
   imports: [
     BrowserModule,
