@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'cockpit', loadChildren: () => import('./tenant/tenant.module').then(m => m.TenantModule), canActivate: [AuthGuard] },
   { path: 'guest', loadChildren: () => import('./guest/guest.module').then(m => m.GuestModule) },
   { path: 'docs', loadChildren: () => import('./document/document.module').then(m => m.DocumentModule) , canActivate: [AuthGuard] },
+  { path: 'pricebooks', loadChildren: () => import('./price-book/price-book.module').then(m => m.PriceBookModule) , canActivate: [AuthGuard] },
 ];
 
 @NgModule({
