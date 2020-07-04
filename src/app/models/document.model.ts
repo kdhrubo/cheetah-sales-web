@@ -1,12 +1,11 @@
 export class DocumentItem {
   id: string;
   name: string;
-  documentSourceId: string;
-  documentSource: string;
-  documentType: string;
-  parentName: string;
-  parentId: string;
-
+  container: string;
+  path: string;
+  extension: string;
+  type: string;
+  
   file: any[];
   
   version: number;
@@ -14,8 +13,5 @@ export class DocumentItem {
   createdDate: Date;
   lastModifiedDate: Date;
   
-  externalId: string;
-  externalParentId: string;
-  externalParentName: string;
   
 }

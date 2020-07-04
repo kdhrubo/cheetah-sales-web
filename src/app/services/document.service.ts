@@ -12,11 +12,11 @@ export class DocumentService {
 
   constructor(private httpClient: HttpClient) { }
 
-  saveFolder(docItem: DocumentItem): Observable<any> {
+  saveFolder(folder: any): Observable<any> {
     console.log('Saving folder');
     const url = `${environment.api_base_url}/docs/folders`;
     return this.httpClient
-      .post<Observable<any>>(url, docItem)
+      .post<Observable<any>>(url, folder)
       .pipe(catchError(err => this.handleError(err, 'save-folder')));
   }
 

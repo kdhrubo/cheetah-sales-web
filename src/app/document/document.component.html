@@ -1,15 +1,16 @@
 <div class="container-fluid">
 
-    <div class="row no-gutters">
+    <div class="row">
         
-        <div class="col-md-1 col-lg-1"></div>
+        <div class="col-sm-1"></div>
 
-        <div class="col-md-2 col-lg-2 col-sm-2 col-2">
-            
+        <div class="col-sm-2">
             <h5 class="text-primary">Documents</h5>
         </div>
 
-        <div class="col-md-3 col-lg-3 col-sm-3">
+        <div class="col-sm-5"></div>
+
+        <div class="col-sm-3">
 
             <div ngbDropdown class="d-inline-block float-left">
                 <button class="btn btn-sm btn-outline-success dropdown-toggle" 
@@ -17,67 +18,77 @@
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                   <button ngbDropdownItem (click)="openCreateFolder(newFolderContent)" class="btn-sm">Folder</button>
                   <button ngbDropdownItem (click)="openCreateFile(newFileContent)" class="btn-sm">File</button>
-                  <button ngbDropdownItem (click)="openCreateFolder(newFolderContent)" class="btn-sm">Link</button>
+                  
                 </div>
             </div>
+
         </div>
-
-
-        <div class="col-md-5 col-lg-5 col-sm-2">
-            <div class="input-group"> 
-                <input type="text" class="form-control form-control-sm col-md-8 col-lg-8"  placeholder="Search">
-                <div class="input-group-append"> 
-                    <button class="btn btn-primary btn-sm search-button" type="submit"> <i class="fa fa-search"></i> </button>
-                </div>
-            </div>
-        </div>
-
-
         
         
-        <div class="col-md-1 col-lg-1"></div>
+        <div class="col-sm-1"></div>
 
     </div>
     
 
-    <div class="row mt-2">
+    <div class="row">
         
-        <div class="col-md-1"></div>
+        <div class="col-sm-1"></div>
 
-        <div class="col-md-10">
-            <div class="row">
-                <div *ngIf="!documents || documents.length === 0">
-                    <div class="col-md-12 float-right">
-                        <a class="text-danger small" (click)="goBack()"><i class="fas fa-long-arrow-alt-left"></i> {{parentName}}</a>
-                        <span class="text-danger small border-left"> 0 Items</span> 
-                    </div>
-                </div>
+        <div class="col-sm-10">
 
-                <div *ngIf="documents && documents.length > 0">
-                    <div class="col-md-12 float-right">
-                        <a class="text-success small" (click)="goBack()"><i class="fas fa-long-arrow-alt-left"></i> {{parentName}}</a>
-                        <span class="text-success small border-left"> {{documents.length}} Items.</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="shadow bg-white rounded" *ngIf="documents && documents.length > 0">
 
-                <ul class="list-group list-group-flush" >
-                    <li class="list-group-item" *ngFor="let d of documents;">
-                        <div>
-                            <a (click)="go(d)"  *ngIf="d.documentType == 'folder'" class="text-primary"><i class="fas fa-folder"></i> {{d.name}}</a>
-                            <a href="#"  *ngIf="d.documentType != 'folder'"><i class="fas fa-file-{{d.documentType}}"></i> {{d.name}}</a>
-                        </div>
-                        <div class="small">{{d.createdDate | date:'mediumDate'}}</div>
-                    </li>
-                  </ul>
+            <div class="table-responsive-md">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            
+                            <th scope="col">Name</th>
 
+                            <th scope="col">Created On</th>
+                            
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of documents;">
+                            <th scope="row"></th>
+                            
+                            <td>
+                                
+                                <a (click)="goFwd(d)"  *ngIf="d.type == 'FOLDER'" class="text-primary"><i class="fas fa-folder"></i> {{d.name}}</a>
+                                <a href="#"  *ngIf="d.type == 'FILE'">
+                                    <!--
+                                    <i class="fas fa-file-{{d.type}}"></i> 
+                                    -->
+                                    <i class="fas fa-file-{{d.extension}}"></i>
+                                    {{d.name}}
+                                </a>
+                        
+                            </td>
+
+                            <td>
+                            
+                                {{d.createdDate | date:'mediumDate'}}
+                            
+                            </td>
+                            
+
+                            <td>
+                                
+                                <a class="text-danger" (click)='delete(d)'>Delete</a>
+                                  
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
            
         </div>
 
-        <div class="col-md-1"></div>
+        <div class="col-sm-1"></div>
 
     </div>
 
@@ -96,8 +107,8 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-lg-10">
-                <form [formGroup]="form" (ngSubmit)="onSubmitForNewFolder()">
-                    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+                <form [formGroup]="form" (ngSubmit)="onCreateFolder()">
+                    <formly-form [form]="form" [fields]="fields" [model]="folderModel"></formly-form>
 
                     <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
                         <i class="far fa-save"></i> 
@@ -127,8 +138,8 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-lg-10">
-                <form [formGroup]="form" (ngSubmit)="onSubmitForNewFile()">
-                    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+                <form [formGroup]="form" (ngSubmit)="onCreateFile()">
+                    <formly-form [form]="form" [fields]="fields" [model]="fileModel"></formly-form>
 
                     <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
                         <i class="far fa-save"></i> 
