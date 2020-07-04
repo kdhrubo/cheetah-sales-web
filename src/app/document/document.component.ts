@@ -13,16 +13,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DocumentComponent implements OnInit {
 
-  parentName = 'root';
-  currentDoc: DocumentItem;
-  prevDoc: DocumentItem;
+  folderModel = {name: null, container: null};
+  fileModel = {};
+  container = '/';
+  prevContainer = '';
 
   documents: DocumentItem [];
 
-  model = {};
-
   form = new FormGroup({});
-
   fields: FormlyFieldConfig[];
 
   constructor(private modalService: NgbModal,
@@ -32,7 +30,7 @@ export class DocumentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const rsql = `deleted==false;parentName=="${this.parentName}"`;
+    const rsql = `deleted==false;container=="${this.container}"`;
     this.search(rsql);
   }
 
@@ -46,22 +44,16 @@ export class DocumentComponent implements OnInit {
   }
 
   openCreateFolder(content) {
-
-    this.loadForm('create-folder-form', content);
+    this.folderModel = {name: null, container: null};
+    this.loadForm('form-create-folder', content);
   }
 
-  onSubmitForNewFolder() {
-    const docItem: DocumentItem = this.model as DocumentItem;
+  onCreateFolder() {
+    const rsql = `deleted==false;container=="${this.container}"`;
 
-    docItem.documentType = 'folder';
-    docItem.parentName = this.currentDoc ? this.currentDoc?.name : this.parentName;
-    docItem.parentId = this.currentDoc?.id;
+    this.folderModel.container = this.container;
 
-    const rsql = `deleted==false;parentName=="${this.parentName}"`;
-
-    console.log('Save folder  - ' + JSON.stringify(docItem));
-
-    this.documentService.saveFolder(docItem).subscribe(
+    this.documentService.saveFolder(this.folderModel).subscribe(
       (data) => {
         console.log('DocumentItem save success');
         this.search(rsql);
@@ -74,26 +66,19 @@ export class DocumentComponent implements OnInit {
 
   openCreateFile(content) {
 
-    this.loadForm('create-file-form', content);
+    this.loadForm('form-create-file', content);
   }
 
-  onSubmitForNewFile() {
-    const docItem: DocumentItem = this.model as DocumentItem;
+  onCreateFile() {
+    console.log('Save file  - ' + this.fileModel);
+    const docItem: DocumentItem = this.fileModel as DocumentItem;
 
-    console.log('Save file  - ' + docItem);
 
-    const rsql = `deleted==false;parentName=="${this.parentName}"`;
+    const rsql = `deleted==false;container=="${this.container}"`;
 
     const formData: FormData = new FormData();
     formData.append('file', docItem?.file[0]);
-
-    formData.append('parentName', this.currentDoc ? this.currentDoc?.name : this.parentName);
-    if (this.currentDoc) { 
-      formData.append('parentId', this.currentDoc?.id );
-    }
-
-    formData.append('documentSourceId', docItem.documentSourceId);
-    formData.append('documentSource', docItem.documentSource);
+    formData.append('container', this.container);
 
     this.documentService.saveFile(formData).subscribe(
       (data) => {
@@ -120,19 +105,19 @@ export class DocumentComponent implements OnInit {
     );
   }
 
-  go(doc: DocumentItem) {
-    this.parentName = doc.name;
-    this.prevDoc = this.currentDoc;
-    this.currentDoc = doc;
-    // console.log('current doc - ' + JSON.stringify(this.currentDoc));
-    const rsql = `deleted==false;parentName=="${this.parentName}"`;
+  delete(d: DocumentItem) {
+
+  }
+
+  goFwd(doc: DocumentItem) {
+    this.prevContainer = this.container;
+    this.container = doc.path;
+    const rsql = `deleted==false;container=="${this.container}"`;
     this.search(rsql);
   }
 
   goBack() {
-    this.parentName = this.currentDoc?.parentName;
-    this.currentDoc = this.prevDoc;
-    const rsql = `deleted==false;parentName=="${this.parentName}"`;
+    const rsql = `deleted==false;container=="${this.prevContainer}"`;
     // console.log('rsql - ' + rsql);
     this.search(rsql);
   }
