@@ -20,6 +20,8 @@ export class ListComponent implements OnInit {
 
   trackCounter = 1;
 
+ opened: boolean = false;
+
 
 
   rsql = 'deleted==false';
@@ -65,6 +67,10 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     // console.log('Fields - ' + this.fields);
     this.search(this.rsql);
+  }
+
+  toggleSidebar() {
+    this.opened = !this.opened;
   }
   
   listLeadElement(value: string): void {

@@ -12,6 +12,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { SharedModule } from '../shared/shared.module';
+import { SidebarModule } from 'ng-sidebar';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     FormlyModule.forChild(),
     FormlyBootstrapModule,
-    SharedModule
+    SharedModule,
+    SidebarModule
   ]
 })
 export class LeadModule { }
