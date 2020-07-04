@@ -28,7 +28,6 @@
     "@ngx-formly/schematics": "^5.6.2",
     "bootstrap": "^4.5.0",
     "js-base64": "^2.5.2",
-    "ng-sidebar": "^9.3.0",
     "ngx-toastr": "^12.1.0",
     "rxjs": "^6.5.5",
     "tslib": "^1.13.0",

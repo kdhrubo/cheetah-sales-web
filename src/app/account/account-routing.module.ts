@@ -7,10 +7,9 @@ import { DetailComponent } from './detail/detail.component';
 import { ImportComponent } from './import/import.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
-  { path: 'list', component: ListComponent, canActivate: [AuthGuard] },
+  { path: '', component: ListComponent, canActivate: [AuthGuard] },
   { path: 'create', component: CreateComponent, canActivate: [AuthGuard] },
-  { path: 'detail/:id', component: DetailComponent, canActivate: [AuthGuard] },
+  { path: ':id', component: DetailComponent, canActivate: [AuthGuard] },
   { path: 'import', component: ImportComponent, canActivate: [AuthGuard] },
 ];
 
