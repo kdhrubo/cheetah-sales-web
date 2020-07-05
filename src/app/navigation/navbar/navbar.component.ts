@@ -11,15 +11,10 @@ export class NavbarComponent implements OnInit {
 
   isMenuCollapsed = true;
 
-  authenticated$: Observable<boolean>;
-
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-
-    this.authenticated$ = this.authService.isLoggedIn;
-
-    console.log('authenticated' + this.authenticated$);
+    console.log('## loading nav bar - authenticated');
   }
 
 }
