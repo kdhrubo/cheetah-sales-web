@@ -4,6 +4,8 @@ import { AccountService } from 'src/app/services/account.service';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Account } from '../../models/account.model';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -12,16 +14,15 @@ import { Account } from '../../models/account.model';
 })
 export class CreateComponent implements OnInit {
   form = new FormGroup({});
-  model = { email: 'email@gmail.com' };
+  model = { };
   fields: FormlyFieldConfig[];
 
-  constructor(private accountService: AccountService, private formService: FormService) { }
+  constructor(private accountService: AccountService,
+              private formService: FormService,
+              private toastr: ToastrService,
+              private router: Router ) { }
 
   ngOnInit(): void {
-    this.fetchAccountCreateForm();
-  }
-
-  fetchAccountCreateForm(): void {
     this.formService.getFields('form-account-create').subscribe(
       data => {
         this.fields = data;
@@ -33,20 +34,19 @@ export class CreateComponent implements OnInit {
     );
   }
 
-  saveAccount() {
-    console.log(JSON.stringify(this.model));
+
+  onSubmit() {
     const account: Account = this.model as Account;
     Object.keys(account).forEach((key) => (account[key] === null || account[key] === '') && delete account[key]);
-    console.log('=== After clean up account model ====');
-    console.log(JSON.stringify(account));
 
     this.accountService.save(account)
       .subscribe(
         data => {
-          console.log('Account saved successfully:');
+          this.toastr.success('Account Saved Successfully.', '', {});
+          this.router.navigate(['/accounts' , data?.id]);
         },
         error => {
-          console.log('Exception reported while saving Account:');
+          console.log('Account save failure.');
         }
       );
   }

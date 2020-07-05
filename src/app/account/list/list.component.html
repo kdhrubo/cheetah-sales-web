@@ -126,7 +126,7 @@
                             <th scope="row"></th>
                             <ng-container *ngFor="let f of fields; let i = index;">
                                 <td *ngIf="f.checked">
-                                    <a routerLink="/accounts/detail/{{account['id']}}">
+                                    <a routerLink="/accounts/{{account['id']}}">
                                         {{account[f.name]}}
                                     </a>
                                 </td>

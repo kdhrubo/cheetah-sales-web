@@ -10,7 +10,6 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { SharedModule } from '../shared/shared.module';
-import { SidebarModule } from 'ng-sidebar';
 
 
 @NgModule({
@@ -22,8 +21,7 @@ import { SidebarModule } from 'ng-sidebar';
     FormsModule,
     FormlyModule.forChild(),
     FormlyBootstrapModule,
-    SharedModule,
-    SidebarModule
+    SharedModule
   ]
 })
 export class AuthModule { }
