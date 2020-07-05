@@ -13,6 +13,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { SharedModule } from '../shared/shared.module';
 
+
 @NgModule({
   declarations: [LeadComponent, ListComponent, CreateComponent, DetailComponent, ImportComponent],
   imports: [

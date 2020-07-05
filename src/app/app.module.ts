@@ -21,8 +21,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PriceBookComponent } from './price-book/price-book.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

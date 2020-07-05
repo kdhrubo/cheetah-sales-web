@@ -27,7 +27,6 @@ export class PicklistComponent extends FieldType implements OnInit {
     this.label = this.to.label;
     this.domain = this.to.domain;
     this.fieldName = this.to.val;
-   
     this.load();
   }
 

@@ -10,9 +10,6 @@ import { LeadService } from '../../services/lead.service';
 })
 export class ListComponent implements OnInit {
 
-  isCollapsed = true;
-  isCollapsedFilter = true;
-
   leadPage: Page<Lead>;
   pageNo = 1;
   pageSize = 10;
@@ -20,18 +17,18 @@ export class ListComponent implements OnInit {
 
   trackCounter = 1;
 
- opened: boolean = false;
-
-
-
   rsql = 'deleted==false';
+
+  searchField = 'firstName';
+  searchText = '';
 
   fields = [
     {
       id: 1,
       name: 'id',
       label: 'Id',
-      checked: false
+      checked: false,
+      searchable: false
     },
 
     {
@@ -39,25 +36,23 @@ export class ListComponent implements OnInit {
       name: 'firstName',
       label: 'First Name',
       checked: true,
-      filter: {
-          type: 'string',
-          operator: '',
-          operand: ''
-        }
+      searchable: true
     },
 
     {
       id: 3,
       name: 'lastName',
       label: 'Last Name',
-      checked: true
+      checked: true,
+      searchable: true
     },
 
     {
       id: 4,
       name: 'email',
       label: 'Email',
-      checked: true
+      checked: true,
+      searchable: true
     }
 
   ];
@@ -69,23 +64,25 @@ export class ListComponent implements OnInit {
     this.search(this.rsql);
   }
 
-  toggleSidebar() {
-    this.opened = !this.opened;
+
+  onSetSearchField(s: any) {
+    console.log('searchfield - {}', s);
+    this.searchField = s;
   }
-  
-  listLeadElement(value: string): void {
+
+  listLeadElement(value: any): void {
     console.log('Updating List Element count with new page size : ' + value);
     this.pageSize = +value;
     this.search(this.rsql);
   }
-  
+
 
   loadNextPage(page: number): void {
     console.log('Loading next page with pageNo : ' + page);
     this.pageNo = page;
     this.search(this.rsql);
   }
-  
+
   search(sql: string) {
     this.leadService.search(sql, this.pageNo - 1, this.pageSize ).subscribe(
       data => {
@@ -97,20 +94,10 @@ export class ListComponent implements OnInit {
     );
   }
 
-  applyfilterSearch(): void {
-    // console.log('fields - ' + JSON.stringify(this.fields));
-
-    let sql = this.rsql ;
-
-    for (const f of this.fields) {
-      if (f.filter) {
-        // tslint:disable-next-line: triple-equals
-        if (f.filter.type == 'string') {
-          const partial = ' and ' + f.name + f.filter.operator + f.filter.operand;
-          sql = sql + partial;
-        }
-       }
-    }
+  doSearch(): void {
+    this.pageNo = 1;
+    this.pageSize = 10;
+    const sql = `deleted==false;${this.searchField}==${this.searchText}`;
 
     this.search(sql);
 
@@ -121,8 +108,6 @@ export class ListComponent implements OnInit {
   }
 
   toggleEditable(event: any): void {
-    console.log('checked - ' + event.target.checked);
-    console.log('value - ' + event.target.value);
 
     for (const i of this.fields) {
       // tslint:disable-next-line: triple-equals
@@ -131,16 +116,12 @@ export class ListComponent implements OnInit {
         i.checked = !i.checked;
         // console.log('calling track');
         this.trackFn();
-
-        // console.log('Call API');
-        // this.callApi();
         break;
       }
     }
   }
 
   trackFn(): number {
-    // console.log('Tracking Function');
     return this.trackCounter++;
   }
 
