@@ -18,7 +18,7 @@ const routes: Routes = [
     { path: 'docs', loadChildren: () => import('./../document/document.module').then(m => m.DocumentModule) , canActivate: [AuthGuard] },
     { path: 'pricebooks', loadChildren: () => import('./../price-book/price-book.module').then(m => m.PriceBookModule) , canActivate: [AuthGuard] },
     { path: 'product-price', loadChildren: () => import('./../product-price/product-price.module').then(m => m.ProductPriceModule) , canActivate: [AuthGuard] },
-    { path: '', loadChildren: () => import('./../lead/lead.module').then(m => m.LeadModule), canActivate: [AuthGuard] },
+    { path: '', redirectTo: 'leads'},
   ] 
   }
 ];

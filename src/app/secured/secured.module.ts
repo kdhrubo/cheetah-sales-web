@@ -7,10 +7,6 @@ import { SecuredComponent } from './secured.component';
 import { SharedModule } from './../shared/shared.module';
 import { NavigationModule } from './../navigation/navigation.module';
 
-
-
-
-
 @NgModule({
   declarations: [SecuredComponent],
   imports: [

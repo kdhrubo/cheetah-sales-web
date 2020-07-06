@@ -30,7 +30,7 @@ export class SigninComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     // tslint:disable-next-line: no-string-literal
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/app';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/app/leads';
 
     // TODO - return to dashboard/default page if already loggedin
   }
