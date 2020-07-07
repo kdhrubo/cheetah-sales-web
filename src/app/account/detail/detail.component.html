@@ -1,29 +1,177 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-4">
-          <h5 class="mt-2">View Accounts</h5>
-      </div>
-  
-      <div class="col-sm-6">
-  
-          
-      </div>
-      <div class="col-1"></div>
-    </div>
-  
-    <div class="row">
-      <div class="col-1"></div>
-      <div class="col-lg-10">
-        <form [formGroup]="form" (ngSubmit)="updateAccountRecord()">
-          <formly-form [form]="form" [fields]="fields" [model]="accountModel" [options]="options"></formly-form>
 
-          
-          <button type="submit" class="btn btn-sm btn-outline-primary float-right mr-2" (click)="edit()">Edit</button>
-          <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">Save</button>
-          <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2">Cancel</button>
-        </form>
-      </div>
-      <div class="col-1"></div>
+  <div class="row">
+
+    <!-- column 1 -->
+    <div class="col-md-1">
+      
     </div>
+
+    <!--column 2-->
+    <div class="col-md-8">
+
+      <div class="row">
+
+        <div class="col-md-12">
+          <h5 class="text-primary">Account Details</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        
+          <div class="col-md-12">
+
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <formly-form [form]="form" [fields]="fields" [model]="account"></formly-form>
+
+              <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                <i class="far fa-save"></i>
+                Save</button>
+              
+
+              <button type="button" class="btn btn-sm btn-outline-primary float-right mr-1" (click)="copy()">
+                <i class="far fa-copy"></i>
+                  Copy </button>  
+  
+
+              <a type="button" class="btn btn-sm btn-outline-primary float-right mr-1" [routerLink]="['/app','accounts']">
+                <i class="fas fa-chevron-circle-left"></i>
+                Cancel</a>    
+
+            </form>
+          </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Activities</h5>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <ul ngbNav #nav="ngbNav" class="nav-pills">
+            <li ngbNavItem>
+              <a ngbNavLink>Meetings</a>
+              <ng-template ngbNavContent>
+
+                <app-activity [related]="'Lead'" [relatedId]="id"></app-activity>
+
+              </ng-template>
+            </li>
+            
+            <li ngbNavItem>
+              <a ngbNavLink>TODOs</a>
+              <ng-template ngbNavContent>
+
+                <app-activity [related]="'Lead'" [relatedId]="id"></app-activity>
+
+              </ng-template>
+            </li>
+            <li ngbNavItem>
+              <a ngbNavLink>Notes</a>
+              <ng-template ngbNavContent>
+                <!--
+                <app-note [notes]="contact?.notes" (addNote)="addNote($event)"></app-note>
+                -->  
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-1">
+
+          <app-product-relation [products]="lead?.products" (addProduct)="addProduct($event)"
+            (removeProduct)="removeProduct($event)"
+          ></app-product-relation>
+
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Documents</h5>
+        </div>
+      </div>
+
+      <!--
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Marketing Lists</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Campaigns</h5>
+        </div>
+      </div>
+      -->
+
+      <!--
+      <div class="row">
+        <div class="col-md-12 mt-1">
+          <h5 class="text-primary">Text Messages</h5>
+        </div>
+      </div>
+      -->
+
+    </div>
+
+    <!--column 3-->
+    <div class="col-md-2 ">
+
+      <app-communication [communication]="lead" (updateCommunication)="updateExt($event)"></app-communication>
+
+      <app-social [social]="lead" (updateSocial)="updateExt($event)"></app-social>
+
+      <app-address [address]="lead?.primaryAddress" (addAddress)="updatePrimaryAddress($event)" [headerText]="'Primary Address'"></app-address>
+      <app-address [address]="lead?.secondaryAddress" (addAddress)="updateSecondaryAddress($event)" [headerText]="'Secondary Address'"></app-address>
+    </div>
+
+    <!--column 4-->
+    <div class="col-md-1">
+      
+    </div>
+
   </div>
+
+</div>
+
+
+
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Convert Lead</h5>
+
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <form [formGroup]="form" (ngSubmit)="submitConvert()">
+                    <formly-form [form]="form" [fields]="convertfields" [model]="convertLeadModel"></formly-form>
+
+                    <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                        <i class="far fa-save"></i> 
+                        Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+                    (click)="modal.close('Cross click')">
+                    <i class="fas fa-window-close"></i> 
+                    Cancel</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+</ng-template>

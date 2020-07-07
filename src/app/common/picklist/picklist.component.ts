@@ -41,7 +41,6 @@ export class PicklistComponent extends FieldType implements OnInit {
 
 
   onItemSelectionChanged(d: any) {
-    
     let p = this.pickLists.find(e => e.id === d);
     this.model[this.fieldName] = p?.value;
   }
