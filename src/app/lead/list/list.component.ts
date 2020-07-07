@@ -60,24 +60,21 @@ export class ListComponent implements OnInit {
   constructor(private leadService: LeadService) {}
 
   ngOnInit(): void {
-    // console.log('Fields - ' + this.fields);
     this.search(this.rsql);
   }
 
-
   onSetSearchField(s: any) {
-    console.log('searchfield - {}', s);
     this.searchField = s;
   }
 
-  listLeadElement(value: any): void {
+  doRefresh(value: any): void {
     console.log('Updating List Element count with new page size : ' + value);
     this.pageSize = +value;
     this.search(this.rsql);
   }
 
 
-  loadNextPage(page: number): void {
+  go2NextPage(page: number): void {
     console.log('Loading next page with pageNo : ' + page);
     this.pageNo = page;
     this.search(this.rsql);
@@ -97,9 +94,13 @@ export class ListComponent implements OnInit {
   doSearch(): void {
     this.pageNo = 1;
     this.pageSize = 10;
-    const sql = `deleted==false;${this.searchField}==${this.searchText}`;
-
+    let sql = `deleted==false`;
+    if( this.searchText ) {
+      sql = `deleted==false;${this.searchField}==${this.searchText}`;
+    }
+    this.rsql = sql;
     this.search(sql);
+
 
   }
 

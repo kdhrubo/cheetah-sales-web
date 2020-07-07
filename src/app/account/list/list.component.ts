@@ -10,8 +10,6 @@ import { AccountService } from 'src/app/services/account.service';
 })
 export class ListComponent implements OnInit {
 
-  isCollapsed = true;
-  isCollapsedFilter = true;
   accountPage: Page<Account>;
   pageNo = 1;
   pageSize = 10;
@@ -19,12 +17,16 @@ export class ListComponent implements OnInit {
   trackCounter = 1;
   rsql = 'deleted==false';
 
+  searchField = 'name';
+  searchText = '';
+
   fields = [
     {
       id: 1,
       name: 'id',
       label: 'Id',
-      checked: false
+      checked: false,
+      searchable: false
     },
 
     {
@@ -32,46 +34,47 @@ export class ListComponent implements OnInit {
       name: 'name',
       label: 'Name',
       checked: true,
-      filter: {
-        type: 'string',
-        operator: '',
-        operand: ''
-      }
+      searchable: true
     },
 
     {
       id: 3,
       name: 'website',
       label: 'Website',
-      checked: true
+      checked: true,
+      searchable: false
     },
 
     {
       id: 4,
       name: 'phone',
       label: 'Phone',
-      checked: true
+      checked: true,
+      searchable: true
     },
 
     {
       id: 5,
       name: 'email',
       label: 'Email',
-      checked: true
+      checked: true,
+      searchable: true
     },
 
     {
       id: 6,
       name: 'fax',
       label: 'Fax',
-      checked: true
+      checked: true,
+      searchable: false
     },
 
     {
       id: 7,
       name: 'annualRevenue',
       label: 'AnnualRevenue',
-      checked: true
+      checked: true,
+      searchable: false
     }
   ];
 
@@ -81,48 +84,50 @@ export class ListComponent implements OnInit {
     this.search(this.rsql);
   }
 
+  onSetSearchField(s: any) {
+    this.searchField = s;
+  }
+
+  doRefresh(value: string): void {
+    console.log('Updating List Element count with new page size : ' + value);
+    this.pageSize = +value;
+    this.search(this.rsql);
+  }
+
+  go2NextPage(page: number): void {
+    console.log('Loading next page with pageNo : ' + page);
+    this.pageNo = page;
+    this.search(this.rsql);
+  }
+
   search(sql: string) {
     this.accountService.search(sql, this.pageNo - 1, this.pageSize).subscribe(
       data => {
         this.accountPage = data;
         this.collectionSize = this.accountPage.totalElements;
-        console.log('Data - ' + JSON.stringify(data));
       },
       error => console.log('Error while loading Account - ' + error.message)
     );
+  }
+
+  doSearch(): void {
+    this.pageNo = 1;
+    this.pageSize = 10;
+    let sql = `deleted==false`;
+    if( this.searchText ) {
+      sql = `deleted==false;${this.searchField}==${this.searchText}`;
+    }
+
+    this.rsql = sql;
+
+    this.search(sql);
+
   }
 
   delete(account: Account) {
     console.log('Delete - ' + account);
   }
 
-  listDealElement(value: string): void {
-    console.log('Updating List Element count with new page size : ' + value);
-    this.pageSize = +value;
-    this.search(this.rsql);
-  }
-
-  loadNextPage(page: number): void {
-    console.log('Loading next page with pageNo : ' + page);
-    this.pageNo = page;
-    this.search(this.rsql);
-  }
-
-  applyfilterSearch(): void {
-    // console.log('fields - ' + JSON.stringify(this.fields));
-    let sql = this.rsql;
-
-    for (const f of this.fields) {
-      if (f.filter) {
-        // tslint:disable-next-line: triple-equals
-        if (f.filter.type == 'string') {
-          const partial = ' and ' + f.name + f.filter.operator + f.filter.operand;
-          sql = sql + partial;
-        }
-      }
-    }
-    this.search(sql);
-  }
 
   toggleEditable(event: any): void {
     console.log('checked - ' + event.target.checked);
