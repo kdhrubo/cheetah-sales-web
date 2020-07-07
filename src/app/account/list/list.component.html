@@ -3,115 +3,49 @@
     <div class="row">
         <div class="col-sm-1"></div>
         <div class="col-sm-2">
-            <h5 class="mt-2">Accounts</h5>
+            <h5 class="text-primary mt-2">Accounts</h5>
         </div>
 
-        <div class="col-sm-8">
+        <div class="col-sm-5">
 
-            <button type="button" class="btn btn-sm btn-outline-primary mt-2" (click)="isCollapsed = !isCollapsed"
-                [attr.aria-expanded]="!isCollapsed" aria-controls="column-selectors">
-                Columns
-            </button>
+            
+            <div class="input-group input-group-sm mb-3">
+               
+                <select class="form-control form-control-sm" style="max-width: 40%;" (change)="onSetSearchField($event.target.value)">
+                    
+                    <ng-container *ngFor="let item of fields">
+                        <option [value]="item.name" *ngIf="item.searchable">{{ item.label }}</option>
+                    </ng-container>
 
-            <button type="button" class="btn btn-sm btn-outline-primary ml-1 mt-2" (click)="isCollapsedFilter = !isCollapsedFilter"
-                [attr.aria-expanded]="!isCollapsedFilter" aria-controls="column-filters">
-                Filters
-            </button>
+                </select>
 
-            <a routerLink="/accounts/create" class="btn btn-sm btn-primary ml-1 mt-2">New</a>
-            <a routerLink="/accounts/import" class="btn btn-sm btn-primary-outline ml-1 mt-2" disabled = "false">Import Accounts</a>
-
-        </div>
-        <div class="col-1"></div>
-    </div>
-    <!--column selector-->
-    <div class="row pt-1 pb-1">
-
-        <div class="col-1"></div>
-
-        <div class="col-lg-10">
-            <div id="column-selectors" [ngbCollapse]="isCollapsed">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-1" *ngFor="let f of fields; let i = index">
-
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" [value]="f.id"
-                                        [checked]="f.checked" (change)="toggleEditable($event)">
-                                    <label class="form-check-label" for="exampleCheck1">{{f.label}}</label>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <input type="text" class="form-control form-control-sm col-12" autocomplete="off" required [(ngModel)]="searchText"> 
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary btn-sm" id="dropdownForm1" (click)="doSearch()"><i class="fas fa-search"></i></button>
+                </div>    
             </div>
+            
+
         </div>
-
-        <div class="col-1"></div>
-
-    </div>
-
-    <!-- column filter -->
-
-    <div class="row pt-1 pb-1">
-
-        <div class="col-lg-1"></div>
-
-        <div class="col-lg-10">
-            <div id="column-filters" [ngbCollapse]="isCollapsedFilter">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row"  *ngFor="let f of fields; let i = index">
-                            <ng-container *ngIf="f?.filter?.type == 'string'">
-                                <div class="col-sm-3" >
-                                    {{f.label}}
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <select class="custom-select custom-select-sm" [(ngModel)]="f.filter.operator">
-                                        <option value="==">Eq</option>
-                                        <option value="!=">Not Eq</option>
-                                        <option value="*">Contains</option>
-                                    </select>
-    
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="f.filter.operand">
-                                </div>
-    
-                            </ng-container>    
-
-                            
-
-                        </div>
-                        <!--to be fixed-->
-                        <div class="row justify-content-end">
-                            <button type="button" class="btn btn-sm btn-primary float-right mt-2" 
-                                (click)="applyfilterSearch()">
-                                Apply
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-sm-3">
+            <div class="float-right mb-3">    
+                <a routerLink="/app/accounts/create" class="btn btn-sm btn-outline-success ml-1">
+                    <i class="fas fa-plus"></i> New</a>
+                <a routerLink="/app/accounts/import" class="btn btn-sm btn-outline-info ml-1">
+                    <i class="fas fa-upload"></i> Import</a>
             </div>
+
         </div>
 
-        <div class="col-1"></div>
-
+        <div class="col-sm-1"></div>
     </div>
-
-
-
 
     <div class="row">
-        <div class="col-1"></div>
-        <div class="col-lg-10">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+
             <div class="table-responsive-md">
-                <table class="table table-sm">
+                <table class="table table-sm table-hover">
                     <thead>
                         <tr>
                             <th scope="col"></th>
@@ -126,7 +60,7 @@
                             <th scope="row"></th>
                             <ng-container *ngFor="let f of fields; let i = index;">
                                 <td *ngIf="f.checked">
-                                    <a routerLink="/accounts/{{account['id']}}">
+                                    <a routerLink="/app/accounts/{{account['id']}}">
                                         {{account[f.name]}}
                                     </a>
                                 </td>
@@ -143,30 +77,48 @@
                     </tbody>
                 </table>
 
-                <div class="d-flex justify-content-between p-2">
+            </div>
+
+        </div>
+
+        <div class="col-sm-1"></div>
+
+    </div>
 
 
-                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="pageNo" [maxSize]="5" [rotate]="true"
-                        class="pagination pagination-sm text-success"
-                        [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="loadNextPage($event)">
-                    </ngb-pagination>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
 
-                    <div>
-                        <span># of rows: </span>
-                        <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize" (change)="listDealElement($event.target.value)">
-                            <option [value]="10">10</option>
-                            <option [value]="20">20</option>
-                            <option [value]="30">30</option>
-                        </select>
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="pageNo" [maxSize]="5" 
+                [rotate]="true"
+                class="pagination pagination-sm text-success"
+                [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="go2NextPage($event)">
+            </ngb-pagination>
 
-                    </div>
-                </div>
+            
+        </div>
+
+         <div class="col-sm-5">
+
+            <div class="float-right">
+                <span><small># of rows: </small></span>
+                <select class="custom-select custom-select-sm" style="width: auto" 
+                [(ngModel)]="pageSize" 
+                    (change)="doRefresh($event.target.value)">
+                        <option [value]="10">10</option>
+                        <option [value]="20">20</option>
+                        <option [value]="30">30</option>
+                </select>
 
             </div>
 
         </div>
 
-        <div class="col-1"></div>
+        <div class="col-sm-1"></div>
 
     </div>
+
+
+
 </div>

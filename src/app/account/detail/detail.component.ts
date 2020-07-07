@@ -14,7 +14,7 @@ import { AccountService } from 'src/app/services/account.service';
 export class DetailComponent implements OnInit {
 
   form = new FormGroup({});
-  accountModel: Account;
+  account: Account;
   id: any;
   active = 1;
 
@@ -26,8 +26,10 @@ export class DetailComponent implements OnInit {
 
   fields: FormlyFieldConfig[];
 
-  constructor(private route: ActivatedRoute, private router: Router,
-    private accountService: AccountService, private formService: FormService) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private accountService: AccountService,
+              private formService: FormService) { }
 
   ngOnInit(): void {
     this.getAccount();
@@ -38,9 +40,7 @@ export class DetailComponent implements OnInit {
     this.accountService.findOne(this.id)
       .subscribe(
         data => {
-          this.accountModel = data;
-          console.log('# account - ', JSON.stringify(this.accountModel));
-          console.log('=== get Account form config ===');
+          this.account = data;
           this.getAccountFormConfig();
         },
         error => {
@@ -51,7 +51,7 @@ export class DetailComponent implements OnInit {
   }
 
   getAccountFormConfig() {
-    this.formService.getFields('form-account-create').subscribe(
+    this.formService.getFields('form-account-detail').subscribe(
       data => {
         this.fields = data;
       },
@@ -61,12 +61,10 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  updateAccountRecord() {
-    this.accountService.save(this.accountModel)
+  onSubmit() {
+    this.accountService.save(this.account)
       .subscribe(
         data => {
-          console.log('Account updated successfully.');
-          console.log('Navigating to list page now....');
           this.router.navigate(['accounts/list']);
         },
         error => {
