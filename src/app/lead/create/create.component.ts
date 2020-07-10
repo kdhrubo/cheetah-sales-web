@@ -49,7 +49,7 @@ export class CreateComponent implements OnInit {
         this.router.navigate(['/leads' , data?.id]);
       },
       error => {
-        console.log('Lead save failure.');
+        this.toastr.error('Lead update failed.', error?.detail, {});
       }
     );
   }

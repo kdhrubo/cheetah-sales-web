@@ -128,9 +128,9 @@
     <!--column 3-->
     <div class="col-md-2 ">
 
-      <app-communication [communication]="lead" (updateCommunication)="updateExt($event)"></app-communication>
+      <app-communication [communication]="lead" (updateCommunication)="updateExt($event)" [formName]="'form-lead-communication'"></app-communication>
 
-      <app-social [social]="lead" (updateSocial)="updateExt($event)"></app-social>
+      <app-social [social]="lead" (updateSocial)="updateExt($event)" [formName]="'form-lead-social'"></app-social>
 
       <app-address [address]="lead?.primaryAddress" (addAddress)="updatePrimaryAddress($event)" [headerText]="'Primary Address'"></app-address>
       <app-address [address]="lead?.secondaryAddress" (addAddress)="updateSecondaryAddress($event)" [headerText]="'Secondary Address'"></app-address>

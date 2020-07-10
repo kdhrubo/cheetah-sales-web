@@ -10,6 +10,7 @@ import { FormService } from 'src/app/services/form.service';
 })
 export class SocialComponent implements OnInit {
 
+  @Input() formName: any;
   @Output() updateSocial = new EventEmitter<object>();
   @Input() social: any;
 
@@ -25,9 +26,8 @@ export class SocialComponent implements OnInit {
 
   }
 
-
   getFormConfig() {
-    this.formService.getFields('form-social').subscribe(
+    this.formService.getFields(this.formName).subscribe(
       (data) => {
         this.fields = data;
       },

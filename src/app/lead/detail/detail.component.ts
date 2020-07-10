@@ -128,10 +128,10 @@ export class DetailComponent implements OnInit {
   onSubmit() {
     this.leadService.save(this.lead).subscribe(
       (data) => {
-        this.toastr.success('Lead saved successfully.', '', {});
+        this.toastr.success('Lead updated successfully.', '', {});
       },
       (error) => {
-        this.toastr.error('Lead save failed.', error?.detail, {});
+        this.toastr.error('Lead update failed.', error?.detail, {});
       }
     );
   }
