@@ -11,6 +11,7 @@ import { Communication } from '../../../models/communication.model';
 })
 export class CommunicationComponent implements OnInit {
 
+  @Input() formName: any;
   @Input() communication: any;
   @Output() updateCommunication = new EventEmitter<object>();
 
@@ -26,7 +27,7 @@ export class CommunicationComponent implements OnInit {
   }
 
   getFormConfig() {
-    this.formService.getFields('form-communication').subscribe(
+    this.formService.getFields(this.formName).subscribe(
       (data) => {
         this.fields = data;
       },
