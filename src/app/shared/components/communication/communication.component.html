@@ -1,27 +1,13 @@
-<div class="shadow p-3 mb-2 bg-white rounded">
+<div class="card mb-2">
+  <h6 class="card-header text-primary">Communication</h6>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <formly-form [form]="form" [fields]="fields" [model]="communication"></formly-form>
 
-    <div class="row">
+        <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+            <i class="far fa-save"></i>
+            Save</button>
 
-        <div class="col-md-12">
-            <h5 class="mt-1 text-primary">Communication</h5>
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-12">
-
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <formly-form [form]="form" [fields]="fields" [model]="communication"></formly-form>
-
-                <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
-                    <i class="far fa-save"></i>
-                    Save</button>
-
-            </form>
-
-        </div>
-    </div>
-
+    </form>
+  </div>
 </div>

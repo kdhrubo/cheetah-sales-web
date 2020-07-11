@@ -1,17 +1,7 @@
-<div class="shadow p-3 mb-2 bg-white rounded">
-    <div class="row ">
-
-        <div class="col-md-12">
-            <h5 class="mt-1 text-primary">Social</h5>
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-12">
-
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="card mb-2">
+  <h6 class="card-header text-primary">Social</h6>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <formly-form [form]="form" [fields]="fields" [model]="social"></formly-form>
 
                 <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
@@ -19,7 +9,5 @@
                     Save</button>
 
             </form>
-
-        </div>
-    </div>
+  </div>
 </div>

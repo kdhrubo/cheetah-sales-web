@@ -1,0 +1,5 @@
+.with-chevron[aria-expanded='true'] i {
+    display: block;
+    transform: rotate(180deg) !important;
+  }
+  
