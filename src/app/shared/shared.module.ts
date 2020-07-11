@@ -13,6 +13,7 @@ import { AddressComponent } from './components/address/address.component';
 import { SocialComponent } from './components/social/social.component';
 import { CommunicationComponent } from './components/communication/communication.component';
 import { ProductRelationComponent } from './components/product-relation/product-relation.component';
+import { DocumentRelationComponent } from './components/document-relation/document-relation.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ProductRelationComponent } from './components/product-relation/product-
     AddressComponent,
     SocialComponent,
     CommunicationComponent,
-    ProductRelationComponent],
+    ProductRelationComponent,
+    DocumentRelationComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,

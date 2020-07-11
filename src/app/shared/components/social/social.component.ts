@@ -21,9 +21,7 @@ export class SocialComponent implements OnInit {
   constructor(private formService: FormService) {}
 
   ngOnInit(): void {
-
     this.getFormConfig();
-
   }
 
   getFormConfig() {

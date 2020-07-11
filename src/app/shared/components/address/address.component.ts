@@ -3,7 +3,6 @@ import { Address } from '../../../models/address.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormService } from 'src/app/services/form.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-address',
@@ -11,17 +10,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./address.component.css'],
 })
 export class AddressComponent implements OnInit {
-  model = {};
+
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
 
-  @Input() address: Address;
+  @Input() address: any;
   @Input() headerText: string;
-  @Output() addAddress = new EventEmitter<object>();
+  @Output() updateAddress = new EventEmitter<object>();
 
 
   constructor(
-    private modalService: NgbModal,
     private formService: FormService
   ) {}
 
@@ -30,16 +28,6 @@ export class AddressComponent implements OnInit {
   }
 
 
-  openLg(content) {
-
-    if(this.address) {
-      for (let key of Object.keys(this.address)) {
-        this.model[key] =  this.address[key];
-      }
-    }
-    this.modalService.open(content, { size: 'lg' });
-
-  }
 
   getFormConfig() {
     this.formService.getFields('form-address').subscribe(
@@ -54,8 +42,6 @@ export class AddressComponent implements OnInit {
   }
 
   onSubmit() {
-    const address: Address = this.model as Address;
-    Object.keys(address).forEach((key) => (address[key] === null || address[key] === '') && delete address[key]);
-    this.addAddress.emit(address);
+    this.updateAddress.emit(this.address);
   }
 }

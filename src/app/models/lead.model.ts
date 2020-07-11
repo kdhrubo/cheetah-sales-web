@@ -18,10 +18,10 @@ export class Lead {
     facebook: string;
     twitter: string;
 
-    primaryAddress: Address;
-    secondaryAddress: Address;
-
+    address: Address;
     products: LeadProduct[];
+
+    createdDate: Date;
 }
 
 class LeadProduct {

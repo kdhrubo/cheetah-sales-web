@@ -88,8 +88,6 @@ export class DetailComponent implements OnInit {
   }
 
   submitConvert() {
-    console.log('complete convert - trying to load modal - ' + JSON.stringify(this.convertLeadModel));
-    console.log('complete convert - trying to load modal - ' + this.id);
 
     this.convertLeadModel.id = this.id;
 
@@ -104,16 +102,6 @@ export class DetailComponent implements OnInit {
 
   }
 
-  updatePrimaryAddress(address: Address) {
-    this.lead.primaryAddress = address;
-    this.onSubmit();
-  }
-
-  updateSecondaryAddress(address: Address) {
-    this.lead.secondaryAddress = address;
-    this.onSubmit();
-  }
-
   getFormConfig() {
     this.formService.getFields('form-lead-detail').subscribe(
       (data) => {
@@ -126,6 +114,7 @@ export class DetailComponent implements OnInit {
   }
 
   onSubmit() {
+    Object.keys(this.lead).forEach((key) => (this.lead[key] === null || this.lead[key] === '') && delete this.lead[key]);
     this.leadService.save(this.lead).subscribe(
       (data) => {
         this.toastr.success('Lead updated successfully.', '', {});
