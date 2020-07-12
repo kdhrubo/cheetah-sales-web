@@ -19,8 +19,9 @@ export class ListComponent implements OnInit {
 
   rsql = 'deleted==false';
 
-  searchField = 'firstName';
-  searchText = '';
+  searchField: string;
+  searchText: string;
+  op: string;
 
   fields = [
     {
@@ -67,6 +68,10 @@ export class ListComponent implements OnInit {
     this.searchField = s;
   }
 
+  onSetOpField(op: any) {
+    this.op = op;
+  }
+
   doRefresh(value: any): void {
     console.log('Updating List Element count with new page size : ' + value);
     this.pageSize = +value;
@@ -95,8 +100,9 @@ export class ListComponent implements OnInit {
     this.pageNo = 1;
     this.pageSize = 10;
     let sql = `deleted==false`;
-    if( this.searchText ) {
-      sql = `deleted==false;${this.searchField}==${this.searchText}`;
+
+    if (this.op) {
+      sql = `deleted==false;${this.searchField}${this.op}${this.searchText}`;
     }
     this.rsql = sql;
     this.search(sql);
