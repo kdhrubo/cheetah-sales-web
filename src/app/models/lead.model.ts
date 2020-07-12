@@ -19,12 +19,10 @@ export class Lead {
     twitter: string;
 
     address: Address;
-    products: LeadProduct[];
+    products: any[];
+    documents: any[];
 
     createdDate: Date;
 }
 
-class LeadProduct {
-    id: string;
-    name: string;
-}
+

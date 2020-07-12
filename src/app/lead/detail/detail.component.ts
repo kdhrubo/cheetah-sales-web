@@ -125,7 +125,7 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  addProduct(product: any){
+  addProduct(product: any) {
 
     const p = {
       id: product.id,
@@ -141,10 +141,9 @@ export class DetailComponent implements OnInit {
         this.toastr.error('Failed to add product to lead.', error?.detail, {});
       }
     );
-
   }
 
-  removeProduct(product: any){
+  removeProduct(product: any) {
     this.leadService.removeProduct(this.id, product.id).subscribe(
       (data) => {
         this.lead = data;
@@ -154,7 +153,35 @@ export class DetailComponent implements OnInit {
         this.toastr.error('Failed to removed product from lead.', error?.detail, {});
       }
     );
+  }
 
+  addDocument(document: any) {
 
+    const p = {
+      id: document.id,
+      name: document.name
+    };
+
+    this.leadService.addDocument(this.id, p).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Document added successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to add document to lead.', error?.detail, {});
+      }
+    );
+  }
+
+  removeDocument(document: any) {
+    this.leadService.removeDocument(this.id, document.id).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Document removed successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to remove document from lead.', error?.detail, {});
+      }
+    );
   }
 }

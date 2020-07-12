@@ -43,6 +43,7 @@ import { DocumentRelationComponent } from './components/document-relation/docume
     AddressComponent,
     SocialComponent,
     CommunicationComponent,
-    ProductRelationComponent]
+    ProductRelationComponent,
+    DocumentRelationComponent]
 })
 export class SharedModule { }
