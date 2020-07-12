@@ -1,2 +1,120 @@
+<ng-template #longContent let-modal>
 
-      
+    <div class="modal-header">
+        <h5 class="modal-title">Document Lookup</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    
+    <div class="modal-body">
+                
+        <div class="row">
+           
+            <div class="col-md-12">
+                <div class="table-responsive-md">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                
+                                <th scope="col">Name</th>
+
+                                <th scope="col">Created On</th>
+
+                                <th>Actions</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let d of documentItems;">
+                                <th scope="row"></th>
+                                
+                                <td>
+                                    
+                                    <a (click)="goFwd(d)"  *ngIf="d.type == 'FOLDER'" class="text-primary"><i class="fas fa-folder"></i> {{d.name}}</a>
+                                    <span href="#"  *ngIf="d.type == 'FILE'" class="text-primary">
+                                        <!--
+                                        <i class="fas fa-file-{{d.type}}"></i> 
+                                        -->
+                                        <i class="fas fa-file-{{d.extension}}"></i>
+                                        {{d.name}}
+                                    </span>
+                            
+                                </td>
+
+                                <td>
+                                
+                                    {{d.createdDate | date:'mediumDate'}}
+                                
+                                </td>
+
+                                <td>
+                                
+                                    <a class="text-danger" (click)='add(d)'>Add</a>
+                                  
+                                </td>
+                                
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</ng-template>
+
+
+<div class="row">
+        <div class="col-md-6 col-sm-6">
+        
+        </div>
+        <div class="col-md-6 col-sm-6">
+        
+            <button class="btn btn-sm btn-outline-success float-right mb-1" (click)="openLg(longContent)" type="button">
+                 <i class="fas fa-plus"></i> Add Document
+            </button>
+
+        </div>
+</div>
+
+
+<div class="table-responsive-md">
+    
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+
+                <th scope="col">Name</th>
+                
+                
+
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr *ngFor="let d of documents;">
+                <th scope="row"></th>
+
+                <td>
+                    <a class="text-danger" (click)='remove(d)'><i class="fas fa-trash-alt"></i></a>
+                    {{d?.name}}
+                </td>
+               
+                
+            </tr>
+            
+
+        </tbody>
+    </table>
+
+</div>
+

@@ -33,9 +33,9 @@ export class LeadService {
       .pipe(catchError(err => this.handleError(err, 'copy-lead')));
   }
 
-  saveAll(leads: Lead[]) : Observable<any>{
+  saveAll(leads: Lead[]): Observable<any> {
     const url = `${environment.api_base_url}/leads/import`;
-    const data = {'leads' : leads};
+    const data = {leads : leads};
     return this.httpClient
       .post<Observable<any>>(url, data)
       .pipe(catchError(err => this.handleError(err, 'import-lead')));
@@ -79,6 +79,20 @@ export class LeadService {
 
   removeProduct(id: any, productId: any): Observable<any> {
     const url = `${environment.api_base_url}/leads/${id}/products/${productId}`;
+    return this.httpClient
+      .post<Observable<any>>(url, null)
+      .pipe(catchError(err => this.handleError(err, 'renove-lead-product')));
+  }
+
+  addDocument(id: any, document: any): Observable<any> {
+    const url = `${environment.api_base_url}/leads/${id}/documents`;
+    return this.httpClient
+      .post<Observable<any>>(url, document)
+      .pipe(catchError(err => this.handleError(err, 'add-lead-document')));
+  }
+
+  removeDocument(id: any, docId: any): Observable<any> {
+    const url = `${environment.api_base_url}/leads/${id}/documents/${docId}`;
     return this.httpClient
       .post<Observable<any>>(url, null)
       .pipe(catchError(err => this.handleError(err, 'renove-lead-product')));

@@ -100,7 +100,7 @@
 
       </div>
 
-       <div class="row">
+      <div class="row">
         <div class="col-md-12 mt-3">
 
           <div class="card">
@@ -111,6 +111,27 @@
               <app-product-relation [products]="lead?.products" (addProduct)="addProduct($event)"
                 (removeProduct)="removeProduct($event)">
               </app-product-relation>
+            
+            </div>
+
+          </div>
+          <!--CARD END-->
+        </div>
+
+      </div> <!--end of row -->
+
+
+      <div class="row">
+        <div class="col-md-12 mt-3 mb-3">
+
+          <div class="card">
+            <h5 class="card-header text-primary">Documents</h5>
+          
+            <div class="card-body">
+
+              <app-document-relation [documents]="lead?.documents" (addDocument)="addDocument($event)"
+                (removeDocument)="removeDocument($event)">
+              </app-document-relation>
             
             </div>
 
