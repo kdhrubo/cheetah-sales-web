@@ -11,10 +11,18 @@
             <div class="input-group input-group-sm mb-3">
                
                 <select class="form-control form-control-sm" style="max-width: 40%;" (change)="onSetSearchField($event.target.value)">
-                    
+                    <option></option>
                     <ng-container *ngFor="let item of fields">
                         <option [value]="item.name" *ngIf="item.searchable">{{ item.label }}</option>
                     </ng-container>
+
+                </select>
+
+                <select class="form-control form-control-sm" style="max-width: 25%;" (change)="onSetOpField($event.target.value)">
+                    
+                    <option></option>
+                    <option value="==" >Equals</option>
+                    <option value="=re=" >Like</option>
 
                 </select>
 

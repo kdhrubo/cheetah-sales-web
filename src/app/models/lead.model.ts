@@ -8,7 +8,7 @@ export class Lead {
     email: string;
     company: string;
     country: string;
-    city: string; 
+    city: string;
     leadSourceId: string;
     contactTypeId: string;
     contactStatusId: string;
