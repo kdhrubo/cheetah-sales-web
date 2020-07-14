@@ -11,8 +11,15 @@
     <div class="col-md-8">
     
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <h5 class="text-primary">Lead Details</h5>
+        </div>
+
+        <div class="col-md-6">
+            <button type="button" class="btn btn-sm btn-outline-danger float-right mr-1" (click)="confirmDelete(longDeleteContent)">
+              <i class="far fa-trash-alt"></i>
+                Delete 
+            </button>  
         </div>
       </div>
 
@@ -171,7 +178,7 @@
 </div>
 
 
-
+<!--convert lead confirmation -->
 <ng-template #longContent let-modal>
     <div class="modal-header">
         <h5 class="modal-title">Convert Lead</h5>
@@ -198,6 +205,33 @@
             </div>
             <div class="col-1"></div>
         </div>
+    </div>
+
+</ng-template>
+
+<!-- delete lead confirmation -->
+
+<ng-template #longDeleteContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+    </div>
+    <div class="modal-body">
+        <p>This will delete lead information. Are you sure you want to continue?</p>
+            
+        
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-sm btn-danger float-right" (click)="delete()">
+                        <i class="far fa-save"></i> 
+                        Yes</button>
+
+      <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+          (click)="modal.close('Cross click')">
+        <i class="fas fa-window-close"></i> 
+          No</button>
+
     </div>
 
 </ng-template>
