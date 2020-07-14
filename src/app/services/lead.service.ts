@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
@@ -26,8 +26,17 @@ export class LeadService {
       .pipe(catchError(err => this.handleError(err, 'convert-lead')));
   }
 
+  delete(id: any): Observable<any>  {
+    const url = `${environment.api_base_url}/leads/${id}`;
+
+    return this.httpClient
+      .delete<Observable<any>>(url, {})
+      .pipe(catchError(err => this.handleError(err, 'delete-lead')));
+
+  }
+
   copy(id: any): Observable<any> {
-    const url = `${environment.api_base_url}/leads/copy/${id}`;
+    const url = `${environment.api_base_url}/leads/${id}/copy`;
     return this.httpClient
       .post<Observable<any>>(url, null)
       .pipe(catchError(err => this.handleError(err, 'copy-lead')));
@@ -35,9 +44,9 @@ export class LeadService {
 
   saveAll(leads: Lead[]): Observable<any> {
     const url = `${environment.api_base_url}/leads/import`;
-    const data = {leads : leads};
+    // const data = {leads : leads};
     return this.httpClient
-      .post<Observable<any>>(url, data)
+      .post<Observable<any>>(url, {leads})
       .pipe(catchError(err => this.handleError(err, 'import-lead')));
 
   }

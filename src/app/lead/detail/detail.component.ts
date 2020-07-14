@@ -74,6 +74,25 @@ export class DetailComponent implements OnInit {
     );
   }
 
+  confirmDelete(content: any) {
+    this.modalService.open(content, { size: 'xl', centered: true });
+  }
+
+  delete() {
+    const ids = [this.id];
+    this.leadService.delete(ids).subscribe(
+      (data) => {
+        this.toastr.success('Lead deleted successfully.', '', {});
+        this.modalService.dismissAll();
+        this.router.navigate(['/app/leads']);
+      },
+      (error) => {
+        this.toastr.error('Lead delete failed.', error?.detail, {});
+      }
+    );
+
+  }
+
   startConvert(content: any) {
 
     this.formService.getFields('form-lead-convert').subscribe(
