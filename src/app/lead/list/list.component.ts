@@ -73,14 +73,12 @@ export class ListComponent implements OnInit {
   }
 
   doRefresh(value: any): void {
-    console.log('Updating List Element count with new page size : ' + value);
     this.pageSize = +value;
     this.search(this.rsql);
   }
 
 
   go2NextPage(page: number): void {
-    console.log('Loading next page with pageNo : ' + page);
     this.pageNo = page;
     this.search(this.rsql);
   }
@@ -90,7 +88,6 @@ export class ListComponent implements OnInit {
       data => {
         this.leadPage = data;
         this.collectionSize = this.leadPage.totalElements;
-        // console.log('Data - ' + JSON.stringify(data)) ;
       },
       error => console.log('Error - ' + error.message)
     );
