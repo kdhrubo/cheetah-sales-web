@@ -41,10 +41,10 @@
             </li>
 
             <li class="nav-item" ngbDropdown>
-                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown2" role="button">
+                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown3" role="button">
                     Apps
                 </a>
-                <div ngbDropdownMenu aria-labelledby="navbarDropdown2" class="dropdown-menu">
+                <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
                   <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'docs'">Documents</a>
                   <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'calendars'">Calendar</a>
                   <a ngbDropdownItem href="#" (click)="$event.preventDefault();isMenuCollapsed = true" [routerLink]="'todo'">TODO</a>
@@ -52,17 +52,16 @@
                 </div>
             </li>
 
-           
-
-            
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="'cockpit'" (click)="isMenuCollapsed = true" >Cockpit</a>
             </li>
+            
             <li class="nav-item">
                 <a class="nav-link" routerLink="/signout">Sign Out</a>
             </li>
         </ul>
+        
     </div>
 </nav>

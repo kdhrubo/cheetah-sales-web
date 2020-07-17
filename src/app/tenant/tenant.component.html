@@ -1,62 +1,39 @@
 <div class="container-fluid">
 
-
-    <div class="row">
-      <div class="col-md-1"></div>
-  
-      <div class="col-md-8">
-  
-        <div class="shadow p-3 mb-2 bg-white rounded">
-  
-          <div class="row">
-  
-            <div class="col-md-12">
-              <h5 class="mt-1 text-primary">Company Info</h5>
-            </div>
-  
-          </div>
-  
-          <div class="row">
-  
-            <div class="col-md-12">
-             
-              <form [formGroup]="form" >
-                <formly-form [form]="form" [fields]="fields" [model]="tenant" [options]="options"></formly-form>
-                
-                <!--
-                <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
-                  <i class="far fa-save"></i>
-                  Save</button>
-                <a type="button" class="btn btn-sm btn-outline-primary float-right mr-2" [routerLink]="['/contacts']">
-                  <i class="fas fa-chevron-circle-left"></i>
-                  Cancel</a>
-                  -->
-              </form>
-              
-            </div>
-  
-          </div>
-        </div>
-  
-        <app-boxsettings></app-boxsettings>
-       
-      </div>
-  
-  
-      <div class="col-md-2">
-        <!--
-        <app-address [addresses]="contact?.addresses" (addAddress)="addAddress($event)"></app-address>
-  
-        <app-emailaddress [emailAddresses]="contact?.emailAddresses" (addEmail)="addEmail($event)"></app-emailaddress>
-  
-        <app-phone [phones]="contact?.phones" (addPhone)="addPhone($event)"></app-phone>
-  
-        <app-link [links]="contact?.links" (addLink)="addLink($event)"></app-link>
-            -->
-      </div>
-  
-      <div class="col-md-1"></div>
-  
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+        <h5 class="text-primary mt-0 py-0">Cockpit</h5>
     </div>
-  
+
+    <div class="col-sm-6">
+
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary btn-sm" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-cog"></i> Configurations</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <a ngbDropdownItem [routerLink]="'company'">Company Details</a>
+          <a ngbDropdownItem [routerLink]="'currency'">Currency</a>
+          <button ngbDropdownItem>Something else is here</button>
+        </div>
+      </div>
+    
+    </div>
+
+    <div class="col-sm-1"></div>
   </div>
+
+
+  <div class="row">
+    <div class="col-sm-1"></div>
+    
+    <div class="col-sm-10">
+  
+      <router-outlet></router-outlet>
+    
+    </div>
+
+    <div class="col-sm-1"></div>
+      
+  </div>
+  
+</div>
