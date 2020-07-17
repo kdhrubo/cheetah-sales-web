@@ -27,7 +27,8 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/category',
   '/products',
   '/pricebooks',
-  '/product-price'
+  '/product-price',
+  '/currencies'
 ];
 
 @Injectable()
@@ -36,7 +37,7 @@ export class AuthInterceptor implements HttpInterceptor {
   private helperService = new JwtHelperService();
 
   constructor(private authService: AuthService,
-    private router: Router) {
+              private router: Router) {
 
 
   }

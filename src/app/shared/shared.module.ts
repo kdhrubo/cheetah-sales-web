@@ -14,6 +14,7 @@ import { SocialComponent } from './components/social/social.component';
 import { CommunicationComponent } from './components/communication/communication.component';
 import { ProductRelationComponent } from './components/product-relation/product-relation.component';
 import { DocumentRelationComponent } from './components/document-relation/document-relation.component';
+import { YesNoPipe } from './pipe/yes-no.pipe';
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import { DocumentRelationComponent } from './components/document-relation/docume
     SocialComponent,
     CommunicationComponent,
     ProductRelationComponent,
-    DocumentRelationComponent],
+    DocumentRelationComponent,
+    YesNoPipe
+    ],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -44,6 +47,7 @@ import { DocumentRelationComponent } from './components/document-relation/docume
     SocialComponent,
     CommunicationComponent,
     ProductRelationComponent,
-    DocumentRelationComponent]
+    DocumentRelationComponent,
+    YesNoPipe]
 })
 export class SharedModule { }
