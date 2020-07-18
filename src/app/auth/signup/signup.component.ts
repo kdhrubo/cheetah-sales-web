@@ -62,11 +62,12 @@ export class SignupComponent implements OnInit {
         .subscribe(
             data => {
                 this.loading = false;
-                console.log('Signup complete');
+                this.toastr.success('User registered successfully.', '', {});
+                this.router.navigate(['/auth/signin' ]);
             },
             error => {
-              console.log('Detail - ' + JSON.stringify(error));
-              this.toastr.error('Registration Error', error?.detail, {});
+
+              this.toastr.error('Registration failed. Please try again.', error?.detail, {});
               this.loading = false;
             });
 }
