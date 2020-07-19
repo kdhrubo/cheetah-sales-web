@@ -5,6 +5,7 @@ import { TenantComponent } from './tenant.component';
 import { AuthGuard } from '../guard/auth.guard';
 import { DetailComponent } from './detail/detail.component';
 import { CurrencyComponent } from './currency/currency.component';
+import { UserComponent } from './user/user.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   children: [
     { path: 'company', component: DetailComponent, canActivate: [AuthGuard] },
     { path: 'currency', component: CurrencyComponent, canActivate: [AuthGuard] },
+    { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
 
 
     { path: '', redirectTo: 'company'}
