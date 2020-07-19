@@ -13,7 +13,8 @@
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <a ngbDropdownItem [routerLink]="'company'">Company Details</a>
           <a ngbDropdownItem [routerLink]="'currency'">Currency</a>
-          <button ngbDropdownItem>Something else is here</button>
+          <a ngbDropdownItem [routerLink]="'users'">Users</a>
+
         </div>
       </div>
     
@@ -23,17 +24,6 @@
   </div>
 
 
-  <div class="row">
-    <div class="col-sm-1"></div>
-    
-    <div class="col-sm-10">
-  
-      <router-outlet></router-outlet>
-    
-    </div>
-
-    <div class="col-sm-1"></div>
-      
-  </div>
-  
 </div>
+
+<router-outlet></router-outlet>

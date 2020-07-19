@@ -11,10 +11,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { CurrencyComponent } from './currency/currency.component';
+import { UserComponent } from './user/user.component';
 
 
 @NgModule({
-  declarations: [TenantComponent, DetailComponent, CurrencyComponent],
+  declarations: [TenantComponent, DetailComponent, CurrencyComponent, UserComponent],
   imports: [
     CommonModule,
     TenantRoutingModule,
