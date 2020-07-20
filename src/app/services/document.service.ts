@@ -32,11 +32,18 @@ export class DocumentService {
     rsql: string
   ): Observable<DocumentItem[]> {
     const url = `${environment.api_base_url}/docs/q?rsql=${rsql}`;
-
-
     return this.httpClient
       .get<DocumentItem[]>(url)
       .pipe(catchError(err => this.handleError(err, 'find-all-docs')));
+  }
+
+  download(id: string): Observable<Blob> {
+    console.log('starting download');
+    const url = `${environment.api_base_url}/docs/${id}/download`;
+
+    return this.httpClient.get(url, {
+        responseType: 'blob'
+    });
   }
 
   private handleError(error: any, methodName: string) {

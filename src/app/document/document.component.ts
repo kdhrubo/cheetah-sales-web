@@ -5,7 +5,7 @@ import { FormService } from '../services/form.service';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import * as fileSaver from 'file-saver';
 @Component({
   selector: 'app-document',
   templateUrl: './document.component.html',
@@ -107,6 +107,23 @@ export class DocumentComponent implements OnInit {
 
   delete(d: DocumentItem) {
 
+  }
+
+  download(d: DocumentItem) {
+    console.log('download - ' + d.id);
+    this.documentService.download(d.id).subscribe(
+      (data) => {
+        console.log('DocumentItem download success.');
+        this.saveFile(data, d.name);
+      },
+      (error) => {
+        console.log('DocumentItem download failure.');
+      }
+    );
+  }
+  saveFile(data: any, filename?: string) {
+    const blob = new Blob([data]);
+    fileSaver.saveAs(blob, filename);
   }
 
   goFwd(doc: DocumentItem) {

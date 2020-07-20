@@ -46,7 +46,7 @@ export class CreateComponent implements OnInit {
     .subscribe(
       data => {
         this.toastr.success('Lead Saved Successfully.', '', {});
-        this.router.navigate(['/leads' , data?.id]);
+        this.router.navigate(['/app/leads' , data?.id]);
       },
       error => {
         this.toastr.error('Lead update failed.', error?.detail, {});

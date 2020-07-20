@@ -47,7 +47,7 @@ export class CreateComponent implements OnInit {
     .subscribe(
       data => {
         this.toastr.success('Contact Saved Successfully.', '', {});
-        this.router.navigate(['/contacts' , data?.id]);
+        this.router.navigate(['/app/contacts' , data?.id]);
       },
       error => {
         console.log('Contact save failure');
