@@ -37,6 +37,15 @@ export class DealService {
       .pipe(catchError(err => this.handleError(err, 'copy-deal')));
   }
 
+  delete(id: any): Observable<any>  {
+    const url = `${environment.api_base_url}/deals/${id}`;
+
+    return this.httpClient
+      .delete<Observable<any>>(url, {})
+      .pipe(catchError(err => this.handleError(err, 'delete-deal')));
+
+  }
+
 
   search(
     rsql: string,

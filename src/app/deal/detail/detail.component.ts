@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DealService } from 'src/app/services/deal.service';
 import { FormService } from 'src/app/services/form.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detail',
@@ -28,10 +29,11 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private dealService: DealService, 
+    private dealService: DealService,
     private formService: FormService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
     ) { }
 
   ngOnInit(): void {
@@ -98,8 +100,23 @@ export class DetailComponent implements OnInit {
       );
   }
 
-  edit() {
-    this.options.formState.disabled = !this.options.formState.disabled;
+  confirmDelete(content: any) {
+    this.modalService.open(content, { size: 'xl', centered: true });
+  }
+
+  delete() {
+    const ids = [this.id];
+    this.dealService.delete(ids).subscribe(
+      (data) => {
+        this.toastr.success('Deal deleted successfully.', '', {});
+        this.modalService.dismissAll();
+        this.router.navigate(['/app/deals']);
+      },
+      (error) => {
+        this.toastr.error('Deal delete failed.', error?.detail, {});
+      }
+    );
+
   }
 
 }
