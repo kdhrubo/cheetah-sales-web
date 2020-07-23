@@ -15,6 +15,7 @@ import { CommunicationComponent } from './components/communication/communication
 import { ProductRelationComponent } from './components/product-relation/product-relation.component';
 import { DocumentRelationComponent } from './components/document-relation/document-relation.component';
 import { YesNoPipe } from './pipe/yes-no.pipe';
+import { DealLineItemComponent } from './components/deal-line-item/deal-line-item.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { YesNoPipe } from './pipe/yes-no.pipe';
     CommunicationComponent,
     ProductRelationComponent,
     DocumentRelationComponent,
-    YesNoPipe
+    YesNoPipe,
+    DealLineItemComponent
     ],
   imports: [
     CommonModule,
