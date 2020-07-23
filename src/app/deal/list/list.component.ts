@@ -10,8 +10,6 @@ import { DealService } from 'src/app/services/deal.service';
 })
 export class ListComponent implements OnInit {
 
-  isCollapsed = true;
-  isCollapsedFilter = true;
   dealPage: Page<Deal>;
   pageNo = 1;
   pageSize = 10;
@@ -19,12 +17,17 @@ export class ListComponent implements OnInit {
   trackCounter = 1;
   rsql = 'deleted==false';
 
+  searchField: string;
+  searchText: string;
+  op: string;
+
   fields = [
     {
       id: 1,
       name: 'id',
       label: 'Id',
-      checked: false
+      checked: false,
+      searchable: false
     },
 
     {
@@ -32,18 +35,15 @@ export class ListComponent implements OnInit {
       name: 'name',
       label: 'Name',
       checked: true,
-      filter: {
-        type: 'string',
-        operator: '',
-        operand: ''
-      }
+      searchable: true
     },
 
     {
       id: 3,
       name: 'amount',
       label: 'Amount',
-      checked: true
+      checked: true,
+      searchable: true
     },
 
 
@@ -51,21 +51,24 @@ export class ListComponent implements OnInit {
       id: 5,
       name: 'contactId',
       label: 'Contact',
-      checked: true
+      checked: true,
+      searchable: false
     },
 
     {
       id: 6,
       name: 'accountId',
       label: 'Account',
-      checked: true
+      checked: true,
+      searchable: false
     },
 
     {
       id: 7,
       name: 'expectedClose',
       label: 'Expected Close',
-      checked: true
+      checked: true,
+      searchable: false
     }
   ];
 
@@ -75,47 +78,49 @@ export class ListComponent implements OnInit {
     this.search(this.rsql);
   }
 
+  onSetSearchField(s: any) {
+    this.searchField = s;
+  }
+
+  onSetOpField(op: any) {
+    this.op = op;
+  }
+
+  doRefresh(value: any): void {
+    this.pageSize = +value;
+    this.search(this.rsql);
+  }
+
+
+  go2NextPage(page: number): void {
+    this.pageNo = page;
+    this.search(this.rsql);
+  }
+
   search(sql: string) {
     this.dealService.search(sql, this.pageNo - 1, this.pageSize).subscribe(
       data => {
         this.dealPage = data;
         this.collectionSize = this.dealPage.totalElements;
-        console.log('Data - ' + JSON.stringify(data));
       },
       error => console.log('Error - ' + error.message)
     );
   }
 
-  delete(deal: Deal) {
-    console.log('Delete - ' + deal);
-  }
+  doSearch(): void {
+    this.pageNo = 1;
+    this.pageSize = 10;
+    let sql = `deleted==false`;
 
-  listDealElement(value: string): void {
-    console.log('Updating List Element count with new page size : ' + value);
-    this.pageSize = +value;
-    this.search(this.rsql);
-  }
-
-  loadNextPage(page: number): void {
-    console.log('Loading next page with pageNo : ' + page);
-    this.pageNo = page;
-    this.search(this.rsql);
-  }
-
-  applyfilterSearch(): void {
-    // console.log('fields - ' + JSON.stringify(this.fields));
-    let sql = this.rsql;
-
-    for (const f of this.fields) {
-      if (f.filter) {
-        // tslint:disable-next-line: triple-equals
-        if (f.filter.type == 'string') {
-          const partial = ' and ' + f.name + f.filter.operator + f.filter.operand;
-          sql = sql + partial;
-        }
-      }
+    if (this.op) {
+      sql = `deleted==false;${this.searchField}${this.op}${this.searchText}`;
     }
+    this.rsql = sql;
     this.search(sql);
+  }
+
+  delete(deal: Deal) {
+    console.log('Delete - ' + deal.id);
   }
 
   toggleEditable(event: any): void {
