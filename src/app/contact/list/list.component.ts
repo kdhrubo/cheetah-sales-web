@@ -22,12 +22,17 @@ export class ListComponent implements OnInit {
 
   rsql = 'deleted==false';
 
+  searchField: string;
+  searchText: string;
+  op: string;
+
   fields = [
     {
       id: 1,
       name: 'id',
       label: 'Id',
-      checked: false
+      checked: false,
+      searchable: false
     },
 
     {
@@ -35,53 +40,48 @@ export class ListComponent implements OnInit {
       name: 'firstName',
       label: 'First Name',
       checked: true,
-      filter: {
-          type: 'string',
-          operator: '',
-          operand: ''
-        }
+      searchable: true
     },
 
     {
       id: 3,
       name: 'lastName',
       label: 'Last Name',
-      checked: true
+      checked: true,
+      searchable: true
     },
 
     {
       id: 4,
       name: 'email',
       label: 'Email',
-      checked: true
-    },
-
-    {
-      id: 5,
-      name: 'city',
-      label: 'City',
-      checked: true
-    },
-
-    {
-      id: 6,
-      name: 'country',
-      label: 'Country',
-      checked: true
-    },
-
-    {
-      id: 7,
-      name: 'company',
-      label: 'Company',
-      checked: true
+      checked: true,
+      searchable: true
     }
+
   ];
 
   constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
-    // console.log('Fields - ' + this.fields);
+    this.search(this.rsql);
+  }
+
+  onSetSearchField(s: any) {
+    this.searchField = s;
+  }
+
+  onSetOpField(op: any) {
+    this.op = op;
+  }
+
+  doRefresh(value: string): void {
+    this.pageSize = +value;
+    this.search(this.rsql);
+  }
+
+  go2NextPage(page: number): void {
+    this.pageNo = page;
     this.search(this.rsql);
   }
 
@@ -90,28 +90,22 @@ export class ListComponent implements OnInit {
       data => {
         this.contactPage = data;
         this.collectionSize = this.contactPage.totalElements;
-        // console.log('Data - ' + JSON.stringify(data)) ;
       },
       error => console.log('Error - ' + error.message)
     );
   }
 
-  applyfilterSearch(): void {
-    // console.log('fields - ' + JSON.stringify(this.fields));
+  doSearch(): void {
+    this.pageNo = 1;
+    this.pageSize = 10;
+    let sql = `deleted==false`;
 
-    let sql = this.rsql ;
-
-    for (const f of this.fields) {
-      if (f.filter) {
-        // tslint:disable-next-line: triple-equals
-        if (f.filter.type == 'string') {
-          const partial = ' and ' + f.name + f.filter.operator + f.filter.operand;
-          sql = sql + partial;
-        }
-       }
+    if (this.op) {
+      sql = `deleted==false;${this.searchField}${this.op}${this.searchText}`;
     }
-
+    this.rsql = sql;
     this.search(sql);
+
 
   }
 

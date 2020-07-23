@@ -9,14 +9,30 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavigationModule } from './navigation/navigation.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { FormlyModule } from '@ngx-formly/core';
-import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { PicklistComponent } from './custom-fields/picklist/picklist.component';
-
+import { FormlyBootstrapModule, FormlyFieldSelect } from '@ngx-formly/bootstrap';
+import { PicklistComponent } from './common/picklist/picklist.component';
+import { SelectwrapperComponent } from './common/selectwrapper/selectwrapper.component';
+import { AccountpicklistComponent } from './common/accountpicklist/accountpicklist.component';
+import { SharedModule } from './shared/shared.module';
+import { ContactPicklistComponent } from './common/contact-picklist/contact-picklist.component';
+import { FormlyFieldFile } from './common/file/filetype.component';
+import { FileValueAccessor } from './common/file/file-value-accessor';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PriceBookComponent } from './price-book/price-book.component';
+import { ProductPriceComponent } from './product-price/product-price.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PicklistComponent
+    PicklistComponent,
+    SelectwrapperComponent,
+    AccountpicklistComponent,
+    ContactPicklistComponent,
+    FileValueAccessor,
+    FormlyFieldFile,
+    PriceBookComponent,
+    ProductPriceComponent
   ],
   imports: [
     BrowserModule,
@@ -26,12 +42,32 @@ import { PicklistComponent } from './custom-fields/picklist/picklist.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
+    SharedModule,
     FormlyModule.forRoot({
+      validationMessages: [
+        { name: 'required', message: 'This field is required' }
+      ],
+      wrappers: [
+        { name: 'formly-select-wrapper', component: SelectwrapperComponent },
+      ],
       types: [
-        { name: 'pickList', component: PicklistComponent },
+        { name: 'picklist', component: PicklistComponent },
+        { name: 'file', component: FormlyFieldFile },
+        { name: 'accountLookup', component: AccountpicklistComponent },
+        { name: 'contactLookup', component: ContactPicklistComponent },
+        {
+          name: 'select',
+          component: FormlyFieldSelect,
+          wrappers: ['formly-select-wrapper']
+        }
       ],
     }),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true,
+    }) // ToastrModule added
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, ],
   bootstrap: [AppComponent]

@@ -1,0 +1,29 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+        <h5 class="text-primary mt-0 py-0">Cockpit</h5>
+    </div>
+
+    <div class="col-sm-6">
+
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary btn-sm" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-cog"></i> Configurations</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <a ngbDropdownItem [routerLink]="'company'">Company Details</a>
+          <a ngbDropdownItem [routerLink]="'currency'">Currency</a>
+          <a ngbDropdownItem [routerLink]="'users'">Users</a>
+
+        </div>
+      </div>
+    
+    </div>
+
+    <div class="col-sm-1"></div>
+  </div>
+
+
+</div>
+
+<router-outlet></router-outlet>

@@ -1,1 +1,67 @@
-<p>import works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4">
+            <h5 class="mt-2">Import Contacts</h5>
+        </div>
+
+        <div class="col-sm-6">
+
+
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-lg-6">
+            <form novalidate [formGroup]="formImport">
+
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile04"
+                            aria-describedby="inputGroupFileAddon04" #csvReader
+                            (change)="onFileSelected($event.target.files)">
+                        <label class="custom-file-label" for="inputGroupFile04" #labelImport>Select CSV file</label>
+                    </div>
+
+                </div>
+                <br>
+                <div class="form-group">
+                    <button class="btn btn-outline-secondary" type="button" (click)="upload()"><i
+                            class="fas fa-file-import"></i> Importer
+                    </button>
+                </div>
+
+            </form>
+
+
+        </div>
+        <div class="col-lg-4">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <p class="h5">Upload Notes</p>
+
+                <p>The uploaded file should a comma <mark>,</mark> separated text file ending with <mark>.csv</mark>
+                    extention.</p>
+                <p>The maximum file size allowed is <mark>1MB</mark>.</p>
+                <p><strong>The fields should be in the order below</strong></p>
+                <ol>
+                    <li>First Name</li>
+                    <li>Last Name</li>
+                    <li>Email</li>
+                    <li>Date of Birth</li>
+                    <li>Mobile</li>
+                    <li>Twitter</li>
+                    <li>Facebook</li>
+                    <li>LinkedIn</li>
+                </ol>
+                <p>In case of missing fields, just leave it blank. Refer to the example line below where date of birth,
+                    facebook and linkedin fields are missing.</p>
+                <p><em>John,Stones,jstones@example.com, ,9999988888,jstonestweets,,,</em></p>
+
+            </div>
+
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>

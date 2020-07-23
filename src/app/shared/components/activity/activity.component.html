@@ -1,0 +1,76 @@
+
+<div class="table-responsive-md">
+    <div class="mt-1 mb-1 float-right">
+        <button class="btn btn-sm btn-outline-success" (click)="openLg(longContent)" type="button">
+            <i class="fas fa-plus"></i> New
+        </button>
+    </div>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+
+                <th scope="col">Subject</th>
+                <th scope="col">Status</th>
+                <th scope="col">When</th>
+                <th scope="col">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let activity of activities;">
+                <th scope="row"></th>
+
+                <td>
+                    {{activity?.subject}}
+                </td>
+                <td>
+                    {{activity?.status?.value}}
+                </td>
+
+                <td>
+                    {{activity?.startDate}}
+                </td>
+
+                <td>
+
+                    <a class="text-danger" (click)='edit(activity)'>Delete</a>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">New Meeting</h4>
+
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+
+                    <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                        <i class="far fa-save"></i> 
+                        Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+                    (click)="modal.close('Cross click')">
+                    <i class="fas fa-window-close"></i> 
+                    Cancel</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+</ng-template>

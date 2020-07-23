@@ -1,0 +1,12 @@
+<div class="form-group">
+    <label>{{to.label}}</label>
+    <div class="input-group">
+        <select class="form-control form-control-sm" [formControl]="formControl" [formlyAttributes]="field" 
+            (change)="onItemSelectionChanged($event.target.value)">
+            <option></option>
+            <ng-container *ngFor="let item of pickLists">
+                <option [value]="item.id">{{ item.value }}</option>
+            </ng-container>
+          </select>
+    </div>
+</div>

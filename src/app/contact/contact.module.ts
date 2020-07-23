@@ -11,6 +11,8 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from '../shared/shared.module';
+
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     FormsModule,
     FormlyModule.forChild(),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    SharedModule
   ]
 })
 export class ContactModule { }

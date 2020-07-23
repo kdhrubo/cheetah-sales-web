@@ -1,29 +1,237 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-4">
-          <h5 class="mt-2">View Lead</h5>
-      </div>
-  
-      <div class="col-sm-6">
-  
-          
-      </div>
-      <div class="col-1"></div>
-    </div>
-  
-    <div class="row">
-      <div class="col-1"></div>
-      <div class="col-lg-10">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options"></formly-form>
 
-          
-          <button type="submit" class="btn btn-sm btn-outline-primary float-right mr-2" (click)="edit()">Edit</button>
-          <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">Save</button>
-          <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2">Cancel</button>
-        </form>
-      </div>
-      <div class="col-1"></div>
+  <div class="row">
+
+    <!-- column 1 -->
+    <div class="col-md-1">
+      
     </div>
+
+    <!--column 2-->
+    <div class="col-md-8">
+    
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="text-primary">Lead Details</h5>
+        </div>
+
+        <div class="col-md-6">
+            <button type="button" class="btn btn-sm btn-outline-danger float-right mr-1" (click)="confirmDelete(longDeleteContent)">
+              <i class="far fa-trash-alt"></i>
+                Delete 
+            </button>  
+        </div>
+      </div>
+
+      <div class="row">
+        
+        <div class="col-md-12">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            
+            <formly-form [form]="form" [fields]="fields" [model]="lead"></formly-form>
+
+            <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+              <i class="far fa-save"></i>
+             Save
+            </button>
+              
+
+            <button type="button" class="btn btn-sm btn-outline-primary float-right mr-1" (click)="copy()">
+              <i class="far fa-copy"></i>
+                Copy 
+            </button>  
+
+            <button type="button" class="btn btn-sm btn-outline-success float-right mr-1" (click)="startConvert(longContent)">
+              <i class="fas fa-bullseye"></i>
+                Convert 
+            </button>      
+
+            <a type="button" class="btn btn-sm btn-outline-primary float-right mr-1" [routerLink]="['/app','leads']">
+              <i class="fas fa-chevron-circle-left"></i>
+              Cancel
+            </a>    
+
+          </form>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-3">
+
+          <!-- card start -->
+          <div class="card text-center">
+
+            <div class="card-header pt-2 pb-2">
+
+              <ul ngbNav #nav="ngbNav" class="nav nav-pills card-header-pills">
+
+                <li class="nav-item p-1" ngbNavItem>
+                    <a class="nav-link btn-sm" ngbNavLink>Meetings</a>
+
+                    <ng-template ngbNavContent>
+                      <app-activity [related]="'Lead'" [relatedId]="id"></app-activity>
+                    </ng-template>
+
+                </li>
+
+                <li class="nav-item p-1" ngbNavItem>
+                    <a class="nav-link btn-sm" ngbNavLink>TODOs</a>
+                    <ng-template ngbNavContent>
+                      <app-activity [related]="'Lead'" [relatedId]="id"></app-activity>
+                    </ng-template>
+                </li>
+
+                <li class="nav-item p-1" ngbNavItem>
+                    <a class="nav-link btn-sm" ngbNavLink>Notes</a>
+                    <ng-template ngbNavContent>
+                      <app-activity [related]="'Lead'" [relatedId]="id"></app-activity>
+                    </ng-template>
+                </li>
+
+              </ul>
+
+             
+
+            </div>
+
+            <div class="card-body" [ngbNavOutlet]="nav">
+             
+            </div>
+
+          </div>  
+
+           <!-- card end -->
+
+        </div> <!--Column end-->
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-3">
+
+          <div class="card">
+            <h5 class="card-header text-primary">Products</h5>
+          
+            <div class="card-body">
+
+              <app-product-relation [products]="lead?.products" (addProduct)="addProduct($event)"
+                (removeProduct)="removeProduct($event)">
+              </app-product-relation>
+            
+            </div>
+
+          </div>
+          <!--CARD END-->
+        </div>
+
+      </div> <!--end of row -->
+
+
+      <div class="row">
+        <div class="col-md-12 mt-3 mb-3">
+
+          <div class="card">
+            <h5 class="card-header text-primary">Documents</h5>
+          
+            <div class="card-body">
+
+              <app-document-relation [documents]="lead?.documents" (addDocument)="addDocument($event)"
+                (removeDocument)="removeDocument($event)">
+              </app-document-relation>
+            
+            </div>
+
+          </div>
+          <!--CARD END-->
+        </div>
+
+      </div> <!--end of row -->
+
+
+    </div>
+
+    <!--column 3-->
+    <div class="col-md-2 ">
+
+      <app-communication [communication]="lead" (updateCommunication)="updateExt($event)" [formName]="'form-lead-communication'"></app-communication>
+
+      <app-social [social]="lead" (updateSocial)="updateExt($event)" [formName]="'form-lead-social'"></app-social>
+
+      <app-address [address]="lead" (updateAddress)="updateExt($event)" [headerText]="'Address'"></app-address>
+      
+    
+    
+    </div>
+
+    <!--column 4-->
+    <div class="col-md-1">
+      
+      
+
+
+    </div>
+
+  
   </div>
+
+</div>
+
+
+<!--convert lead confirmation -->
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Convert Lead</h5>
+
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <form [formGroup]="form" (ngSubmit)="submitConvert()">
+                    <formly-form [form]="form" [fields]="convertfields" [model]="convertLeadModel"></formly-form>
+
+                    <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                        <i class="far fa-save"></i> 
+                        Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+                    (click)="modal.close('Cross click')">
+                    <i class="fas fa-window-close"></i> 
+                    Cancel</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+</ng-template>
+
+<!-- delete lead confirmation -->
+
+<ng-template #longDeleteContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+    </div>
+    <div class="modal-body">
+        <p>This will delete lead information. Are you sure you want to continue?</p>
+            
+        
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-sm btn-danger float-right" (click)="delete()">
+                        <i class="far fa-save"></i> 
+                        Yes</button>
+
+      <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+          (click)="modal.close('Cross click')">
+        <i class="fas fa-window-close"></i> 
+          No</button>
+
+    </div>
+
+</ng-template>

@@ -1,0 +1,13 @@
+<div class="card mb-2">
+  <h6 class="card-header text-primary">Social</h6>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <formly-form [form]="form" [fields]="fields" [model]="social"></formly-form>
+
+                <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                    <i class="far fa-save"></i>
+                    Save</button>
+
+            </form>
+  </div>
+</div>

@@ -1,22 +1,35 @@
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {catchError} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {JwtHelperService} from '@auth0/angular-jwt';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { AuthService } from '../services/auth.service';
 import { AuthJwt } from '../models/auth.model';
 
 export const AUTH_REQUIRED_ENDPOINTS = [
   '/leads',
-  '/leads/q',
+  '/accounts',
+  '/emailaddresses',
+  '/postal',
   '/contacts',
   '/forms',
-  '/contacts/q',
-  '/users/whoami',
-  '/picklists'
-
+  '/activities',
+  '/notes',
+  '/tasks',
+  '/links',
+  '/picklists',
+  '/phones',
+  '/deals',
+  '/tenant',
+  '/docs',
+  '/category',
+  '/products',
+  '/pricebooks',
+  '/product-price',
+  '/currencies',
+  '/users'
 ];
 
 @Injectable()
@@ -37,6 +50,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // console.log('Auth - ' + authJwt) ;
 
     if (!!authJwt && AUTH_REQUIRED_ENDPOINTS.find(data => req.url.includes(data))) {
+
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${this.getToken(authJwt)}`

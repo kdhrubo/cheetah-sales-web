@@ -1,0 +1,58 @@
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Contact Lookup</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <div class="table-responsive-md">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let contact of contacts?.content">
+                                <th scope="row"></th>
+                                
+                                <td>
+                                    <a class="text-primary" (click)="setField(contact);modal.close('selected-close')">
+                                        {{contact.firstName}}</a>
+                                </td>
+                               
+                            </tr>
+    
+                        </tbody>
+                    </table>
+    
+                </div>
+    
+            </div>
+    
+            <div class="col-1"></div>
+    
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<div class="form-group">
+    <label>{{to.label}}</label>
+    <div class="input-group">
+        <input class="form-control form-control-sm" [value]="val">
+        <input class="form-control form-control-sm" [formControl]="formControl" [formlyAttributes]="field" type="hidden">
+        <div class="input-group-append">
+            <button class="btn btn-sm btn-outline-primary" (click)="openLg(longContent)" type="button">
+                <i class="fas fa-eye"></i>
+            </button>
+        </div>
+    </div>
+</div>

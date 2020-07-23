@@ -1,0 +1,60 @@
+import { PickList } from './picklist.model';
+
+export class Product {
+    id: string;
+    availability: boolean;
+    categoryId: string;
+    cost: number;
+    currency: string;
+    doa: Date;
+    dateCostPrice: Date;
+    productName: string;
+    isActive: boolean;
+    prodPartNo: number;
+    manufacturerName: string;
+    manufacturerPartNo: number;
+    prodSerialNo: number;
+    vendorName: string;
+    vendPartNo: number;
+    salesStartDate: Date;
+    salesEndDate: Date;
+    supportStartDate: Date;
+    supportEndDate: Date
+    productUrl: string;
+    generalLedgerAccount: number;
+    productSheetpath: string;
+    productSku: string;
+    barCode: string;
+    externalDisplayUrl: string;
+    externalDataSource: string;
+    externalId: string;
+    prodCurrency: string;
+    description: string;
+    billingType: string;
+    usageUnits: string;
+    quantityPerUnit: number;
+    stockUnits: number;
+    reorderLevel: string;
+    qtyInDemand: number;
+    handler: string;
+    supportContact: string;
+    supportDesc: string;
+    supportName: string;
+    supportTerm: string;
+    tags: string;
+    prodImagePath: string;
+    commissionRate: number;
+    qtySchedulingEnabled: boolean;
+    revenueSchedulingEnabled: boolean;
+    taxClass: number;
+    productType: string;
+    prodHeight: number;
+    prodHeightUnit: string;
+    prodLength: number;
+    prodLengthUnit: string;
+    prodWidth: number;
+    prodWidthUnit: string;
+    prodWeight: number;
+    prodWeightUnit: string;
+
+}

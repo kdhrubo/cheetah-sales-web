@@ -14,6 +14,6 @@ export class AuthComponent implements OnInit {
   }
 
   fakeSignin() {
-    this.authService.fakeSignin();
+    
   }
 }

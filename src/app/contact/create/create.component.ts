@@ -3,8 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from 'src/app/models/contact.model';
-import { FormService } from 'src/app/services/form.service';
-import { PicklistService } from 'src/app/services/picklist.service';
+import { FormService } from '../../services/form.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -18,10 +19,13 @@ export class CreateComponent implements OnInit {
 
   fields: FormlyFieldConfig[] ;
 
-  constructor(private contactService: ContactService, private formService: FormService) { }
+  constructor(private contactService: ContactService,
+              private formService: FormService,
+              private toastr: ToastrService,
+              private router: Router ) { }
 
   ngOnInit(): void {
-    this.formService.getFields('contact-form').subscribe(
+    this.formService.getFields('form-contact-create').subscribe(
 
       data => {
         this.fields = data;
@@ -36,13 +40,14 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(JSON.stringify(this.model));
     const contact: Contact = this.model as Contact;
-    
+    Object.keys(contact).forEach((key) => (contact[key] === null || contact[key] === '') && delete contact[key]);
+
     this.contactService.save(contact)
     .subscribe(
       data => {
-        console.log('Contact save success');
+        this.toastr.success('Contact Saved Successfully.', '', {});
+        this.router.navigate(['/app/contacts' , data?.id]);
       },
       error => {
         console.log('Contact save failure');

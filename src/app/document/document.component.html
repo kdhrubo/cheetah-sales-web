@@ -1,0 +1,158 @@
+<div class="container-fluid">
+
+    <div class="row">
+        
+        <div class="col-sm-1"></div>
+
+        <div class="col-sm-2">
+            <h5 class="text-primary">Documents</h5>
+        </div>
+
+        <div class="col-sm-5"></div>
+
+        <div class="col-sm-3">
+
+            <div ngbDropdown class="d-inline-block float-left">
+                <button class="btn btn-sm btn-outline-success dropdown-toggle" 
+                    id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-plus"></i> New</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem (click)="openCreateFolder(newFolderContent)" class="btn-sm">Folder</button>
+                  <button ngbDropdownItem (click)="openCreateFile(newFileContent)" class="btn-sm">File</button>
+                  
+                </div>
+            </div>
+
+        </div>
+        
+        
+        <div class="col-sm-1"></div>
+
+    </div>
+    
+
+    <div class="row">
+        
+        <div class="col-sm-1"></div>
+
+        <div class="col-sm-10">
+
+
+            <div class="table-responsive-md">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            
+                            <th scope="col">Name</th>
+
+                            <th scope="col">Created On</th>
+                            
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of documents;">
+                            <th scope="row"></th>
+                            
+                            <td>
+                                
+                                <a (click)="goFwd(d)"  *ngIf="d.type == 'FOLDER'" class="text-primary"><i class="fas fa-folder"></i> {{d.name}}</a>
+                                <a href="#"  *ngIf="d.type == 'FILE'">
+                                    <!--
+                                    <i class="fas fa-file-{{d.type}}"></i> 
+                                    -->
+                                    <i class="fas fa-file-{{d.extension}}"></i>
+                                    {{d.name}}
+                                </a>
+                        
+                            </td>
+
+                            <td>
+                            
+                                {{d.createdDate | date:'mediumDate'}}
+                            
+                            </td>
+                            
+
+                            <td>
+                                
+                                <a class="text-danger" (click)='delete(d)'>Delete</a>
+                                |
+                                <a class="text-danger" (click)='download(d)'>Download</a>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+           
+        </div>
+
+        <div class="col-sm-1"></div>
+
+    </div>
+
+</div>
+
+<!-- create folder template -->
+<ng-template #newFolderContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">New Folder</h5>
+
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <form [formGroup]="form" (ngSubmit)="onCreateFolder()">
+                    <formly-form [form]="form" [fields]="fields" [model]="folderModel"></formly-form>
+
+                    <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                        <i class="far fa-save"></i> 
+                        Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+                    (click)="modal.close('Cross click')">
+                    <i class="fas fa-window-close"></i> 
+                    Cancel</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+</ng-template>
+
+<!-- create file template -->
+<ng-template #newFileContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">New File</h5>
+
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <form [formGroup]="form" (ngSubmit)="onCreateFile()">
+                    <formly-form [form]="form" [fields]="fields" [model]="fileModel"></formly-form>
+
+                    <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!form.valid">
+                        <i class="far fa-save"></i> 
+                        Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+                    (click)="modal.close('Cross click')">
+                    <i class="fas fa-window-close"></i> 
+                    Cancel</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+</ng-template>

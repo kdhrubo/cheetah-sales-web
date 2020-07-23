@@ -1,0 +1,126 @@
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Product Lookup</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        
+        
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <div class="table-responsive-md">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <ng-container *ngFor="let f of fields; let i = index">
+                                    <th scope="col">{{f.label}}</th>
+                                </ng-container>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of productPage?.content; let i = index;">
+                                <th scope="row"></th>
+                                <ng-container *ngFor="let f of fields; let i = index;">
+                                    <td>
+                                        
+                                        {{product[f.name]}}
+                                        
+                                    </td>
+                                </ng-container>
+
+                                <td>
+                                    
+                                    <a class="text-success" (click)='add(product)'>Add</a>
+                                    
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between p-2">
+
+
+                        <ngb-pagination [collectionSize]="collectionSize" [(page)]="pageNo" [maxSize]="5" [rotate]="true"
+                            class="pagination pagination-sm text-success"
+                            [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="loadNextPage($event)">
+                        </ngb-pagination>
+
+                        <div>
+                            <span># of rows: </span>
+                            <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize" (change)="listProductElement($event.target.value)">
+                                <option [value]="10">10</option>
+                                <option [value]="20">20</option>
+                                <option [value]="30">30</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-1"></div>
+
+        </div>
+
+
+
+    </div>
+    
+</ng-template>
+
+
+<div class="row">
+        <div class="col-md-6 col-sm-6">
+        
+        </div>
+        <div class="col-md-6 col-sm-6">
+        
+            <button class="btn btn-sm btn-outline-success float-right mb-1" (click)="openLg(longContent)" type="button">
+                 <i class="fas fa-plus"></i> Add Product
+            </button>
+
+        </div>
+</div>
+
+
+<div class="table-responsive-md">
+    
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+
+                <th scope="col">Name</th>
+                
+                <th scope="col">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr *ngFor="let product of products;">
+                <th scope="row"></th>
+
+                <td>
+                    {{product?.name}}
+                </td>
+               
+                <td>
+                    <a class="text-danger" (click)='remove(product)'>Remove</a>
+                </td>
+            </tr>
+            
+
+        </tbody>
+    </table>
+
+</div>

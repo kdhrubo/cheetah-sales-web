@@ -11,7 +11,7 @@ import {
   User,
   AuthJwt,
   SignUpRequest,
-  ForgotPwdRequest
+  ForgotPwdRequest,
 } from '../models/auth.model';
 
 import { environment } from '../../environments/environment';
@@ -20,7 +20,7 @@ export const CURRENT_USER_KEY = 'currentUser';
 export const USER_CREDENTIALS_KEY = 'userCredentials';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private helperService = new JwtHelperService();
@@ -28,21 +28,25 @@ export class AuthService {
   private _authJwt: AuthJwt;
   private user: User;
 
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    console.log('inside auth service const');
+    let sJwt = sessionStorage.getItem(CURRENT_USER_KEY);
+    this._authJwt = JSON.parse(sJwt);
+  }
+
+
 
   getToken() {
-
-    return localStorage.getItem(CURRENT_USER_KEY);
-
+    return sessionStorage.getItem(CURRENT_USER_KEY);
   }
 
-  fakeSignin() {
-    this.loggedIn.next(true);
-  }
 
   get isLoggedIn() {
+    this.loggedIn.next(this.isAuthenticated());
     return this.loggedIn.asObservable();
   }
 
@@ -51,6 +55,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
+    console.log('is authenticated');
     return (
       !!this._authJwt &&
       !this.helperService.isTokenExpired(this._authJwt.refresh_token)
@@ -63,11 +68,11 @@ export class AuthService {
     return this.httpClient.post(url, null, this.getOptions()).pipe(
       map((res: AuthJwt) => {
         this._authJwt = res;
-        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
+        sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
         this.loggedIn.next(true);
         return true;
       }),
-      catchError(err => this.handleError(err, 'register'))
+      catchError((err) => this.handleError(err, 'register'))
     );
   }
 
@@ -75,7 +80,7 @@ export class AuthService {
     const url = `${environment.api_base_url}/users/register`;
     return this.httpClient
       .post<Observable<any>>(url, signUpRequest)
-      .pipe(catchError(err => this.handleError(err, 'register')));
+      .pipe(catchError((err) => this.handleError(err, 'register')));
   }
 
   whoAmI(): Observable<User> {
@@ -86,7 +91,7 @@ export class AuthService {
         this.user = u;
         return u;
       }),
-      catchError(err => this.handleError(err, 'register'))
+      catchError((err) => this.handleError(err, 'register'))
     );
   }
 
@@ -104,14 +109,14 @@ export class AuthService {
     const url = `${environment.auth_base_url}/users/otp/` + email;
     return this.httpClient
       .post<Observable<any>>(url, {})
-      .pipe(catchError(err => this.handleError(err, 'send-otp')));
+      .pipe(catchError((err) => this.handleError(err, 'send-otp')));
   }
 
   updatePassword(forgotPwdRequest: ForgotPwdRequest): Observable<any> {
     const url = `${environment.api_base_url}/users/changepassword`;
     return this.httpClient
       .post<Observable<any>>(url, forgotPwdRequest)
-      .pipe(catchError(err => this.handleError(err, 'changepassword')));
+      .pipe(catchError((err) => this.handleError(err, 'changepassword')));
   }
 
   refreshAccessToken() {
@@ -122,13 +127,13 @@ export class AuthService {
       .post(url, body, this.getOptions())
       .subscribe((res: AuthJwt) => {
         this._authJwt = res;
-        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
+        sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(res));
       });
   }
 
   logout(): void {
     console.log('----- logout called ----');
-    localStorage.removeItem(CURRENT_USER_KEY);
+    sessionStorage.removeItem(CURRENT_USER_KEY);
     this.loggedIn.next(false);
     this._authJwt = null;
   }
@@ -141,8 +146,8 @@ export class AuthService {
           'Basic ' +
           Base64.encode(
             `${environment.oauth_client_id}:${environment.oauth_client_secret}`
-          )
-      })
+          ),
+      }),
     };
   }
 

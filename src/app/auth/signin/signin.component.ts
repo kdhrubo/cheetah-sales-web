@@ -6,10 +6,9 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.css'],
 })
 export class SigninComponent implements OnInit {
-
   signInForm: FormGroup;
 
   loading = false;
@@ -21,20 +20,17 @@ export class SigninComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.signInForm = this.formBuilder.group({
-
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required ]]
-
+      password: ['', [Validators.required]],
     });
 
     // get return url from route parameters or default to '/'
     // tslint:disable-next-line: no-string-literal
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/leads';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/app/leads';
 
     // TODO - return to dashboard/default page if already loggedin
   }
@@ -49,20 +45,23 @@ export class SigninComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.signInForm.invalid) {
-        return;
+      return;
     }
 
     this.loading = true;
-    this.authService.signin(this.f.email.value, this.f.password.value)
+    this.authService
+      .signin(this.f.email.value, this.f.password.value)
 
-        .subscribe(
-            data => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                // this.alertService.error(error);
-                this.loading = false;
-            });
-}
+      .subscribe(
+        (data) => {
+          this.router.navigate([this.returnUrl]);
+        },
+        (error) => {
+          // this.alertService.error(error);
+          this.loading = false;
+        }
+      );
+  }
+
 
 }

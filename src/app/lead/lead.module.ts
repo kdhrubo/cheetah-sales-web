@@ -11,11 +11,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { ViewComponent } from './view/view.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [LeadComponent, ListComponent, CreateComponent, DetailComponent, ImportComponent, ViewComponent],
+  declarations: [LeadComponent, ListComponent, CreateComponent, DetailComponent, ImportComponent],
   imports: [
     CommonModule,
     LeadRoutingModule,
@@ -23,7 +23,8 @@ import { ViewComponent } from './view/view.component';
     ReactiveFormsModule,
     FormsModule,
     FormlyModule.forChild(),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    SharedModule
   ]
 })
 export class LeadModule { }

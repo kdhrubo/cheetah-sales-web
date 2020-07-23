@@ -3,402 +3,204 @@ import { LeadService } from 'src/app/services/lead.service';
 import { Lead } from 'src/app/models/lead.model';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormService } from 'src/app/services/form.service';
+import { ToastrService } from 'ngx-toastr';
+import { Address } from 'src/app/models/address.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-
   form = new FormGroup({});
-  model: Lead;
+  lead: Lead;
+  id: any;
 
-  options: FormlyFormOptions = {
-    formState: {
-      disabled: true,
-    },
-  };
+  options: FormlyFormOptions = {};
 
-  fields: FormlyFieldConfig[] = [
-    {
-      className: 'section-label',
-      template: '<div><strong>Basic Information:</strong></div>',
-    },
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'salutation',
-          templateOptions: {
-            label: 'Salutation',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
+  fields: FormlyFieldConfig[];
 
-            ]
-          },
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'firstName',
-          templateOptions: {
-            label: 'First Name',
-          },
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'lastName',
-          templateOptions: {
-            label: 'Last Name',
-            required: true,
-            class: 'form-control form-control-sm'
-          }
-          ,
-          expressionProperties: {
-           // apply expressionProperty for disabled based on formState
-          'templateOptions.disabled': 'formState.disabled',
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'designation',
-          templateOptions: {
-            label: 'Designation',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'company',
-          templateOptions: {
-            label: 'Company',
-          },
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'noOfEmployees',
-          templateOptions: {
-            label: '# of Employees',
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'email',
-          templateOptions: {
-            label: 'Email',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'phone',
-          templateOptions: {
-            label: 'Phone',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'mobile',
-          templateOptions: {
-            label: 'Mobile',
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'website',
-          templateOptions: {
-            label: 'Website',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'fax',
-          templateOptions: {
-            label: 'Fax',
-          }
-        },
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'annualRevenue',
-          templateOptions: {
-            label: 'Annual Revenue',
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-4',
-          type: 'input',
-          key: 'twitter',
-          templateOptions: {
-            label: 'Twitter Handle',
-          }
-        },
-        {
-          className: 'col-4',
-          key: 'emailOptIn',
-          type: 'checkbox',
-          templateOptions: {
-            label: 'Email Opt-In'
-
-          }
-        },
-        {
-          className: 'col-4',
-          key: 'smsOptIn',
-          type: 'checkbox',
-          templateOptions: {
-            label: 'SMS Opt-In'
-          }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'industry',
-          templateOptions: {
-            label: 'Industry',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        },
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'leadSource',
-          templateOptions: {
-            label: 'Lead Source',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        },
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'leadStatus',
-          templateOptions: {
-            label: 'Lead Status',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        }
-
-      ]
-    },
-    {
-      type: 'textarea',
-      key: 'street',
-      templateOptions: {
-        label: 'Description',
-        rows: 2,
-      },
-    },
-    {
-      className: 'section-label',
-      template: '<hr /><div><strong>Address:</strong></div>',
-    },
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          className: 'col-md-4 col-sm-6',
-          type: 'input',
-          key: 'city',
-          templateOptions: {
-            label: 'City',
-          },
-        },
-        {
-          className: 'col-md-4 col-sm-6',
-          type: 'input',
-          key: 'state',
-          templateOptions: {
-            label: 'State',
-          },
-        },
-        {
-          className: 'col-md-4 col-sm-6',
-          type: 'input',
-          key: 'country',
-          templateOptions: {
-            label: 'Country',
-          },
-        },
-        {
-          className: 'col-md-4 col-sm-6',
-          type: 'input',
-          key: 'zip',
-          templateOptions: {
-            label: 'Zip'
-          },
-        },
-      ],
-    },
-    {
-      type: 'textarea',
-      key: 'street',
-      templateOptions: {
-        label: 'Street',
-        rows: 2,
-      },
-    },
-    {
-      className: 'section-label',
-      template: '<hr /><div><strong>Assignment:</strong></div>',
-    },
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'assignedTo',
-          templateOptions: {
-            label: 'Assigned To User',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        },
-
-        {
-          className: 'col-4',
-          type: 'select',
-          key: 'assignedTeam',
-          templateOptions: {
-            label: 'Assigned To Team',
-            placeholder: 'Select',
-            options: [
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'},
-              {label: 'X', value: 'X'}
-
-            ]
-          }
-        }
-      ]
-    }
-
-  ]; 
+  convertLeadModel = {id: ''};
+  convertfields: FormlyFieldConfig[];
 
   constructor(
     private route: ActivatedRoute,
-    private leadService: LeadService) { }
+    private leadService: LeadService,
+    private formService: FormService,
+    private toastr: ToastrService,
+    private router: Router,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
+    this.route.params.subscribe((params) => {
+      const id = params?.id;
 
-    this.leadService.findOne(id)
-      .subscribe(
-        data => {
-          this.model = data;
-        },
-        error => {
-          console.log('Unable to retrieve lead details');
-        }
-
-      );
-
+      this.id = id;
+      this.findOne(id);
+    });
   }
 
-  edit() {
-    this.options.formState.disabled = !this.options.formState.disabled;
-  }
-
-  onSubmit() {
-    this.leadService.save(this.model)
-    .subscribe(
-      data => {
-        console.log('Lead save success');
+  findOne(id: any) {
+    this.leadService.findOne(id).subscribe(
+      (data) => {
+        this.lead = data;
+        this.getFormConfig();
       },
-      error => {
-        console.log('Lead save failure');
+      (error) => {
+        console.log('Unable to retrieve lead details');
       }
     );
   }
 
+  updateExt(inlead: any) {
+    this.lead = inlead;
+    this.onSubmit();
+  }
+
+  copy() {
+    this.leadService.copy(this.lead.id).subscribe(
+      (data) => {
+        this.toastr.success('Lead Copied Successfully.', '', {});
+
+        this.router.navigate(['/leads', data?.id]);
+      },
+      (error) => {
+        this.toastr.error('Lead copy failed.', error?.detail, {});
+      }
+    );
+  }
+
+  confirmDelete(content: any) {
+    this.modalService.open(content, { size: 'xl', centered: true });
+  }
+
+  delete() {
+    const ids = [this.id];
+    this.leadService.delete(ids).subscribe(
+      (data) => {
+        this.toastr.success('Lead deleted successfully.', '', {});
+        this.modalService.dismissAll();
+        this.router.navigate(['/app/leads']);
+      },
+      (error) => {
+        this.toastr.error('Lead delete failed.', error?.detail, {});
+      }
+    );
+
+  }
+
+  startConvert(content: any) {
+
+    this.formService.getFields('form-lead-convert').subscribe(
+      (data) => {
+        this.convertfields = data;
+        this.modalService.open(content, { size: 'xl', centered: true });
+      },
+      (error) => {
+        console.log('Unable to retrieve lead convert form information');
+      }
+    );
+  }
+
+  submitConvert() {
+
+    this.convertLeadModel.id = this.id;
+
+    this.leadService.convert(this.convertLeadModel).subscribe(
+      (data) => {
+        this.toastr.success('Lead converted successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Lead conversion failed.', error?.detail, {});
+      }
+    );
+
+  }
+
+  getFormConfig() {
+    this.formService.getFields('form-lead-detail').subscribe(
+      (data) => {
+        this.fields = data;
+      },
+      (error) => {
+        this.toastr.error('Unable to retrieve lead form information', error?.detail, {});
+      }
+    );
+  }
+
+  onSubmit() {
+    Object.keys(this.lead).forEach((key) => (this.lead[key] === null || this.lead[key] === '') && delete this.lead[key]);
+    this.leadService.save(this.lead).subscribe(
+      (data) => {
+        this.toastr.success('Lead updated successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Lead update failed.', error?.detail, {});
+      }
+    );
+  }
+
+  addProduct(product: any) {
+
+    const p = {
+      id: product.id,
+      name: product.productName
+    };
+
+    this.leadService.addProduct(this.id, p).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Product added successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to add product to lead.', error?.detail, {});
+      }
+    );
+  }
+
+  removeProduct(product: any) {
+    this.leadService.removeProduct(this.id, product.id).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Product removed successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to removed product from lead.', error?.detail, {});
+      }
+    );
+  }
+
+  addDocument(document: any) {
+
+    const p = {
+      id: document.id,
+      name: document.name
+    };
+
+    this.leadService.addDocument(this.id, p).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Document added successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to add document to lead.', error?.detail, {});
+      }
+    );
+  }
+
+  removeDocument(document: any) {
+    this.leadService.removeDocument(this.id, document.id).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Document removed successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to remove document from lead.', error?.detail, {});
+      }
+    );
+  }
 }

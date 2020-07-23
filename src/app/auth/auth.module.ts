@@ -5,15 +5,23 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { SigninComponent } from './signin/signin.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SignupComponent } from './signup/signup.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [AuthComponent, SigninComponent],
+  declarations: [AuthComponent, SigninComponent, SignupComponent, ForgotpasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    FormlyModule.forChild(),
+    FormlyBootstrapModule,
+    SharedModule
   ]
 })
 export class AuthModule { }
