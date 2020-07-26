@@ -66,7 +66,7 @@ export class DetailComponent implements OnInit {
       (data) => {
         this.toastr.success('Lead Copied Successfully.', '', {});
 
-        this.router.navigate(['/leads', data?.id]);
+        this.router.navigate(['/app/leads', data?.id]);
       },
       (error) => {
         this.toastr.error('Lead copy failed.', error?.detail, {});
