@@ -110,19 +110,11 @@
       <div class="row">
         <div class="col-md-12 mt-3">
 
-          <div class="card">
-            <h5 class="card-header text-primary">Products</h5>
-          
-            <div class="card-body">
-
-              <app-product-relation [products]="lead?.products" (addProduct)="addProduct($event)"
+          <app-product-relation [products]="lead?.products" (addProduct)="addProduct($event)"
                 (removeProduct)="removeProduct($event)">
-              </app-product-relation>
-            
-            </div>
+          </app-product-relation>
 
-          </div>
-          <!--CARD END-->
+         
         </div>
 
       </div> <!--end of row -->

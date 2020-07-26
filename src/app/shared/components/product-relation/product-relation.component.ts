@@ -49,9 +49,7 @@ export class ProductRelationComponent implements OnInit {
               private productService: ProductService
     ) { }
 
-  ngOnInit(): void {
-    console.log(JSON.stringify(this.products));
-  }
+  ngOnInit(): void {}
 
 
   search(sql: string) {
@@ -88,7 +86,7 @@ export class ProductRelationComponent implements OnInit {
 
   openLg(content) {
     this.search(this.rsql);
-    this.modalService.open(content, { size: 'lg' });
+    this.modalService.open(content, { size: 'xl' });
   }
 
 }

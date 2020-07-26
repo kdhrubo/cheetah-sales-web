@@ -50,6 +50,7 @@ import { DealLineItemComponent } from './components/deal-line-item/deal-line-ite
     CommunicationComponent,
     ProductRelationComponent,
     DocumentRelationComponent,
-    YesNoPipe]
+    YesNoPipe,
+    DealLineItemComponent]
 })
 export class SharedModule { }
