@@ -1,1 +1,175 @@
-<p>deal-line-item works!</p>
+<div class="card">
+
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-primary">Products</h5>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-sm btn-outline-success float-right mb-1" type="button" (click)="addItems()">
+                    <i class="fas fa-plus"></i> Add Product
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body" >
+
+        <form [formGroup]="lineItemsForm" (ngSubmit)="onSubmit()">
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">List Price</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Net price</th>
+                            <th scope="col">Note</th>
+                        </tr>
+                    </thead>
+
+                     <tbody formArrayName="items">
+                      
+                        <ng-container *ngFor="let item of items.controls; let i=index">
+                            <tr [formGroupName]="i">
+                                <th scope="row">{{i+1}}</th>
+                                <td>
+
+                                    <div class="input-group">
+                                         <input type="hidden" formControlName="productId" class="form-control form-control-sm"/>
+                                        <input type="text" formControlName="productName" class="form-control form-control-sm" readonly/>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-sm btn-outline-primary" (click)="openLg(longContent)" type="button">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <input type="number" formControlName="quantity" class="form-control form-control-sm"/>
+                                </td>
+                                 <td>
+                                    <input type="number" formControlName="listPrice" class="form-control form-control-sm"/>
+                                </td>
+                                <td>
+                                    <input type="number" formControlName="discount" class="form-control form-control-sm"/>
+                                </td>
+                                 <td>
+                                    <input type="number" formControlName="total" class="form-control form-control-sm"/>
+                                </td>
+                                 <td>
+                                    <input type="number" formControlName="netPrice" class="form-control form-control-sm"/>
+                                </td>
+                                <td>
+                                    <input type="number" formControlName="note" class="form-control form-control-sm"/>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+            <p>
+                <button type="submit">Submit</button>
+            </p>
+ 
+        </form>
+ 
+ 
+        
+        {{this.lineItemsForm.value | json}}
+ 
+ 
+    </div> <!--END CARD BODY-->
+
+</div>
+<!--CARD END-->
+
+
+
+<!--product lookup-->
+
+
+
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Product Lookup</h5>
+        
+    </div>
+    <div class="modal-body">
+        
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-lg-10">
+                <div class="table-responsive-md">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <ng-container *ngFor="let f of fields; let i = index">
+                                    <th scope="col">{{f.label}}</th>
+                                </ng-container>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of productPage?.content; let i = index;">
+                                <th scope="row"></th>
+                                <ng-container *ngFor="let f of fields; let i = index;">
+                                    <td>
+                                        
+                                        {{product[f.name]}}
+                                        
+                                    </td>
+                                </ng-container>
+
+                                <td>
+                                    
+                                    <a class="text-success" (click)='add(product)'>Add</a>
+                                    
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between p-2">
+
+
+                        <ngb-pagination [collectionSize]="collectionSize" [(page)]="pageNo" [maxSize]="5" [rotate]="true"
+                            class="pagination pagination-sm text-success"
+                            [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="go2($event)">
+                        </ngb-pagination>
+
+                        <div>
+                            <span># of rows: </span>
+                            <select class="custom-select custom-select-sm" style="width: auto" [(ngModel)]="pageSize" (change)="refresh($event.target.value)">
+                                <option [value]="10">10</option>
+                                <option [value]="20">20</option>
+                                <option [value]="30">30</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-1"></div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-info" (click)="modal.close('Close click')"><i class="fas fa-window-close"></i> Close</button>
+    </div>
+    
+</ng-template>

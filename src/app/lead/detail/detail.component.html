@@ -8,7 +8,7 @@
     </div>
 
     <!--column 2-->
-    <div class="col-md-8">
+    <div class="col-md-10">
     
       <div class="row">
         <div class="col-md-6">
@@ -53,6 +53,61 @@
 
           </form>
         </div>
+
+      </div>
+
+       <div class="row">
+        <div class="col-md-12 mt-3">
+
+          <!-- card start -->
+          <div class="card text-center">
+
+            <div class="card-header pt-2 pb-2">
+
+              <ul ngbNav #nav1="ngbNav" class="nav nav-pills card-header-pills">
+
+                <li class="nav-item p-1" ngbNavItem>
+                    <a class="nav-link btn-sm" ngbNavLink>Communication</a>
+
+                    <ng-template ngbNavContent>
+                       <app-communication [communication]="lead" 
+                      (updateCommunication)="updateExt($event)" 
+                      [formName]="'form-lead-communication'"></app-communication>
+                    </ng-template>
+
+                </li>
+
+                <li class="nav-item p-1" ngbNavItem>
+                    <a class="nav-link btn-sm" ngbNavLink>Social</a>
+                    <ng-template ngbNavContent>
+                      <app-social [social]="lead" (updateSocial)="updateExt($event)" 
+                      [formName]="'form-lead-social'"></app-social>
+                    </ng-template>
+                </li>
+
+                <li class="nav-item p-1" ngbNavItem>
+                    <a class="nav-link btn-sm" ngbNavLink>Address</a>
+                    <ng-template ngbNavContent>
+                      <app-address [address]="lead" (updateAddress)="updateExt($event)" 
+                        headerText]="'Address'"></app-address>
+                    </ng-template>
+                </li>
+
+              </ul>
+
+             
+
+            </div>
+
+            <div class="card-body" [ngbNavOutlet]="nav1">
+             
+            </div>
+
+          </div>  
+
+           <!-- card end -->
+
+        </div> <!--Column end-->
 
       </div>
 
@@ -110,58 +165,26 @@
       <div class="row">
         <div class="col-md-12 mt-3">
 
-          <div class="card">
-            <h5 class="card-header text-primary">Products</h5>
-          
-            <div class="card-body">
-
-              <app-product-relation [products]="lead?.products" (addProduct)="addProduct($event)"
+          <app-product-relation [products]="lead?.products" (addProduct)="addProduct($event)"
                 (removeProduct)="removeProduct($event)">
-              </app-product-relation>
-            
-            </div>
+          </app-product-relation>
 
-          </div>
-          <!--CARD END-->
         </div>
 
       </div> <!--end of row -->
-
 
       <div class="row">
         <div class="col-md-12 mt-3 mb-3">
 
-          <div class="card">
-            <h5 class="card-header text-primary">Documents</h5>
-          
-            <div class="card-body">
-
-              <app-document-relation [documents]="lead?.documents" (addDocument)="addDocument($event)"
+          <app-document-relation [documents]="lead?.documents" (addDocument)="addDocument($event)"
                 (removeDocument)="removeDocument($event)">
-              </app-document-relation>
-            
-            </div>
+          </app-document-relation>
 
-          </div>
-          <!--CARD END-->
         </div>
 
       </div> <!--end of row -->
 
 
-    </div>
-
-    <!--column 3-->
-    <div class="col-md-2 ">
-
-      <app-communication [communication]="lead" (updateCommunication)="updateExt($event)" [formName]="'form-lead-communication'"></app-communication>
-
-      <app-social [social]="lead" (updateSocial)="updateExt($event)" [formName]="'form-lead-social'"></app-social>
-
-      <app-address [address]="lead" (updateAddress)="updateExt($event)" [headerText]="'Address'"></app-address>
-      
-    
-    
     </div>
 
     <!--column 4-->
