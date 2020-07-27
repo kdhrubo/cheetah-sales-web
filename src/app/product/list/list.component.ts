@@ -33,17 +33,9 @@ export class ListComponent implements OnInit {
     },
 
     {
-      id: 2,
-      name: 'currency',
-      label: 'Currency',
-      checked: true,
-      searchable: true
-    },
-
-    {
       id: 3,
-      name: 'productName',
-      label: 'Product Name',
+      name: 'name',
+      label: 'Name',
       checked: true,
       searchable: true
     },
@@ -51,7 +43,7 @@ export class ListComponent implements OnInit {
     {
       id: 4,
       name: 'manufacturerName',
-      label: 'Manufacturer Name',
+      label: 'Manufacturer',
       checked: true,
       searchable: true
     },
@@ -59,7 +51,7 @@ export class ListComponent implements OnInit {
     {
       id: 5,
       name: 'vendorName',
-      label: 'Vendor Name',
+      label: 'Vendor',
       checked: true,
       searchable: true
     },
@@ -67,7 +59,7 @@ export class ListComponent implements OnInit {
     {
       id: 6,
       name: 'salesStartDate',
-      label: 'Date',
+      label: 'Available From',
       checked: true,
       searchable: false
     },
@@ -75,7 +67,7 @@ export class ListComponent implements OnInit {
     {
       id: 7,
       name: 'salesEndDate',
-      label: 'Date',
+      label: 'Available To',
       checked: true,
       searchable: false
     }

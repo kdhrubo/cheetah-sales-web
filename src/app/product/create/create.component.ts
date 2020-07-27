@@ -4,6 +4,8 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Product } from 'src/app/models/product.model';
 import { FormService } from 'src/app/services/form.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -12,40 +14,41 @@ import { FormService } from 'src/app/services/form.service';
 })
 export class CreateComponent implements OnInit {
   form = new FormGroup({});
-  model = { supportName: 'supportName' };
+  model = {  };
   fields: FormlyFieldConfig[];
 
-  constructor(private productService: ProductService, private formService: FormService) { }
+  constructor(private productService: ProductService,
+              private formService: FormService,
+              private toastr: ToastrService,
+              private router: Router) {}
 
   ngOnInit(): void {
-    this.fetchProductForm();
-  }
-  fetchProductForm(): void {
-    this.formService.getFields('Product-form').subscribe(
+    this.formService.getFields('form-product-create').subscribe(
+
       data => {
         this.fields = data;
-        console.log('Retrieved product form information sucessfully.');
+        console.log('Retrieved lead form information sucessfully.');
       },
       error => {
-        console.log('Unable to retrieve product form information.');
+        console.log('Unable to retrieve lead form information.');
       }
+
     );
   }
 
-  saveProduct() {
-    console.log(JSON.stringify(this.model));
+
+  onSubmit() {
     const product: Product = this.model as Product;
     Object.keys(product).forEach((key) => (product[key] === null || product[key] === '') && delete product[key]);
-    console.log('=== After clean up product model ====');
-    console.log(JSON.stringify(product));
 
     this.productService.save(product)
       .subscribe(
         data => {
-          console.log('Product saved successfully:');
+          this.toastr.success('Product Saved Successfully.', '', {});
+          this.router.navigate(['/app/products' , data?.id]);
         },
         error => {
-          console.log('Exception reported while saving product:');
+          this.toastr.error('Product save failed.', error?.detail, {});
         }
       );
   }
