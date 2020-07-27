@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from 'src/app/services/form.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detail',
@@ -31,7 +32,8 @@ export class DetailComponent implements OnInit {
     private productService: ProductService,
     private formService: FormService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -57,8 +59,16 @@ export class DetailComponent implements OnInit {
       );
   }
 
+
+  confirmDelete(content: any) {
+    this.modalService.open(content, { size: 'xl', centered: true });
+  }
+
+  delete() {
+  }
+
   getFormConfig() {
-    this.formService.getFields('Product-form').subscribe(
+    this.formService.getFields('form-product-detail').subscribe(
       data => {
         this.fields = data;
       },
