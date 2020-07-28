@@ -65,6 +65,18 @@ export class DetailComponent implements OnInit {
   }
 
   delete() {
+    const ids = [this.id];
+    this.productService.delete(ids).subscribe(
+      (data) => {
+        this.toastr.success('Product deleted successfully.', '', {});
+        this.modalService.dismissAll();
+        this.router.navigate(['/app/products']);
+      },
+      (error) => {
+        this.toastr.error('Product delete failed.', error?.detail, {});
+      }
+    );
+
   }
 
   getFormConfig() {
