@@ -50,6 +50,15 @@ export class ProductService {
       .pipe(catchError(err => this.handleError(err, 'find-one-product')));
   }
 
+  delete(id: any): Observable<any>  {
+    const url = `${environment.api_base_url}/products/${id}`;
+
+    return this.httpClient
+      .delete<Observable<any>>(url, {})
+      .pipe(catchError(err => this.handleError(err, 'delete-product')));
+
+  }
+
   copy(id: any): Observable<any> {
     const url = `${environment.api_base_url}/products/copy/${id}`;
     return this.httpClient
