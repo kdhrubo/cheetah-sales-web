@@ -9,6 +9,7 @@ import { Emails } from '../../models/emails.model';
 import { Address } from '../../models/address.model';
 import { Note } from 'src/app/models/note.model';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detail',
@@ -27,7 +28,8 @@ export class DetailComponent implements OnInit {
     private contactService: ContactService,
     private formService: FormService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +70,25 @@ export class DetailComponent implements OnInit {
         this.toastr.error('Contact copy failed.', error?.detail, {});
       }
     );
+  }
+
+  confirmDelete(content: any) {
+    this.modalService.open(content, { size: 'xl', centered: true });
+  }
+
+  delete() {
+    const ids = [this.id];
+    this.contactService.delete(ids).subscribe(
+      (data) => {
+        this.toastr.success('Contact deleted successfully.', '', {});
+        this.modalService.dismissAll();
+        this.router.navigate(['/app/contacts']);
+      },
+      (error) => {
+        this.toastr.error('Contact delete failed.', error?.detail, {});
+      }
+    );
+
   }
 
   getFormConfig() {

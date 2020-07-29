@@ -30,6 +30,15 @@ export class ContactService {
       .pipe(catchError(err => this.handleError(err, 'copy-contact')));
   }
 
+  delete(id: any): Observable<any>  {
+    const url = `${environment.api_base_url}/contacts/${id}`;
+
+    return this.httpClient
+      .delete<Observable<any>>(url, {})
+      .pipe(catchError(err => this.handleError(err, 'delete-contact')));
+
+  }
+
   private handleError(error: any, methodName: string) {
     const message = !!error.detail ? error.detail : 'Please try again.';
     console.log('Error in ', methodName, '\n', error);
