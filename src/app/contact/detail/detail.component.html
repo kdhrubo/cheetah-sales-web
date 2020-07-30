@@ -34,9 +34,6 @@
                 <i class="far fa-copy"></i>
                   Copy </button>  
 
-
-
-              
             </form>
           </div>
 
@@ -115,7 +112,14 @@
     </div>
 
     <!--column 3-->
+    
     <div class="col-md-2">
+
+      <button type="button" class="btn btn-sm btn-outline-danger float-right mr-1" (click)="confirmDelete(longDeleteContent)">
+        <i class="far fa-trash-alt"></i>
+        Delete 
+      </button>  
+
       <app-communication [communication]="contact" 
           (updateCommunication)="updateExt($event)"></app-communication>
 
@@ -142,6 +146,33 @@
   </div>
 
 </div>
+
+<!-- delete contact confirmation -->
+
+<ng-template #longDeleteContent let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title">Confirm Delete</h5>
+  </div>
+  <div class="modal-body">
+      <p>This will delete contact information. Are you sure you want to continue?</p>
+          
+      
+  </div>
+
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-sm btn-danger float-right" (click)="delete()">
+                      <i class="far fa-save"></i> 
+                      Yes</button>
+
+    <button type="button" class="btn btn-sm btn-outline-primary float-right mr-2"
+        (click)="modal.close('Cross click')">
+      <i class="fas fa-window-close"></i> 
+        No</button>
+
+  </div>
+
+</ng-template>
 
 
 <!--
