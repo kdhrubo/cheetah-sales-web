@@ -43,7 +43,7 @@ export class CreateComponent implements OnInit {
       .subscribe(
         data => {
           this.toastr.success('Price-Book Saved Successfully.', '', {});
-          this.router.navigate(['/pricebooks', data?.id]);
+          this.router.navigate(['/app/pricebooks', data?.id]);
         },
         error => {
           console.log('Price-Book save failure.');

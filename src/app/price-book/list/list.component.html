@@ -18,8 +18,8 @@
                 Filters
             </button>
 
-            <a routerLink="/pricebooks/create" class="btn btn-sm btn-primary ml-1 mt-2">New</a>
-            <a routerLink="/pricebooks/import" class="btn btn-sm btn-primary-outline ml-1 mt-2" disabled = "true">Import Price Book</a>
+            <a routerLink="/app/pricebooks/create" class="btn btn-sm btn-primary ml-1 mt-2">New</a>
+            <a routerLink="/app/pricebooks/import" class="btn btn-sm btn-primary-outline ml-1 mt-2" disabled = "true">Import Price Book</a>
 
         </div>
         <div class="col-1"></div>
@@ -126,7 +126,7 @@
                             <th scope="row"></th>
                             <ng-container *ngFor="let f of fields; let i = index;">
                                 <td *ngIf="f.checked">
-                                    <a routerLink="/pricebooks/{{priceBook['id']}}">
+                                    <a routerLink="/app/pricebooks/{{priceBook['id']}}">
                                         {{priceBook[f.name]}}
                                     </a>
                                 </td>
