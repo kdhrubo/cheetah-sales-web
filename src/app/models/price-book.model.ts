@@ -3,7 +3,7 @@
 export class PriceBook {
 
   id: string;
-  priceBookName: string;
+  name: string;
   active: boolean;
   isStandard: boolean;
   externalDataSrc: string;

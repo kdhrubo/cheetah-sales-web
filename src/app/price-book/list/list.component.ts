@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
 
     {
       id: 2,
-      name: 'priceBookName',
+      name: 'name',
       label: 'Price Book Name',
       checked: true,
       filter: {
