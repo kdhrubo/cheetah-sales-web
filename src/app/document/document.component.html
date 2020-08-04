@@ -46,6 +46,8 @@
                             <th scope="col">Name</th>
 
                             <th scope="col">Created On</th>
+
+                            <th scope="col">Size</th>
                             
                             <th>Actions</th>
                         </tr>
@@ -72,8 +74,11 @@
                                 {{d.createdDate | date:'mediumDate'}}
                             
                             </td>
-                            
+                            <td>
+                                {{d.size | filesize}}
 
+                            </td>
+                            
                             <td>
                                 
                                 <a class="text-danger" (click)='delete(d)'>Delete</a>

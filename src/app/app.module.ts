@@ -22,6 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PriceBookComponent } from './price-book/price-book.component';
 import { ProductPriceComponent } from './product-price/product-price.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
