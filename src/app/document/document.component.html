@@ -1,44 +1,44 @@
 <div class="container-fluid">
-
     <div class="row">
-        
-        <div class="col-sm-1"></div>
-
-        <div class="col-sm-2">
-            <h5 class="text-primary">Documents</h5>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <h5 class="text-primary mt-2">Documents</h5>
         </div>
 
-        <div class="col-sm-5"></div>
+        <div class="col-md-5">
 
-        <div class="col-sm-3">
+           
 
-            <div ngbDropdown class="d-inline-block float-left">
-                <button class="btn btn-sm btn-outline-success dropdown-toggle" 
-                    id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-plus"></i> New</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem (click)="openCreateFolder(newFolderContent)" class="btn-sm">Folder</button>
-                  <button ngbDropdownItem (click)="openCreateFile(newFileContent)" class="btn-sm">File</button>
-                  
+        </div>
+
+        <div class="col-md-3">
+            <div class="float-right mb-3">    
+                <div ngbDropdown class="d-inline-block float-left">
+                    <button class="btn btn-sm btn-outline-success dropdown-toggle" 
+                        id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-plus"></i> New</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="openCreateFolder(newFolderContent)" class="btn-sm">Folder</button>
+                    <button ngbDropdownItem (click)="openCreateFile(newFileContent)" class="btn-sm">File</button>
+                    
+                    </div>
                 </div>
+
             </div>
 
         </div>
-        
-        
-        <div class="col-sm-1"></div>
 
+        <div class="col-md-1"></div>
+        
     </div>
-    
 
+    
     <div class="row">
         
-        <div class="col-sm-1"></div>
+        <div class="col-md-1"></div>
 
-        <div class="col-sm-10">
-
-
+        <div class="col-md-10">
             <div class="table-responsive-md">
-                <table class="table table-hover">
+                <table class="table table-sm table-hover">
                     <thead>
                         <tr>
                             <th scope="col"></th>
@@ -53,6 +53,19 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        <tr *ngIf="container != '/'" >
+                            <th scope="row"></th>
+                            
+                            <td>
+                                <a (click)="goBack()"  class="text-success"><i class="fas fa-arrow-left"></i> {{container}}</a>
+                        
+                            </td>
+
+                            <td>
+                        </tr>
+
+                        
                         <tr *ngFor="let d of documents;">
                             <th scope="row"></th>
                             
@@ -60,9 +73,7 @@
                                 
                                 <a (click)="goFwd(d)"  *ngIf="d.type == 'FOLDER'" class="text-primary"><i class="fas fa-folder"></i> {{d.name}}</a>
                                 <a href="#"  *ngIf="d.type == 'FILE'">
-                                    <!--
-                                    <i class="fas fa-file-{{d.type}}"></i> 
-                                    -->
+                                   
                                     <i class="fas fa-file-{{d.extension}}"></i>
                                     {{d.name}}
                                 </a>
@@ -94,9 +105,10 @@
            
         </div>
 
-        <div class="col-sm-1"></div>
+       <div class="col-md-1"></div>
 
     </div>
+   
 
 </div>
 
@@ -105,9 +117,6 @@
     <div class="modal-header">
         <h5 class="modal-title">New Folder</h5>
 
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
     </div>
     <div class="modal-body">
         <div class="row">
