@@ -10,6 +10,8 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { SharedModule } from '../shared/shared.module';
 import {DatePipe} from '@angular/common';
 
+import {NgxFilesizeModule} from 'ngx-filesize';
+
 
 @NgModule({
   declarations: [DocumentComponent],
@@ -21,7 +23,8 @@ import {DatePipe} from '@angular/common';
     FormsModule,
     FormlyModule.forChild(),
     FormlyBootstrapModule,
-    SharedModule
+    SharedModule,
+    NgxFilesizeModule
   ],
   providers: [
     DatePipe
