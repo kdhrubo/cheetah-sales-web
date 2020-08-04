@@ -6,6 +6,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as fileSaver from 'file-saver';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-document',
   templateUrl: './document.component.html',
@@ -24,8 +25,9 @@ export class DocumentComponent implements OnInit {
   fields: FormlyFieldConfig[];
 
   constructor(private modalService: NgbModal,
-              private documentService: DocumentService
-    ,         private formService: FormService) {
+              private documentService: DocumentService,
+              private formService: FormService,
+              private toastr: ToastrService) {
 
   }
 
@@ -56,10 +58,12 @@ export class DocumentComponent implements OnInit {
     this.documentService.saveFolder(this.folderModel).subscribe(
       (data) => {
         console.log('DocumentItem save success');
+        this.toastr.success('Folder created successfully.', '', {});
         this.search(rsql);
       },
       (error) => {
         console.log('DocumentItem save failure');
+        this.toastr.error('Failed to create folder.', error?.detail, {});
       }
     );
   }
@@ -72,8 +76,6 @@ export class DocumentComponent implements OnInit {
   onCreateFile() {
     console.log('Save file  - ' + this.fileModel);
     const docItem: DocumentItem = this.fileModel as DocumentItem;
-
-
     const rsql = `deleted==false;container=="${this.container}"`;
 
     const formData: FormData = new FormData();
@@ -83,10 +85,12 @@ export class DocumentComponent implements OnInit {
     this.documentService.saveFile(formData).subscribe(
       (data) => {
         console.log('DocumentItem save success');
+        this.toastr.success('File created successfully.', '', {});
         this.search(rsql);
       },
       (error) => {
         console.log('DocumentItem save failure');
+        this.toastr.error('Failed to create file.', error?.detail, {});
       }
     );
 
@@ -106,7 +110,17 @@ export class DocumentComponent implements OnInit {
   }
 
   delete(d: DocumentItem) {
-
+    this.documentService.delete(d.id).subscribe(
+      (data) => {
+        this.toastr.success('File deleted successfully.', '', {});
+        const rsql = `deleted==false;container=="${this.container}"`;
+        this.search(rsql);
+      },
+      (error) => {
+        console.log('DocumentItem delete failure.');
+        this.toastr.error('Failed to delete file.', error?.detail, {});
+      }
+    );
   }
 
   download(d: DocumentItem) {

@@ -25,7 +25,7 @@ export class DocumentService {
     const url = `${environment.api_base_url}/docs/files`;
     return this.httpClient
       .post<Observable<any>>(url, formData)
-      .pipe(catchError(err => this.handleError(err, 'save-ffile')));
+      .pipe(catchError(err => this.handleError(err, 'save-file')));
   }
 
   search(
@@ -44,6 +44,15 @@ export class DocumentService {
     return this.httpClient.get(url, {
         responseType: 'blob'
     });
+  }
+
+  delete(id: string): Observable<any> {
+    console.log('starting delete');
+    const url = `${environment.api_base_url}/docs/${id}/delete`;
+
+    return this.httpClient
+      .post<Observable<any>>(url, null)
+      .pipe(catchError(err => this.handleError(err, 'delete-file')));
   }
 
   private handleError(error: any, methodName: string) {
