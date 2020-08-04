@@ -17,7 +17,7 @@ export class DocumentComponent implements OnInit {
   folderModel = {name: null, container: null};
   fileModel = {};
   container = '/';
-  prevContainer = '';
+  pathStack: Array<string> = [];
 
   documents: DocumentItem [];
 
@@ -57,12 +57,12 @@ export class DocumentComponent implements OnInit {
 
     this.documentService.saveFolder(this.folderModel).subscribe(
       (data) => {
-        console.log('DocumentItem save success');
+        this.modalService.dismissAll();
         this.toastr.success('Folder created successfully.', '', {});
         this.search(rsql);
       },
       (error) => {
-        console.log('DocumentItem save failure');
+        this.modalService.dismissAll();
         this.toastr.error('Failed to create folder.', error?.detail, {});
       }
     );
@@ -84,12 +84,12 @@ export class DocumentComponent implements OnInit {
 
     this.documentService.saveFile(formData).subscribe(
       (data) => {
-        console.log('DocumentItem save success');
+        this.modalService.dismissAll();
         this.toastr.success('File created successfully.', '', {});
         this.search(rsql);
       },
       (error) => {
-        console.log('DocumentItem save failure');
+        this.modalService.dismissAll();
         this.toastr.error('Failed to create file.', error?.detail, {});
       }
     );
@@ -141,15 +141,17 @@ export class DocumentComponent implements OnInit {
   }
 
   goFwd(doc: DocumentItem) {
-    this.prevContainer = this.container;
+
+    this.pathStack.push(this.container);
     this.container = doc.path;
+
     const rsql = `deleted==false;container=="${this.container}"`;
     this.search(rsql);
   }
 
   goBack() {
-    const rsql = `deleted==false;container=="${this.prevContainer}"`;
-    // console.log('rsql - ' + rsql);
+    this.container = this.pathStack.pop();
+    const rsql = `deleted==false;container=="${this.container}"`;
     this.search(rsql);
   }
 
