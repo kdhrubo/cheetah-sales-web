@@ -11,7 +11,6 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule, FormlyFieldSelect } from '@ngx-formly/bootstrap';
 import { PicklistComponent } from './common/picklist/picklist.component';
-import { SelectwrapperComponent } from './common/selectwrapper/selectwrapper.component';
 import { AccountpicklistComponent } from './common/accountpicklist/accountpicklist.component';
 import { SharedModule } from './shared/shared.module';
 import { ContactPicklistComponent } from './common/contact-picklist/contact-picklist.component';
@@ -28,7 +27,6 @@ import { ProductPriceComponent } from './product-price/product-price.component';
   declarations: [
     AppComponent,
     PicklistComponent,
-    SelectwrapperComponent,
     AccountpicklistComponent,
     ContactPicklistComponent,
     FileValueAccessor,
@@ -50,18 +48,12 @@ import { ProductPriceComponent } from './product-price/product-price.component';
         { name: 'required', message: 'This field is required' }
       ],
       wrappers: [
-        { name: 'formly-select-wrapper', component: SelectwrapperComponent },
       ],
       types: [
         { name: 'picklist', component: PicklistComponent },
         { name: 'file', component: FormlyFieldFile },
         { name: 'accountLookup', component: AccountpicklistComponent },
-        { name: 'contactLookup', component: ContactPicklistComponent },
-        {
-          name: 'select',
-          component: FormlyFieldSelect,
-          wrappers: ['formly-select-wrapper']
-        }
+        { name: 'contactLookup', component: ContactPicklistComponent }
       ],
     }),
     FormlyBootstrapModule,
