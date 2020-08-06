@@ -4,6 +4,8 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { CategoryService } from 'src/app/services/category.service';
 import { FormService } from 'src/app/services/form.service';
 import { Category } from '../../models/category.model';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -15,10 +17,14 @@ export class CreateComponent implements OnInit {
   model = { name: '' };
   fields: FormlyFieldConfig[];
 
-  constructor(private categorytService: CategoryService, private formService: FormService) { }
+  constructor(private categorytService: CategoryService, 
+              private formService: FormService,
+              private toastr: ToastrService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.fetchCategoryCreateForm();
+
   }
 
   fetchCategoryCreateForm(): void {
@@ -43,10 +49,11 @@ export class CreateComponent implements OnInit {
     this.categorytService.save(category)
       .subscribe(
         data => {
-          console.log('Category saved successfully:');
+          this.toastr.success('Category Saved Successfully.', '', {});
+          this.router.navigate(['/app/categories' , data?.id]);
         },
         error => {
-          console.log('Exception reported while saving Category:');
+          this.toastr.error('Category save failed.', error?.detail, {});
         }
       );
   }

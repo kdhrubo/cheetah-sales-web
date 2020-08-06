@@ -17,7 +17,7 @@ export class CategoryService {
     const url = `${environment.api_base_url}/category`;
     return this.httpClient
       .post<Observable<any>>(url, category)
-      .pipe(catchError(err => this.handleError(err, 'Error reorted while saving Category')));
+      .pipe(catchError(err => this.handleError(err, 'Error reported while saving Category')));
   }
 
   //TODO: will be used for import deals
@@ -27,6 +27,15 @@ export class CategoryService {
     return this.httpClient
       .post<Observable<any>>(url, data)
       .pipe(catchError(err => this.handleError(err, 'import-categories')));
+
+  }
+
+  delete(id: any): Observable<any>  {
+    const url = `${environment.api_base_url}/categories/${id}`;
+
+    return this.httpClient
+      .delete<Observable<any>>(url, {})
+      .pipe(catchError(err => this.handleError(err, 'delete-category')));
 
   }
 
