@@ -5,6 +5,8 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from 'src/app/services/form.service';
 import { AccountService } from 'src/app/services/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detail',
@@ -29,7 +31,9 @@ export class DetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,
-              private formService: FormService) { }
+              private formService: FormService,
+              private toastr: ToastrService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getAccount();
@@ -48,6 +52,25 @@ export class DetailComponent implements OnInit {
         }
 
       );
+  }
+
+  confirmDelete(content: any) {
+    this.modalService.open(content, { size: 'xl', centered: true });
+  }
+
+  delete() {
+    const ids = [this.id];
+    this.accountService.delete(ids).subscribe(
+      (data) => {
+        this.toastr.success('Account deleted successfully.', '', {});
+        this.modalService.dismissAll();
+        this.router.navigate(['/app/accounts']);
+      },
+      (error) => {
+        this.toastr.error('Account delete failed.', error?.detail, {});
+      }
+    );
+
   }
 
   getAccountFormConfig() {

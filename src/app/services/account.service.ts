@@ -50,6 +50,15 @@ export class AccountService {
 
   }
 
+  delete(id: any): Observable<any>  {
+    const url = `${environment.api_base_url}/accounts/${id}`;
+
+    return this.httpClient
+      .delete<Observable<any>>(url, {})
+      .pipe(catchError(err => this.handleError(err, 'delete-account')));
+
+  }
+
   private handleError(error: any, methodName: string) {
     const message = !!error.detail ? error.detail : 'Please try again.';
     console.log('Error in ', methodName, '\n', error);
