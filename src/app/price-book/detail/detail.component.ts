@@ -99,4 +99,35 @@ export class DetailComponent implements OnInit {
     );
   }
 
+  addProduct(product: any) {
+
+    const p = {
+      id: product.id,
+      productName: product.name
+    };
+     
+
+    this.priceBookService.addProduct(this.id, p).subscribe(
+      (data) => {
+        this.priceBook = data;
+        this.toastr.success('Product added successfully in priceBook.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to add product to priceBook.', error?.detail, {});
+      }
+    );
+  }
+
+  removeProduct(product: any) {
+    this.priceBookService.removeProduct(this.id, product.id).subscribe(
+      (data) => {
+        this.priceBook = data;
+        this.toastr.success('Product removed successfully.', '', {});
+      },
+      (error) => {
+        this.toastr.error('Failed to removed product from priceBook.', error?.detail, {});
+      }
+    );
+  }
+
 }

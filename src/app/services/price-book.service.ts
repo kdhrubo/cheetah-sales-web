@@ -63,4 +63,18 @@ export class PriceBookService {
     console.log('Error in ', methodName, '\n', error);
     return throwError(message);
   }
+
+  addProduct(id: any, product: any): Observable<any> {
+    const url = `${environment.api_base_url}/pricebooks/${id}/products`;
+    return this.httpClient
+      .post<Observable<any>>(url, product)
+      .pipe(catchError(err => this.handleError(err, 'add-pricebooks-product')));
+  }
+
+  removeProduct(id: any, productId: any): Observable<any> {
+    const url = `${environment.api_base_url}/pricebooks/${id}/products/${productId}`;
+    return this.httpClient
+      .post<Observable<any>>(url, null)
+      .pipe(catchError(err => this.handleError(err, 'renove-pricebooks-product')));
+  }
 }

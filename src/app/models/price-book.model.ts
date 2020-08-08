@@ -10,4 +10,6 @@ export class PriceBook {
   externalId: string;
   description: string;
 
+  products: any[];
+
 }
