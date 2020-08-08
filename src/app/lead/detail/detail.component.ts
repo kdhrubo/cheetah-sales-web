@@ -148,7 +148,7 @@ export class DetailComponent implements OnInit {
 
     const p = {
       id: product.id,
-      name: product.productName
+      productName: product.name
     };
 
     this.leadService.addProduct(this.id, p).subscribe(

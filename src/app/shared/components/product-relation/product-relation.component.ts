@@ -23,7 +23,7 @@ export class ProductRelationComponent implements OnInit {
 
     {
       id: 3,
-      name: 'productName',
+      name: 'name',
       label: 'Product Name'
     },
 
@@ -35,7 +35,7 @@ export class ProductRelationComponent implements OnInit {
 
     {
       id: 3,
-      name: 'price',
+      name: 'unitPrice',
       label: 'Price'
     },
 
