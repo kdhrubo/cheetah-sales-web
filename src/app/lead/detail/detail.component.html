@@ -139,9 +139,13 @@
 
                 <li class="nav-item p-1" ngbNavItem>
                     <a class="nav-link btn-sm" ngbNavLink>Notes</a>
+
                     <ng-template ngbNavContent>
-                      <app-activity [related]="'Lead'" [relatedId]="id"></app-activity>
+                        
+                        <app-note [notes]="lead?.notes" (addNote)="addNote($event)"></app-note>
+
                     </ng-template>
+
                 </li>
 
               </ul>
