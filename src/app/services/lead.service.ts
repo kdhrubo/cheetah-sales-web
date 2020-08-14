@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { Lead } from '../models/lead.model';
 import { Page } from '../models/page.model';
+import { Note } from '../models/note.model';
 
 @Injectable({
   providedIn: 'root'
@@ -105,5 +106,12 @@ export class LeadService {
     return this.httpClient
       .post<Observable<any>>(url, null)
       .pipe(catchError(err => this.handleError(err, 'renove-lead-product')));
+  }
+
+  addNote(id: any, note: Note): Observable<any>  {
+    const url = `${environment.api_base_url}/leads/${id}/notes`;
+    return this.httpClient
+      .post<Observable<any>>(url, note)
+      .pipe(catchError(err => this.handleError(err, 'save-lead-note')));
   }
 }

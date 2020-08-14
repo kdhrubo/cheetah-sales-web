@@ -75,7 +75,7 @@ export class ContactService {
     const url = `${environment.api_base_url}/contacts/${id}/notes`;
     return this.httpClient
       .post<Observable<any>>(url, note)
-      .pipe(catchError(err => this.handleError(err, 'save-phone-contact')));
+      .pipe(catchError(err => this.handleError(err, 'save-contact-note')));
   }
 
   search(

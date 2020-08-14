@@ -1,4 +1,5 @@
 import { Address } from './address.model';
+import { Note } from './note.model';
 
 export class Lead {
     salutationId: string;
@@ -23,6 +24,8 @@ export class Lead {
     documents: any[];
 
     createdDate: Date;
+
+    notes: Note[];
 }
 
 

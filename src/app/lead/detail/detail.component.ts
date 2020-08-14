@@ -6,8 +6,8 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from 'src/app/services/form.service';
 import { ToastrService } from 'ngx-toastr';
-import { Address } from 'src/app/models/address.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Note } from '../../models/note.model';
 
 @Component({
   selector: 'app-detail',
@@ -200,6 +200,19 @@ export class DetailComponent implements OnInit {
       },
       (error) => {
         this.toastr.error('Failed to remove document from lead.', error?.detail, {});
+      }
+    );
+  }
+
+  addNote(note: Note) {
+    this.leadService.addNote(this.id, note).subscribe(
+      (data) => {
+        this.lead = data;
+        this.toastr.success('Note saved successfully.', '', {});
+      },
+      (error) => {
+        console.log('Error adding note.');
+        this.toastr.error('Failed to add note.', error?.detail, {});
       }
     );
   }

@@ -1,4 +1,4 @@
-<div class="mt-1">
+<div class="mt-1 mb-2">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-1">
         <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
 
@@ -9,20 +9,16 @@
     </form>
 </div>
 
-<div class="table-responsive-md mt-1">
 
-    <table class="table table-sm">
 
-        <tbody>
-            <tr *ngFor="let n of notes;">
-
-                <td>
-                    {{n.description}}
-                </td>
-
-            </tr>
-        </tbody>
-    </table>
-
-</div>
-
+<ul class="list-unstyled mt-2">
+  <li class="media" *ngFor="let n of notes;">
+    
+    <div class="media-body text-left">
+      <h6 class="mt-0 mb-1">{{n?.firstName + ' ' + n?.lastName}} on {{n?.createdDate }} </h6>
+      {{n.description}}
+    </div>
+    <hr/>
+  </li>
+  
+</ul>
