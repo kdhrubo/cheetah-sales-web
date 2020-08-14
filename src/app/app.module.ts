@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavigationModule } from './navigation/navigation.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
-import { FormlyModule } from '@ngx-formly/core';
+import { FormlyModule, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyBootstrapModule, FormlyFieldSelect } from '@ngx-formly/bootstrap';
 import { PicklistComponent } from './common/picklist/picklist.component';
 import { AccountpicklistComponent } from './common/accountpicklist/accountpicklist.component';
@@ -21,7 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PriceBookComponent } from './price-book/price-book.component';
 import { ProductPriceComponent } from './product-price/product-price.component';
 
-
+export function EmailValidatorMessage(err, field: FormlyFieldConfig) {
+  return `"${field.formControl.value}" is not a valid value`;
+}
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { ProductPriceComponent } from './product-price/product-price.component';
     SharedModule,
     FormlyModule.forRoot({
       validationMessages: [
-        { name: 'required', message: 'This field is required' }
+        { name: 'required', message: 'This field is required' },
+        { name: 'pattern', message: EmailValidatorMessage}
       ],
       wrappers: [
       ],
