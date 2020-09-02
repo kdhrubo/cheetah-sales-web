@@ -29,7 +29,8 @@ export const AUTH_REQUIRED_ENDPOINTS = [
   '/pricebooks',
   '/product-price',
   '/currencies',
-  '/users'
+  '/users',
+  '/charge'
 ];
 
 @Injectable()

@@ -6,6 +6,7 @@ import { AuthGuard } from '../guard/auth.guard';
 import { DetailComponent } from './detail/detail.component';
 import { CurrencyComponent } from './currency/currency.component';
 import { UserComponent } from './user/user.component';
+import { ChargeComponent } from './charge/charge.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'company', component: DetailComponent, canActivate: [AuthGuard] },
     { path: 'currency', component: CurrencyComponent, canActivate: [AuthGuard] },
     { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
+    { path: 'charge', component: ChargeComponent, canActivate: [AuthGuard] },
 
 
     { path: '', redirectTo: 'company'}

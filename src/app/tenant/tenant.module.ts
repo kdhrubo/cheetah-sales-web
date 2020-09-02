@@ -12,10 +12,14 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { CurrencyComponent } from './currency/currency.component';
 import { UserComponent } from './user/user.component';
+import { ChargeComponent } from './charge/charge.component';
+import { ListComponent } from './charge/list/list.component';
+import { CreateComponent } from './charge/create/create.component';
+import { ChargeRoutingModule } from './charge/charge-routing.module';
 
 
 @NgModule({
-  declarations: [TenantComponent, DetailComponent, CurrencyComponent, UserComponent],
+  declarations: [TenantComponent, DetailComponent, CurrencyComponent, UserComponent, ChargeComponent, ListComponent, CreateComponent],
   imports: [
     CommonModule,
     TenantRoutingModule,
@@ -24,7 +28,8 @@ import { UserComponent } from './user/user.component';
     FormsModule,
     FormlyModule.forChild(),
     FormlyBootstrapModule,
-    SharedModule
+    SharedModule,
+    ChargeRoutingModule
   ]
 })
 export class TenantModule { }
