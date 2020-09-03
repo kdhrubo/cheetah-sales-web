@@ -9,6 +9,7 @@ import { UserComponent } from './user/user.component';
 import { ChargeComponent } from './charge/charge.component';
 
 
+
 const routes: Routes = [
   { path: '', component: TenantComponent , canActivate: [AuthGuard],
 
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'currency', component: CurrencyComponent, canActivate: [AuthGuard] },
     { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
     { path: 'charge', component: ChargeComponent, canActivate: [AuthGuard] },
+
 
 
     { path: '', redirectTo: 'company'}
