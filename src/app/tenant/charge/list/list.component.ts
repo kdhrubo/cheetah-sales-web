@@ -34,6 +34,14 @@ export class ListComponent implements OnInit {
 
     {
       id: 2,
+      name: 'chargeName',
+      label: 'Charge Name',
+      checked: true,
+      searchable: true
+    },
+
+    {
+      id: 3,
       name: 'chargeValue',
       label: 'Charge Value',
       checked: true,
@@ -41,7 +49,7 @@ export class ListComponent implements OnInit {
     },
 
     {
-      id: 3,
+      id: 4,
       name: 'isTaxable',
       label: 'isTaxable',
       checked: true,
